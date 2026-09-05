@@ -1,0 +1,31 @@
+ENTRADA 1
+Tema: Captura de la placa en el ingreso
+Enunciado: Cuando un vehículo ingresa al parqueadero, el sistema debe capturar una imagen de la placa y extraer sus caracteres mediante reconocimiento óptico. La placa reconocida se guarda junto con la fecha, la hora y la imagen de respaldo.
+
+ENTRADA 2
+Tema: Registro del conductor
+Enunciado: En el ingreso también se captura una imagen del conductor. Esta imagen funciona como referencia para verificar la identidad visual de la persona cuando el vehículo solicite la salida.
+
+ENTRADA 3
+Tema: Validación de salida
+Enunciado: Para autorizar la salida, el sistema compara la placa detectada con la placa registrada en el ingreso. Si las placas no coinciden, la salida no debe autorizarse automáticamente y se debe generar una alerta.
+
+ENTRADA 4
+Tema: Coincidencia del conductor
+Enunciado: La salida puede continuar cuando la imagen del conductor presenta una coincidencia suficiente con la imagen almacenada durante el ingreso. Una coincidencia baja requiere revisión manual antes de abrir la barrera.
+
+ENTRADA 5
+Tema: Confianza del reconocimiento
+Enunciado: Cada lectura de placa debe conservar un valor de confianza. Una confianza alta permite continuar con la validación; una confianza media debe marcarse como revisión preventiva; y una confianza baja impide tomar una decisión automática.
+
+ENTRADA 6
+Tema: Calidad de la imagen
+Enunciado: La iluminación deficiente, el desenfoque, la suciedad o un ángulo incorrecto pueden producir una lectura errónea de la placa. Cuando la calidad de la imagen sea insuficiente, el sistema debe solicitar una nueva captura y registrar el incidente.
+
+ENTRADA 7
+Tema: Vehículo no registrado
+Enunciado: Si una placa detectada en la salida no tiene un registro de ingreso activo, el sistema debe clasificar el caso como vehículo no registrado, bloquear la autorización automática y enviar la situación a un encargado.
+
+ENTRADA 8
+Tema: Autorización y trazabilidad
+Enunciado: Una salida se autoriza automáticamente únicamente cuando coinciden la placa, el registro de ingreso está activo y la confianza de reconocimiento supera el umbral definido. Toda autorización, bloqueo o alerta debe quedar almacenada con su motivo para facilitar la auditoría.
