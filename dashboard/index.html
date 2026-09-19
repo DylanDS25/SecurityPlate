@@ -144,6 +144,7 @@
         <button data-target="week3">Semana 03 · Taxonomía</button>
         <button data-target="week4">Semana 04 · Búsqueda</button>
         <button data-target="week5">Semana 05 · Sistema híbrido</button>
+        <button data-target="week7">Semana 07 · Representaciones</button>
       </nav>
       <div class="side-note">Reconocimiento de placas y control inteligente de parqueaderos.</div>
     </aside>
@@ -166,6 +167,7 @@
       <section id="week3" class="exercise"><div class="exercise-title"><div><h1>Semana 03 · Taxonomía</h1><p>Clasificación automática de problemas de IA a partir de palabras clave.</p></div><span class="tag">40 casos analizados</span></div><div class="grid"><article class="panel"><div class="panel-head"><div><h2>Distribución de categorías</h2><p>Lectura visual de la referencia del ejercicio.</p></div></div><div class="donut-wrap"><div class="donut"></div><div class="legend"><div><span></span>Visión por computador · 13</div><div><span class="c2"></span>Aprendizaje predictivo · 9</div><div><span class="c3"></span>Procesamiento de lenguaje · 6</div><div><span class="c4"></span>Búsqueda y optimización · 5</div><div><span class="c5"></span>Otras categorías · 7</div></div></div></article><article class="panel"><div class="panel-head"><div><h2>Resultado</h2><p>Coincidencia con clasificación manual.</p></div></div><div class="metric-value">52.50%</div><div class="track"><div class="fill" style="width:52.5%"></div></div><p class="footer">21 de 40 casos coinciden. Las discrepancias muestran que el medio visual no siempre es el objetivo principal del problema.</p></article></div><article class="panel"><div class="panel-head"><div><h2>Reglas propias añadidas</h2><p>Extensiones del vocabulario del dominio de parqueaderos.</p></div></div><table><thead><tr><th>Categoría</th><th>Términos representativos</th><th>Uso</th></tr></thead><tbody><tr><td>Visión por computador</td><td>placa, matrícula, casco, vestimenta</td><td>Identificar elementos visuales.</td></tr><tr><td>Detección de anomalías</td><td>anomalía, sospechoso, alerta</td><td>Separar conductas fuera de lo normal.</td></tr><tr><td>Sistemas expertos</td><td>protocolo, regla, notifique</td><td>Expresar decisiones determinísticas.</td></tr></tbody></table></article><article class="panel code-viewer" data-exercise="week3" data-source="../src/semana03_taxonomia.py"><div class="panel-head"><div><h2>Código completo de Semana 03</h2><p>Fuente real del ejercicio · selección por línea.</p></div><span class="tag">Archivo completo</span></div><div class="code-layout"><pre class="code" aria-label="Código completo de Semana 03"><iframe class="source-frame" src="../src/semana03_taxonomia.py" title="Código completo de Semana 03"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Cargando código...</h3><p class="explanation-copy">Se está leyendo el archivo Python completo.</p><span class="hint">Lectura guiada</span></aside></div></article></section>
       <section id="week4" class="exercise"><div class="exercise-title"><div><h1>Semana 04 · Búsqueda y juego</h1><p>Dos estrategias para decidir en escenarios de seguridad.</p></div><span class="tag">A* + Minimax</span></div><div class="grid"><article class="panel"><div class="panel-head"><div><h2>A* · Normalización OCR</h2><p>El costo acumulado y la heurística guían la ruta.</p></div></div><div class="bars"><div class="bar-row"><span>Meta 80%</span><div class="track"><div class="fill" style="width:19%"></div></div><span class="value">19 nodos</span></div><div class="bar-row"><span>Meta 90%</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="value">9,360</span></div><div class="bar-row"><span>Meta 95%</span><div class="track"><div class="fill" style="width:100%;background:var(--coral)"></div></div><span class="value">772k+</span></div></div><p class="footer">Estado: rotación, brillo, contraste, denoise y confianza OCR. Denoise tiene costo 2; las demás acciones, costo 1.</p></article><article class="panel"><div class="panel-head"><div><h2>Minimax · Cascos</h2><p>El sistema maximiza; el ladrón minimiza.</p></div></div><div class="comparison"><div class="result"><strong>-75.0</strong><span>Utilidad óptima</span></div><div class="result good"><strong>10×</strong><span>Reducción estimada con poda</span></div></div><p class="footer">La poda alfa-beta conserva la decisión final y evita explorar ramas innecesarias.</p></article></div><article class="panel"><div class="panel-head"><div><h2>Decisión adversarial</h2><p>Comparación de características que el sistema puede verificar.</p></div></div><table><thead><tr><th>Verificación</th><th>Respuesta del ladrón</th><th>Utilidad</th></tr></thead><tbody><tr><td>Daños / rayaduras</td><td>Mismos daños exactos</td><td class="status">+95</td></tr><tr><td>Pegatinas</td><td>Mismas pegatinas</td><td class="status">+85</td></tr><tr><td>Marca / logo</td><td>Misma marca</td><td class="status">+75</td></tr><tr><td>Tipo de casco</td><td>Tipo diferente</td><td>-75</td></tr></tbody></table></article><article class="panel code-viewer" data-exercise="astar" data-source="../src/semana04_astar.py"><div class="panel-head"><div><h2>Código completo de Semana 04 · A*</h2><p>Fuente real del algoritmo · selección por línea.</p></div><span class="tag">Archivo completo</span></div><div class="code-layout"><pre class="code" aria-label="Código completo de A estrella"><iframe class="source-frame" src="../src/semana04_astar.py" title="Código completo de A estrella"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Cargando código...</h3><p class="explanation-copy">Se está leyendo el archivo Python completo.</p><span class="hint">Lectura guiada</span></aside></div></article><article class="panel code-viewer" data-exercise="minimax" data-source="../src/semana04_minimax.py"><div class="panel-head"><div><h2>Código completo de Semana 04 · Minimax</h2><p>Fuente real del algoritmo · selección por línea.</p></div><span class="tag">Archivo completo</span></div><div class="code-layout"><pre class="code" aria-label="Código completo de Minimax"><iframe class="source-frame" src="../src/semana04_minimax.py" title="Código completo de Minimax"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Cargando código...</h3><p class="explanation-copy">Se está leyendo el archivo Python completo.</p><span class="hint">Lectura guiada</span></aside></div></article></section>
       <section id="week5" class="exercise"><div class="exercise-title"><div><h1>Semana 05 · Sistema híbrido</h1><p>Reglas expertas, recuperación TF-IDF y clasificación para decidir sobre el ingreso y la salida vehicular.</p></div><span class="tag">5 reglas · 15 ejemplos</span></div><div class="grid"><article class="panel"><div class="panel-head"><div><h2>Flujo de decisión</h2><p>La evidencia recuperada hace explicable cada respuesta.</p></div></div><div class="timeline"><div class="step"><strong>01 · Regla</strong><span>Evalúa placa, conductor y confianza.</span></div><div class="step"><strong>02 · Recuperación</strong><span>Busca la entrada más cercana.</span></div><div class="step"><strong>03 · Clasificación</strong><span>KNN compara 15 casos etiquetados.</span></div><div class="step"><strong>04 · Reporte</strong><span>Registra decisión y similitud.</span></div></div></article><article class="panel"><div class="panel-head"><div><h2>Resultados</h2><p>Consultas ejecutadas sobre SecurityPlate.</p></div></div><div class="comparison"><div class="result good"><strong>2</strong><span>salidas de control</span></div><div class="result"><strong>1</strong><span>captura para revisión</span></div></div><p class="footer">Cada consulta conserva regla, evidencia TF-IDF, similitud coseno y clase predicha.</p></article></div><article class="panel"><div class="panel-head"><div><h2>Reglas expertas</h2><p>Condiciones propias del control vehicular.</p></div><span class="tag">R1 a R5</span></div><table><thead><tr><th>Regla</th><th>Condición</th><th>Acción</th></tr></thead><tbody><tr><td>R1</td><td>Placa, conductor y confianza coinciden</td><td class="status">Autorizar salida</td></tr><tr><td>R2</td><td>Placa no coincide</td><td>Bloquear y alertar</td></tr><tr><td>R3</td><td>Imagen borrosa o confianza baja</td><td>Solicitar nueva captura</td></tr><tr><td>R4</td><td>Vehículo sin registro activo</td><td>Enviar a revisión</td></tr><tr><td>R5</td><td>Conductor diferente o coincidencia baja</td><td>Mantener barrera cerrada</td></tr></tbody></table></article><article class="panel"><div class="panel-head"><div><h2>Pruebas explicables</h2><p>Resumen del reporte generado automáticamente.</p></div><span class="tag">TF-IDF + KNN</span></div><table><thead><tr><th>Consulta</th><th>Regla</th><th>Evidencia</th><th>Similitud</th><th>Clase</th></tr></thead><tbody><tr><td>Placa y conductor coinciden; confianza alta</td><td>R1 · Autorizar salida</td><td>Confianza del reconocimiento</td><td class="status">0.3546</td><td class="status">autorizado</td></tr><tr><td>Placa no coincide con el ingreso</td><td>R2 · Bloquear placa</td><td>Vehículo no registrado</td><td class="status">0.4313</td><td class="status">alerta</td></tr><tr><td>Imagen borrosa y confianza baja</td><td>R3 · Nueva captura</td><td>Confianza del reconocimiento</td><td class="status">0.3409</td><td class="status">revision</td></tr></tbody></table></article><article class="panel code-viewer" data-exercise="week5" data-source="../src/semana05_sistema_hibrido.py"><div class="panel-head"><div><h2>Código completo de Semana 05</h2><p>Selecciona una línea para explorar la implementación del sistema híbrido.</p></div><span class="tag">Interactivo</span></div><div class="code-layout"><pre class="code"><iframe class="source-frame" src="../src/semana05_sistema_hibrido.py" title="Código completo de Semana 05"></iframe></pre><div class="explanation"><h3 class="explanation-title">Semana 05 · Sistema híbrido</h3><p class="explanation-copy">Cargando explicación del código...</p><span class="hint">Selecciona una línea</span></div></div></article></section>
+      <section id="week7" class="exercise"><div class="exercise-title"><div><h1>Semana 07 · Representaciones</h1><p>Reconocimiento numérico, simbólico y por autómata aplicado al protocolo de salida de SecurityPlate.</p></div><span class="tag">5 casos · 3 representaciones</span></div><div class="grid"><article class="panel"><div class="panel-head"><div><h2>Resultados ejecutados</h2><p>Comparación de casos cargados desde el CSV.</p></div></div><div class="comparison"><div class="result good"><strong>0.085</strong><span>distancia del caso autorizable</span></div><div class="result"><strong>1.008</strong><span>distancia máxima observada</span></div></div><p class="footer">El caso 1 queda más cerca del patrón numérico; los cinco casos coinciden con sus resultados esperados.</p></article><article class="panel"><div class="panel-head"><div><h2>Protocolo reconocido</h2><p>El autómata verifica el orden de los eventos.</p></div><span class="tag">IPCS</span></div><div class="timeline"><div class="step"><strong>01 · I</strong><span>Ingreso</span></div><div class="step"><strong>02 · P</strong><span>Placa validada</span></div><div class="step"><strong>03 · C</strong><span>Conductor coincide</span></div><div class="step"><strong>04 · S</strong><span>Solicitud de salida</span></div></div></article></div><article class="panel"><div class="panel-head"><div><h2>Regla simbólica</h2><p>La salida requiere evidencia completa y trazable.</p></div><span class="tag">5 hechos</span></div><table><thead><tr><th>Representación</th><th>Entrada</th><th>Resultado</th></tr></thead><tbody><tr><td>Numérica</td><td>Confianza OCR, conductor, imagen, registro</td><td class="status">5 casos comparados</td></tr><tr><td>Simbólica</td><td>Placa, conductor, confianza, imagen y registro</td><td class="status">1 autoriza · 4 revisan</td></tr><tr><td>Autómata</td><td>Secuencias del CSV</td><td class="status">2 aceptadas · 3 rechazadas</td></tr></tbody></table></article><article class="panel code-viewer" data-exercise="week7" data-source="../src/semana07_representaciones.py"><div class="panel-head"><div><h2>Código completo de Semana 07</h2><p>Selecciona una línea para seguir la carga CSV y las tres representaciones.</p></div><span class="tag">Interactivo</span></div><div class="code-layout"><pre class="code"><iframe class="source-frame" src="../src/semana07_representaciones.py" title="Código completo de Semana 07"></iframe></pre><div class="explanation"><h3 class="explanation-title">Semana 07 · Representaciones</h3><p class="explanation-copy">Cargando explicación del código...</p><span class="hint">Lectura guiada</span></div></div></article></section>
       <section class="reports-visual" aria-labelledby="reports-title">
         <div class="reports-head"><div><h2 id="reports-title">Reportes del proyecto</h2><p>Resultados documentados y listos para consultar.</p></div><span class="result-badge">4 evidencias</span></div>
         <div class="report-grid">
@@ -173,6 +175,7 @@
           <article class="report-card"><div><span class="report-kicker">Semana 03</span><h3>Taxonomía</h3><p>40 casos clasificados y reglas propias del dominio.</p></div><div><div class="report-status"><span>Coincidencia</span><strong>52.5%</strong></div><a class="resource-link" href="#week3" data-report-target="week3">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 04</span><h3>Búsqueda y juego</h3><p>A* y Minimax para escenarios de seguridad.</p></div><div><div class="report-status"><span>Algoritmos</span><strong>A* + MINIMAX</strong></div><a class="resource-link" href="#week4" data-report-target="week4">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 05</span><h3>Sistema híbrido</h3><p>Reglas, TF-IDF y clasificación de consultas vehiculares.</p></div><div><div class="report-status"><span>Pruebas</span><strong>3 CONSULTAS</strong></div><a class="resource-link" href="#week5" data-report-target="week5">Ver reporte visual</a></div></article>
+          <article class="report-card"><div><span class="report-kicker">Semana 07</span><h3>Representaciones</h3><p>Vectores, hechos y autómatas para reconocer salidas.</p></div><div><div class="report-status"><span>Pruebas</span><strong>5 CASOS</strong></div><a class="resource-link" href="#week7" data-report-target="week7">Ver reporte visual</a></div></article>
         </div>
       </section>
       <div class="footer">Fuente: ejercicios en <strong>src/</strong>, datos en <strong>data/casos_ia.csv</strong> y resultados documentados en <strong>reports/</strong>.</div>
@@ -186,7 +189,8 @@
       week3: { label:'Semana 03 · Taxonomía por reglas' },
       astar: { label:'Semana 04 · Búsqueda A*' },
       minimax: { label:'Semana 04 · Minimax y poda alfa-beta' },
-      week5: { label:'Semana 05 · Sistema híbrido SecurityPlate' }
+      week5: { label:'Semana 05 · Sistema híbrido SecurityPlate' },
+      week7: { label:'Semana 07 · Representaciones de reconocimiento' }
     };
     const visualSummaries = {
       week2: [
@@ -212,13 +216,20 @@
         ['Reglas', '5', 'decisiones expertas', 100],
         ['Ejemplos', '15', 'casos etiquetados', 100],
         ['Evidencia', 'TF-IDF', 'similitud coseno', 88]
+      ],
+      week7: [
+        ['Casos', '5', 'escenarios desde CSV', 100],
+        ['Correctos', '5 / 5', 'resultados esperados', 100],
+        ['Regla', '1 / 4', 'autoriza / revisa', 25],
+        ['Autómata', '2 / 3', 'acepta / rechaza', 67]
       ]
     };
     const reportPaths = {
       week2: '../reports/semana02.md?v=2',
       week3: '../reports/semana03.md?v=2',
       week4: '../reports/semana04.md?v=2',
-      week5: '../reports/semana05.md?v=2'
+      week5: '../reports/semana05.md?v=2',
+      week7: '../reports/semana07.md?v=1'
     };
     function inlineMarkdown(text) {
       return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -343,6 +354,10 @@
       week5: [
         ['Abrir reporte', '../reports/semana05.md'],
         ['Abrir script', '../src/semana05_sistema_hibrido.py']
+      ],
+      week7: [
+        ['Abrir reporte', '../reports/semana07.md'],
+        ['Abrir script', '../src/semana07_representaciones.py']
       ]
     };
     function addResultLinks(section) {
@@ -357,24 +372,327 @@
     function escapeHtml(text) {
       return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
     }
+    function describeImport(line) {
+      if (line.startsWith('import ')) {
+        const module = line.replace(/^import\s+/, '').trim();
+        const details = {
+          cv2: 'Abre y transforma imágenes, además de aplicar operaciones de visión por computador.',
+          numpy: 'Crea arreglos numéricos y matrices para representar píxeles, vectores y resultados.',
+          sklearn: 'Proporciona algoritmos y métricas de aprendizaje automático.',
+          heapq: 'Implementa una cola de prioridad para ordenar nodos por costo y heurística.',
+          pathlib: 'Gestiona rutas del proyecto y simplifica la lectura de archivos.',
+          csv: 'Lee y escribe archivos CSV con casos y resultados.',
+          re: 'Busca y normaliza patrones en texto para comparar palabras y frases.',
+          unicodedata: 'Elimina tildes y caracteres especiales para unificar texto en una forma normalizada.',
+          os: 'Consulta el sistema operativo para leer carpetas, archivos y rutas.',
+          dataclasses: 'Genera clases estructuradas con menos código repetido.',
+          typing: 'Añade tipos de datos para documentar mejor las entradas y salidas.',
+        };
+        if (details[module]) return `Este import trae ${module}, cuya función principal en el proyecto es ${details[module]}`;
+        return `Este import carga ${module}. En este ejercicio se usa para acceder a ${module.includes('sklearn') ? 'algoritmos y métricas de ML' : 'funcionalidad auxiliar del flujo del programa'}.`;
+      }
+
+      if (line.startsWith('from ')) {
+        const target = line.split(' import ')[0].replace(/^from\s+/, '').trim();
+        const imported = line.split(' import ')[1].trim();
+        const details = {
+          pathlib: 'Permite construir rutas del proyecto con Path y evitar errores por separadores de carpeta.',
+          dataclasses: 'Permite declarar clases con atributos bien definidos usando @dataclass.',
+          'sklearn.model_selection': 'Trae train_test_split para dividir datos en entrenamiento y prueba.',
+          'sklearn.pipeline': 'Permite encadenar pasos como normalización y modelo en una sola tubería.',
+          'sklearn.preprocessing': 'Trae StandardScaler para escalar características antes de entrenar.',
+          'sklearn.linear_model': 'Proporciona LogisticRegression para clasificación supervisada.',
+          'sklearn.metrics': 'Trae accuracy_score y confusion_matrix para evaluar resultados.',
+          'sklearn.feature_extraction.text': 'Trae TfidfVectorizer para convertir texto en vectores numéricos.',
+          'sklearn.metrics.pairwise': 'Trae cosine_similarity para comparar textos por cercanía semántica.',
+          'sklearn.neighbors': 'Trae KNeighborsClassifier para hacer clasificación por vecinos cercanos.',
+          typing: 'Trae tipos como List, Optional, Tuple para documentar firmas de funciones.',
+          collections: 'Trae estructuras útiles para organizar datos y recorridos.',
+        };
+
+        if (details[target]) return `Este from importa ${imported} desde ${target}. En este proyecto se usa para ${details[target]}`;
+        return `Este from obtiene ${imported} de ${target}. Esa pieza ayuda a reutilizar funciones ya preparadas por la librería.`;
+      }
+
+      return null;
+    }
+
+    function describeFunctionSignature(functionName, text, key) {
+      const paramsMatch = text.match(/def\s+[A-Za-z_]+\(([^)]*)\)/);
+      const params = paramsMatch ? paramsMatch[1].split(',').map(param => param.trim()).filter(Boolean) : [];
+      const paramHints = {
+        week2: {
+          load_data: {
+            images_dir: 'carpeta con las imágenes del conjunto de entrenamiento',
+            labels_dir: 'carpeta con los archivos .txt que contienen las etiquetas'
+          }
+        },
+        week3: {
+          classify_problem: {
+            text: 'la descripción del caso que se quiere clasificar'
+          },
+          read_cases: {
+            '': 'no recibe parámetros; lee el CSV desde disk'
+          },
+          write_report: {
+            results: 'lista de resultados ya clasificados para convertirlos en tablas y texto'
+          }
+        },
+        astar: {
+          simular_confianza_ocr: {
+            rot: 'ángulo de rotación de la matrícula',
+            brillo: 'valor de brillo aplicado a la imagen',
+            contraste: 'valor de contraste aplicado a la imagen',
+            denoise: 'si aplica filtro de reducción de ruido'
+          },
+          calcular_heuristica: {
+            confianza_actual: 'confianza OCR actual antes de buscar más mejora',
+            meta: 'nivel mínimo de confianza que se desea alcanzar'
+          },
+          obtener_sucesores: {
+            estado: 'el estado actual de la matrícula desde el que se generan alternativas'
+          },
+          astar_normalizar_matricula: {
+            estado_inicial: 'estado de partida, normalmente una matrícula distorsionada',
+            meta_confianza: 'objetivo mínimo de confianza OCR',
+            verbose: 'si muestra información de progreso durante la búsqueda'
+          },
+          reconstruir_camino: {
+            nodo_solucion: 'el nodo final que alcanzó la meta'
+          }
+        },
+        minimax: {
+          crear_arbol_cascos: {
+            '': 'no recibe parámetros; construye el árbol desde cero'
+          },
+          minimax: {
+            nodo: 'el nodo actual del árbol que se quiere evaluar',
+            profundidad: 'nivel actual dentro del árbol',
+            profundidad_max: 'máxima profundidad que se permite explorar'
+          },
+          minimax_alfabeta: {
+            nodo: 'el nodo actual en el que se está evaluando la rama',
+            alfa: 'mejor valor encontrado para MAX hasta ahora',
+            beta: 'mejor valor encontrado para MIN hasta ahora',
+            es_max: 'si el nodo actual pertenece al jugador MAX',
+            profundidad: 'nivel actual dentro del árbol',
+            profundidad_max: 'límite de profundidad para detener la búsqueda',
+            nodos_podados: 'lista que cuenta cuántos nodos se han cortado por poda'
+          }
+        },
+        week5: {
+          cargar_base_conocimiento: {
+            '': 'no recibe parámetros; toma la base del disco'
+          },
+          construir_clasificador: {
+            '': 'no recibe parámetros; entrena el clasificador desde ejemplos internos'
+          },
+          evaluar_reglas: {
+            consulta: 'texto de entrada que describe la situación de ingreso o salida'
+          },
+          recuperar_informacion: {
+            consulta: 'consulta que se quiere comparar con la base de conocimiento',
+            entradas: 'lista de documentos recuperables',
+            vectorizador: 'modelo TF-IDF ya ajustado para convertir texto en vectores'
+          },
+          answer: {
+            query: 'consulta del usuario',
+            entradas: 'documentos de la base de conocimiento'
+          },
+          procesar_consulta: {
+            consulta: 'la consulta del usuario',
+            entradas: 'base de conocimiento disponible'
+          }
+        },
+        week7: {
+          vectorizar_caso: {
+            confianza_ocr: 'confianza normalizada de la lectura de placa',
+            coincidencia_conductor: 'grado de coincidencia con la imagen registrada',
+            calidad_imagen: 'calidad normalizada de la captura',
+            registro_activo: 'indica si existe un ingreso vigente'
+          },
+          distancia_euclidiana: {
+            actual: 'vector del caso de salida que se está evaluando',
+            referencia: 'vector del patrón de salida autorizada'
+          },
+          construir_hechos_salida: {
+            confianza_ocr: 'valor usado para crear el hecho confianza_ocr_alta',
+            calidad_imagen: 'valor usado para crear el hecho imagen_suficiente'
+          },
+          aplicar_regla_autorizacion: {
+            hechos: 'conjunto de hechos observados en el caso de salida'
+          },
+          acepta_protocolo_salida: {
+            secuencia: 'eventos codificados como I, P, C y S'
+          }
+        }
+      };
+
+      const hints = paramHints[key]?.[functionName] || {};
+      if (params.length === 0) {
+        return `La función ${functionName} no recibe parámetros directamente; en este ejercicio, su trabajo es ${key === 'week5' ? 'cargar, transformar y evaluar la consulta con reglas y clasificación' : key === 'minimax' ? 'construir o evaluar el árbol de decisiones adversarial' : 'coordinar el flujo principal del ejercicio'}.`;
+      }
+
+      const explained = params.map(param => {
+        const cleanParam = param.replace(/\s*=.*$/, '').trim();
+        const hint = hints[cleanParam] || `parámetro ${cleanParam}`;
+        return `${cleanParam}: ${hint}`;
+      }).join('; ');
+
+      return `La función ${functionName} recibe ${explained}. En esta lectura guiada, esos parámetros son la entrada que viene desde el resto del programa y determina cómo se construye la salida final.`;
+    }
+
+    function describeAssignment(name, value, key) {
+      const assignmentHints = {
+        week2: {
+          X: 'se guarda la matriz de características; cada fila representa una imagen transformada en un vector de píxeles.',
+          y: 'se guarda el vector de etiquetas de clase asociado a cada imagen.',
+          TRAIN_IMAGES: 'viene del directorio train/images y apunta a las imágenes de entrenamiento.',
+          TRAIN_LABELS: 'viene del directorio train/labels y apunta a las anotaciones de cada imagen.',
+          DATASET_PATH: 'es la ruta base del dataset, desde donde se combinan imágenes y etiquetas.',
+          RANDOM_STATE: 'es la semilla que hace que el entrenamiento y la división de datos sean reproducibles.',
+          IMAGEN_SIZE: 'define el tamaño fijo de las imágenes: 64 × 64 píxeles.',
+          X_train: 'contiene la parte de datos usada para aprender el modelo.',
+          X_test: 'contiene la parte de datos reservada para evaluar la calidad del modelo.',
+          y_train: 'etiquetas de entrenamiento que acompañan a X_train.',
+          y_test: 'etiquetas reales usadas para comparar con las predicciones del modelo.',
+          model: 'almacena el pipeline entrenado: escalado + regresión logística.',
+          pred: 'contiene las predicciones del modelo sobre X_test.',
+          'print': 'muestra resultados en consola para observar el avance del ejercicio.'
+        },
+        week3: {
+          ROOT: 'es la ruta raíz del proyecto, desde donde se resuelven todas las ubicaciones del ejercicio.',
+          CSV_FILE: 'apunta al archivo data/casos_ia.csv, que es la fuente original de los casos.',
+          REPORT_FILE: 'apunta al reporte Semana 03 que se genera al finalizar la clasificación.',
+          CATEGORIES: 'almacena las categorías base y sus palabras clave para clasificar casos.',
+          CUSTOM_RULES: 'separa reglas propias del dominio para adaptar la taxonomía a detecciones más útiles en SecurityPlate.',
+          MANUAL_REFERENCE: 'guarda las etiquetas esperadas por el profesor para comparar la salida automática.',
+          scores: 'contiene el conteo de coincidencias por categoría para cada caso analizado.',
+          results: 'acumula los resultados de cada caso: categoría principal, categorías detectadas y métricas.',
+          cases: 'guarda la lista de descripciones leídas desde el CSV.'
+        },
+        astar: {
+          EstadoMatricula: 'define el estado de la matrícula con rotación, brillo, contraste, denoise y confianza OCR.',
+          NodoAStar: 'guarda un nodo de búsqueda con estado, costo acumulado, heurística y su padre.',
+          open_set: 'es la cola de prioridad donde quedan los nodos pendientes por expandir.',
+          closed_set: 'recoge los estados ya explorados para no revisarlos otra vez.',
+          nodos_explorados: 'cuenta cuántos nodos se han abierto durante la búsqueda.',
+          nodo_inicial: 'es el primer estado de partida del problema.',
+          nodo_actual: 'es el nodo que se está expandiendo en este momento.',
+          nuevo_estado: 'representa una nueva alternativa generada desde el estado actual.',
+          nuevo_g: 'es el costo real acumulado hasta ese nuevo estado.',
+          nuevo_h: 'es la estimación de costo restante hasta la meta.',
+          nuevo_f: 'es la suma g + h, la evaluación principal de A*.'
+        },
+        minimax: {
+          NodoMinimax: 'define cada nodo del árbol de juego y si pertenece al jugador MAX o MIN.',
+          raiz: 'es el nodo raíz del árbol, donde inicia la decisión del sistema.',
+          nodo_color: 'rama que representa la verificación del color del casco.',
+          nodo_danos: 'rama que representa la verificación de daños o rayaduras.',
+          nodo_marca: 'rama que representa la verificación de marca o logo.',
+          nodo_tipo: 'rama que representa la verificación del tipo de casco.',
+          nodo_pegatinas: 'rama que representa la verificación de pegatinas y decoraciones.',
+          valor_minimax: 'guarda el valor calculado por Minimax para ese nodo.',
+          mejor_hijo: 'apunta al hijo que produciría el mejor resultado para el jugador actual.'
+        },
+        week5: {
+          ROOT_DIR: 'es la raíz del proyecto desde donde se resuelven rutas de datos y reportes.',
+          DATA_DIR: 'apunta a la carpeta data y sirve como base para cargar documentos.',
+          BASE_PATH: 'es la ruta exacta del archivo base_de_conocimiento.txt.',
+          REPORT_PATH: 'es la ruta del reporte que se genera al finalizar las consultas.',
+          DEFAULT_DOCUMENTS: 'contiene los documentos iniciales del sistema cuando la base aún no existe.',
+          ResultadoConsulta: 'define el formato estructurado de una respuesta: regla, evidencia, similitud y clase.',
+          entradas: 'lista de documentos recuperables que se usan para encontrar evidencia.',
+          resultado: 'guarda la respuesta integrada por reglas, evidencia y clasificación.',
+          doc_matrix: 'es la matriz TF-IDF calculada a partir de las entradas.',
+          similitudes: 'guardan cuánto se parece cada documento a la consulta.',
+          best_index: 'indica cuál documento es el más cercano a la consulta.',
+          clase: 'es la etiqueta predicha por el clasificador KNN.'
+        },
+        week7: {
+          ROOT_DIR: 'es la raíz del proyecto; aquí sirve para mantener la ubicación del módulo dentro del repositorio.',
+          valores: 'contiene las características numéricas normalizadas del caso de salida.',
+          patron_autorizado: 'es el vector de referencia que representa una salida válida.',
+          hechos: 'acumula los hechos simbólicos verdaderos que describen la situación.',
+          condiciones: 'contiene todos los hechos exigidos por la regla de autorización.',
+          ALFABETO_AUTOMATA: 'define los eventos que el autómata sabe reconocer: ingreso, placa, conductor y salida.',
+          TRANSICIONES_AUTOMATA: 'relaciona cada estado y símbolo con el siguiente estado del protocolo.',
+          estado: 'guarda el estado actual mientras se recorre la secuencia del protocolo.',
+          secuencias: 'contiene los casos de prueba aceptados y rechazados por el autómata.'
+        }
+      };
+
+      const knownDescription = assignmentHints[key]?.[name];
+      if (knownDescription) {
+        return `Esta línea almacena ${name}. ${knownDescription}`;
+      }
+
+      if (['X', 'y', 'X_train', 'X_test', 'y_train', 'y_test', 'results', 'scores', 'cases', 'entradas'].includes(name)) {
+        return `Esta línea guarda ${name}. En este ejercicio, esa variable se usa posteriormente para alimentar otro paso del flujo, por ejemplo entrenamiento, evaluación o generación de reportes.`;
+      }
+
+      if (name === 'model' || name === 'clasificador' || name === 'vectorizador') {
+        return `Esta línea almacena ${name}. Esa variable conserva un modelo ya ajustado para poder reutilizarlo en predicción o comparación.`;
+      }
+
+      if (name === 'ROOT' || name === 'DATA_DIR' || name === 'REPORT_PATH' || name === 'CSV_FILE' || name === 'BASE_PATH') {
+        return `Esta línea conserva una ruta útil del proyecto. ${name} apunta a un archivo o carpeta concreto desde donde se leen o escriben datos.`;
+      }
+
+      if (value === '[]' || value === '[],' || value === '{}') {
+        return `Esta línea inicializa ${name} como un contenedor vacío. Se usa luego para acumular datos que vienen de lectura, cálculos o iteraciones.`;
+      }
+
+      if (value.includes('Path(') || value.includes('ROOT') || value.includes('DATA_DIR') || value.includes('BASE_PATH') || value.includes('REPORT_PATH')) {
+        return `Esta línea asigna ${name} a una ruta derivada del proyecto. El valor viene de ${value}, así que ${name} apunta a un archivo o carpeta concreta.`;
+      }
+
+      if (value.includes('[') || value.includes('(')) {
+        return `Esta línea guarda el valor de ${name} con información que se usará más adelante. El contenido proviene de la expresión ${value} y se reutiliza en el siguiente bloque del programa.`;
+      }
+
+      return `Esta línea almacena ${name}. El valor que recibe viene de ${value}, y después se reutiliza en otra parte del flujo para continuar el cálculo o la salida final.`;
+    }
+
     function explainLine(line, key, index, lines) {
       const text = line.trim();
       const previous = lines.slice(0, index).reverse().find(item => item.trim());
+      const functionName = text.match(/^def\s+([A-Za-z_]+)/)?.[1];
+      const className = text.match(/^class\s+([A-Za-z_]+)/)?.[1];
+      const assignmentMatch = text.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)$/);
+      const importHint = describeImport(text);
+
       if (!text) return 'Esta línea está vacía para separar visualmente bloques y facilitar la lectura del programa.';
       if (text.startsWith('#') || text.startsWith('"""') || text.startsWith("''")) return `Es documentación del ejercicio. Explica la intención del bloque siguiente sin cambiar el resultado de la ejecución: ${text}`;
-      if (text.startsWith('import ') || text.startsWith('from ')) return `Importa una herramienta externa que el ejercicio necesita. Esta dependencia permite ${text.includes('cv2') ? 'leer y transformar imágenes' : text.includes('sklearn') ? 'preparar, entrenar o evaluar el modelo' : text.includes('heapq') ? 'mantener la cola de prioridad de A*' : 'usar estructuras y funciones auxiliares del programa'}.`;
+      if (importHint) return importHint;
       if (text.startsWith('@dataclass')) return 'Indica que la clase siguiente representa datos estructurados; Python genera automáticamente métodos útiles para construir y comparar sus objetos.';
-      if (text.startsWith('class ')) return `Declara una clase que agrupa estado y comportamiento. En este ejercicio representa ${key === 'astar' ? 'un estado de matrícula o un nodo de búsqueda' : key === 'minimax' ? 'un nodo del árbol de decisiones' : 'una estructura de datos del proceso'}.`;
-      if (text.startsWith('def ')) return `Declara una función reutilizable. Su firma define los datos que recibe y el resultado que devuelve para organizar el flujo del ejercicio: ${text}`;
-      if (text.startsWith('if ') || text.startsWith('elif ') || text === 'else:') return `Evalúa una condición para escoger el camino correcto. Este control permite que ${key === 'astar' ? 'A* descarte estados, detecte la meta o procese sucesores' : key === 'minimax' ? 'el algoritmo distinga entre MAX, MIN y casos terminales' : 'el programa valide los datos y procese solo entradas válidas'}.`;
-      if (text.startsWith('for ') || text.startsWith('while ')) return `Inicia una repetición. Recorre ${text.includes('hijo') ? 'los hijos del árbol para comparar estrategias' : text.includes('sucesor') ? 'las alternativas del estado actual' : 'los elementos disponibles'} hasta completar el procesamiento.`;
-      if (text.startsWith('return ')) return `Finaliza la función y entrega este resultado al código que la llamó. En este punto se conserva ${text.includes('nodos') ? 'la solución junto con el costo de exploración' : 'el valor calculado por el bloque actual'}.`;
+
+      if (text.startsWith('class ')) {
+        if (key === 'week2') return 'En la Semana 02, esta clase no es el foco principal; la información relevante está en la carga de imágenes, la creación del modelo y la evaluación de resultados.';
+        if (key === 'week3') return 'En la Semana 03, esta clase define una categoría con palabras clave. Cada instancia representa un grupo temático que se usa para comparar casos y clasificar texto.';
+        if (key === 'astar') return 'En A*, esta clase representa el estado de una matrícula y sus atributos físicos actuales. Los campos de la clase son la información que va variando durante la búsqueda.';
+        if (key === 'minimax') return 'En Minimax, esta clase define un nodo del árbol. Cada nodo guarda si pertenece a MAX o MIN, cuántos hijos tiene y qué utilidad terminal puede devolver.';
+        if (key === 'week5') return 'En la Semana 05, esta clase encapsula el formato de una respuesta final con regla, acción, evidencia, similitud y clase.';
+      }
+
+      if (text.startsWith('def ')) {
+        return describeFunctionSignature(functionName, text, key);
+      }
+
+      if (assignmentMatch) {
+        const name = assignmentMatch[1].trim();
+        const value = assignmentMatch[2].trim();
+        return describeAssignment(name, value, key);
+      }
+
+      if (text.startsWith('if ') || text.startsWith('elif ') || text === 'else:') return `Evalúa una condición para escoger el camino correcto. Este control permite que ${key === 'astar' ? 'A* descarte estados, detecte la meta o procese sucesores' : key === 'minimax' ? 'el algoritmo distinga entre MAX, MIN y casos terminales' : key === 'week5' ? 'el sistema decida si aplica regla, evidencia o clasificación' : key === 'week7' ? 'la regla simbólica valide hechos, el vector valide rangos o el autómata rechace transiciones inválidas' : 'el programa valide los datos y procese solo entradas válidas'}.`;
+      if (text.startsWith('for ') || text.startsWith('while ')) return `Inicia una repetición. Recorre ${text.includes('hijo') ? 'los hijos del árbol para comparar estrategias' : text.includes('sucesor') ? 'las alternativas del estado actual' : text.includes('img_file') || text.includes('line') || text.includes('row') ? 'cada ejemplo disponible para procesarlo' : 'los elementos disponibles'} hasta completar el procesamiento.`;
+      if (text.startsWith('return ')) return `Finaliza la función y entrega este resultado al código que la llamó. En este punto se conserva ${text.includes('nodos') ? 'la solución junto con el costo de exploración' : text.includes('similitud') ? 'la evidencia recuperada con su grado de cercanía' : text.includes('results') || text.includes('rows') ? 'la información acumulada para reportar o devolver al flujo principal' : 'el valor calculado por el bloque actual'}.`;
       if (text.startsWith('print(')) return 'Muestra información en la consola para que el estudiante pueda observar el avance, las métricas o el resultado del ejercicio.';
       if (text.includes('append(')) return 'Agrega un nuevo elemento a una colección. Así el programa conserva los datos procesados para usarlos en el siguiente paso o generar el resultado final.';
       if (text.includes('sort(') || text.includes('sorted(')) return 'Ordena las alternativas según el criterio del algoritmo. Priorizar los mejores candidatos es esencial para seleccionar una solución o una categoría.';
       if (text.includes('heapq.')) return 'Opera sobre la cola de prioridad de A*. La estructura mantiene disponible el nodo más prometedor según su evaluación f(n) = g(n) + h(n).';
-      if (text.includes('minimax') || text.includes('alfabeta') || text.includes('alfa') || text.includes('beta')) return 'Participa en la evaluación adversarial: compara las opciones del sistema y del oponente, y puede descartar ramas cuando alfa-beta demuestra que ya no cambiarán la decisión.';
-      if (text.includes('fit(')) return 'Entrena el modelo con los datos de entrada. En esta etapa aprende la relación entre las características de las imágenes y sus etiquetas.';
+      if (text.includes('fit(')) return 'Entrena el modelo con los datos de entrada. En esta etapa aprende la relación entre las características y las etiquetas o categorías esperadas.';
       if (text.includes('predict(')) return 'Usa el modelo entrenado para producir predicciones sobre datos que no se utilizaron durante el entrenamiento.';
       if (text.includes('accuracy') || text.includes('confusion_matrix')) return 'Calcula una métrica de evaluación para contrastar las predicciones con las respuestas reales y conocer la calidad del resultado.';
       if (text.includes('normalize') || text.includes('keyword') || text.includes('category')) return 'Prepara o compara texto y categorías. Esta operación convierte las palabras del caso en evidencia que el clasificador puede puntuar.';

@@ -1,1 +1,3 @@
 .venv/
+.github/
+src/__pycache__/

@@ -1,0 +1,6 @@
+id,descripcion,placa_coincide,conductor_coincide,confianza_ocr,calidad_imagen,registro_activo,secuencia,resultado_simbolico,aceptada_automata
+1,Salida autorizable con lectura clara y conductor validado,si,si,0.93,0.88,si,IPCS,autorizar_salida,si
+2,Placa diferente al registro de ingreso,no,si,0.91,0.90,si,IPCS,enviar_a_revision,si
+3,Imagen borrosa y confianza insuficiente para decidir,si,si,0.62,0.45,si,IPC,enviar_a_revision,no
+4,Conductor no coincide aunque la placa fue reconocida,si,no,0.89,0.86,si,IPSS,enviar_a_revision,no
+5,Vehiculo sin registro activo y protocolo desconocido,si,si,0.87,0.84,no,IPCX,enviar_a_revision,no
