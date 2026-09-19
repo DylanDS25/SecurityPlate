@@ -22,11 +22,11 @@ Casos correctos: **5/5**.
 
 ## Comparación de representaciones
 
-| Representación | Información utilizada | Puede reconocer | Ventaja | Limitación |
-|---|---|---|---|---|
-| Numérica | Confianza OCR, conductor, imagen y registro | Similitud con un patrón válido | Compara magnitudes | No explica por sí sola la decisión |
-| Simbólica | Hechos y regla de autorización | Condiciones explícitas | Es interpretable y auditable | Depende de umbrales manuales |
-| Autómata | Símbolos y estados del protocolo | Secuencias válidas | Controla el orden de eventos | No calcula confianza |
+| Representación | Información utilizada | Puede reconocer | Ventaja | Limitación | Información que puede perderse |
+|---|---|---|---|---|---|
+| Numérica | Confianza OCR, conductor, imagen y registro | Similitud con un patrón válido | Compara magnitudes | No explica por sí sola la decisión | Significado de cada característica y contexto del caso |
+| Simbólica | Hechos y regla de autorización | Condiciones explícitas | Es interpretable y auditable | Depende de umbrales manuales | Gradaciones de confianza y relaciones no expresadas como hechos |
+| Autómata | Símbolos y estados del protocolo | Secuencias válidas | Controla el orden de eventos | No calcula confianza | Detalles visuales, niveles de confianza y causas de una transición |
 
 ## Limitaciones
 
