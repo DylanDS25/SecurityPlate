@@ -25,6 +25,8 @@ ARTIFACTS_DIR = ROOT_DIR / "artifacts"
 MODEL_PATH = ARTIFACTS_DIR / "modelo_caracteres.pt"
 DATABASE_PATH = ARTIFACTS_DIR / "evidencia_reconocimiento.sqlite3"
 ONTOLOGY_PATH = ARTIFACTS_DIR / "ontologia_securityplate.graphml"
+METRICS_PATH = ARTIFACTS_DIR / "metricas.json"
+CLASS_MAP_PATH = ARTIFACTS_DIR / "mapeo_clases.csv"
 REPORT_PATH = ROOT_DIR / "reports" / "semana08.md"
 IMAGE_SIZE = 32
 RANDOM_SEED = 42
@@ -40,6 +42,24 @@ def cargar_clases() -> list[str]:
     if not nombres:
         raise ValueError("data.yaml no define los nombres de las clases.")
     return [str(nombre) for nombre in nombres]
+
+
+def guardar_mapeo_clases(class_names: list[str]) -> None:
+    """Documenta las clases del dataset sin inventar su significado visual."""
+    ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
+    with CLASS_MAP_PATH.open("w", encoding="utf-8", newline="") as archivo:
+        writer = csv.writer(archivo)
+        writer.writerow(["id_clase", "etiqueta_dataset", "significado", "fuente", "estado"])
+        for class_id, class_name in enumerate(class_names):
+            writer.writerow(
+                [
+                    class_id,
+                    class_name,
+                    "Caracter alfanumerico no identificado",
+                    "data/dataset/data.yaml",
+                    "requiere mapeo validado",
+                ]
+            )
 
 
 class RecortesYOLO(Dataset):
@@ -171,9 +191,11 @@ def preparar_ontologia() -> nx.DiGraph:
         node_id = f"clase_{class_id}"
         graph.add_node(
             node_id,
-            label=f"Categoria {class_name}",
+            label=f"Clase dataset {class_name}",
             tipo="clase_caracter",
             id_clase=class_id,
+            significado="Caracter alfanumerico no identificado",
+            fuente="data/dataset/data.yaml",
         )
         graph.add_edge("caracter", node_id, relacion="se_clasifica_como")
     return graph
@@ -342,6 +364,20 @@ def guardar_resultados_test(
             writer.writerow([run_id, image, actual_id, predicted_id, f"{probability:.6f}"])
 
 
+def consultar_evidencia_sqlite() -> tuple[int, list[tuple[object, ...]]]:
+    """Obtiene un resumen consultable de la evidencia persistida."""
+    with sqlite3.connect(DATABASE_PATH) as connection:
+        total = int(connection.execute("SELECT COUNT(*) FROM predicciones").fetchone()[0])
+        rows = connection.execute(
+            """SELECT id, imagen_analizada, categoria_real, prediccion,
+                      probabilidad, fecha_hora
+               FROM predicciones
+               ORDER BY id DESC
+               LIMIT 3"""
+        ).fetchall()
+    return total, rows
+
+
 def generar_reporte(
     class_names: list[str],
     sample_counts: dict[str, int],
@@ -349,6 +385,23 @@ def generar_reporte(
     validation_metrics: dict[str, float],
     run_id: str,
 ) -> None:
+    total_records, evidence_rows = consultar_evidencia_sqlite()
+    evidence_table = [
+        "```sql",
+        "SELECT id, imagen_analizada, categoria_real, prediccion,",
+        "       probabilidad, fecha_hora",
+        "FROM predicciones ORDER BY id DESC LIMIT 3;",
+        "```",
+        "",
+        f"La consulta devuelve **{total_records}** registros en total. Muestra reciente:",
+        "",
+        "| ID | Imagen | Categoria real | Prediccion | Probabilidad | Fecha |",
+        "|---:|---|---|---|---:|---|",
+    ]
+    evidence_table.extend(
+        "| " + " | ".join(str(value).replace("|", "\\|") for value in row) + " |"
+        for row in evidence_rows
+    )
     lineas = [
         "# Semana 08 - Representaciones del reconocimiento",
         "",
@@ -367,7 +420,8 @@ def generar_reporte(
         "Se usan las particiones oficiales `train`, `valid` y `test` de "
         "`data/dataset`. Cada caja YOLO se recorta de su imagen, se convierte a escala de "
         "grises, se redimensiona a 32 x 32 y se normaliza al rango [0, 1]. Los nombres/IDs "
-        "se leen de `data.yaml`; se conservan sus categorias numericas tal como fueron entregadas.",
+        "se leen de `data.yaml`; se conservan sus categorias numericas tal como fueron entregadas. "
+        "El detalle de trazabilidad queda en `artifacts/mapeo_clases.csv`.",
         "",
         f"Clases: **{len(class_names)}**. Recortes: entrenamiento **{sample_counts['train']}**, "
         f"validacion **{sample_counts['valid']}**, prueba **{sample_counts['test']}**.",
@@ -399,13 +453,18 @@ def generar_reporte(
         "clase predicha, probabilidad, modelo y fecha/hora. Las predicciones de prueba se "
         "registran al entrenar; las inferencias nuevas tambien se insertan en la misma tabla.",
         "",
+        "Consulta de evidencia ejecutada:",
+        "",
+        *evidence_table,
+        "",
         "## Ontologia GraphML",
         "",
         "`artifacts/ontologia_securityplate.graphml` representa los conceptos Imagen de placa, "
         "Placa vehicular, Caracter, Modelo RNA, Prediccion, Evidencia y Verificacion de acceso. "
         "Entre sus relaciones estan `contiene`, `esta_compuesta_por`, `analiza`, `genera`, "
         "`asigna_categoria_a`, `registra`, `utiliza` y `compara`. El archivo incluye nodos "
-        "de categorias e instancias enlazadas a las evidencias SQLite.",
+        "de categorias e instancias enlazadas a las evidencias SQLite. Cada categoria conserva "
+        "su ID de dataset y declara si su significado visual aun no esta validado.",
         "",
         "## Ejecucion",
         "",
@@ -414,11 +473,13 @@ def generar_reporte(
         "```powershell",
         "python src/semana08_reconocimiento.py --epochs 10 --batch-size 64",
         "python src/semana08_reconocimiento.py --predict ruta\\al\\recorte.jpg",
+        "python src/semana08_reconocimiento.py --report",
         "```",
         "",
         "La funcion `predict(ruta)` devuelve `class_id`, `class_name` y `probability`; "
         "ademas persiste la evidencia y actualiza el GraphML. La entrada debe ser el recorte "
-        "de un unico caracter.",
+        "de un unico caracter. El comando `--report` regenera este archivo desde "
+        "`artifacts/metricas.json` y las particiones actuales del dataset, sin reentrenar.",
         "",
         "## Interpretacion y limitaciones",
         "",
@@ -427,12 +488,36 @@ def generar_reporte(
         "por si sola no autoriza entradas ni salidas.",
         "",
         "Los IDs de clase de `data.yaml` no explican por si mismos una letra o digito legible, "
-        "por lo que la entrega no inventa ese mapeo. El conjunto esta desbalanceado (una de las "
+        "por lo que `artifacts/mapeo_clases.csv` conserva el ID, la fuente y el estado pendiente "
+        "de validacion, sin inventar un caracter. El conjunto esta desbalanceado (una de las "
         "clases observadas tiene solo tres anotaciones), lo cual puede perjudicar el F1 por clase. "
         "La probabilidad softmax no esta calibrada, y el rendimiento depende de la calidad del "
         "recorte y del dominio del dataset. La RNA no reconstruye la secuencia completa de la placa.",
     ]
     REPORT_PATH.write_text("\n".join(lineas) + "\n", encoding="utf-8")
+
+
+def regenerar_reporte() -> None:
+    """Regenera el reporte usando las metricas y datos actuales del proyecto."""
+    if not METRICS_PATH.exists():
+        raise FileNotFoundError(
+            f"No existe {METRICS_PATH.relative_to(ROOT_DIR)}. Ejecute el entrenamiento primero."
+        )
+    results = json.loads(METRICS_PATH.read_text(encoding="utf-8"))
+    class_names = cargar_clases()
+    guardar_mapeo_clases(class_names)
+    guardar_ontologia(cargar_ontologia())
+    sample_counts = {
+        split: len(RecortesYOLO(split)) for split in ("train", "valid", "test")
+    }
+    generar_reporte(
+        class_names,
+        sample_counts,
+        results["test"],
+        results["validation"],
+        results["run_id"],
+    )
+    print(f"Reporte regenerado en {REPORT_PATH.relative_to(ROOT_DIR)}")
 
 
 def entrenar(epochs: int = 10, batch_size: int = 64) -> dict[str, object]:
@@ -556,9 +641,7 @@ def entrenar(epochs: int = 10, batch_size: int = 64) -> dict[str, object]:
     (ARTIFACTS_DIR / "metricas.json").write_text(
         json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    generar_reporte(
-        class_names, sample_counts, results["test"], results["validation"], run_id
-    )
+    regenerar_reporte()
     print(
         f"Test: accuracy={test_metrics['accuracy']:.4f}, "
         f"F1 macro={test_metrics['f1_macro']:.4f}"
@@ -615,10 +698,17 @@ def main() -> None:
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--predict", type=Path, help="Ruta a un recorte de caracter")
+    parser.add_argument(
+        "--report",
+        action="store_true",
+        help="Regenera el reporte desde metricas.json y los datos actuales",
+    )
     parser.add_argument("--actual-class", type=int, help="ID real opcional de data.yaml")
     parser.add_argument("--model", type=Path, default=MODEL_PATH)
     args = parser.parse_args()
-    if args.predict:
+    if args.report:
+        regenerar_reporte()
+    elif args.predict:
         prediction = predict(args.predict, args.model, args.actual_class)
         print(json.dumps(prediction, ensure_ascii=False, indent=2))
     else:
