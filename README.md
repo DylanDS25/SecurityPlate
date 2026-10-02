@@ -5,6 +5,10 @@ Proyecto para clase de Inteligencia Artificial
 - Yeison Dario Ayala Beltran
 - Dylan Leonardo Duitama Soriano
 
+### Semana 09 - vision de placas
+
+El modulo procesa `data/imagen_proyecto.png` con Canny, umbral de Otsu y regiones conectadas. Ejecuta `python src/semana09_vision.py` para regenerar la evidencia `artifacts/semana09_vision.png` y el informe `reports/semana09.md`. Para abrir la interfaz de carga interactiva, ejecuta `python src/semana09_vision.py --serve` y visita `http://127.0.0.1:8765/dashboard/`.
+
 ### Evidencia
 
 |Semana|Descripción|

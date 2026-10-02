@@ -108,6 +108,22 @@
     .analysis-result span { display:block; color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.7px; }
     .analysis-result strong { display:block; margin-top:5px; color:var(--ink); font-size:13px; }
     .analysis-note { margin:12px 0 0; color:var(--muted); font-size:11px; }
+    .vision-lab { margin:18px 0; padding:24px; border:1px solid rgba(85,246,210,.28); background:linear-gradient(145deg, rgba(15,29,40,.94), rgba(10,16,30,.9)); box-shadow:var(--shadow); }
+    .vision-form { display:grid; grid-template-columns:minmax(180px,1fr) minmax(180px,.55fr) auto; gap:16px; align-items:end; }
+    .vision-field label { display:block; margin-bottom:7px; color:var(--teal); font-size:11px; font-weight:800; text-transform:uppercase; }
+    .vision-field input[type="file"] { width:100%; min-height:42px; color:var(--muted); font-size:12px; }
+    .vision-field input[type="range"] { width:100%; accent-color:var(--teal); }
+    .vision-field output { color:var(--gold); font:700 14px Consolas,monospace; }
+    .vision-submit { min-height:42px; padding:0 16px; border:1px solid var(--teal); border-radius:6px; color:#06121c; background:var(--teal); font:800 12px inherit; cursor:pointer; }
+    .vision-submit:disabled { opacity:.55; cursor:wait; }
+    .vision-status { min-height:24px; margin:14px 0 0; color:var(--muted); font-size:12px; }
+    .vision-gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:16px; }
+    .vision-gallery figure { min-width:0; margin:0; padding:10px; border:1px solid var(--line); background:rgba(7,13,26,.78); }
+    .vision-gallery img { display:block; width:100%; aspect-ratio:3/2; object-fit:contain; background:#070b16; }
+    .vision-gallery figcaption { padding-top:8px; color:var(--muted); font-size:11px; }
+    .vision-baseline { margin-top:18px; }
+    .vision-baseline img { display:block; width:100%; max-height:620px; object-fit:contain; background:#070b16; }
+    .vision-table { margin-top:16px; }
     .resource-links { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:0 0 22px; padding:13px 16px; border-left:4px solid var(--teal); background:rgba(14,22,39,.72); box-shadow:var(--shadow); }
     .resource-links strong { margin-right:4px; font-size:12px; text-transform:uppercase; letter-spacing:.8px; }
     .resource-link { display:inline-flex; align-items:center; gap:7px; padding:7px 10px; border:1px solid var(--line); border-radius:6px; color:var(--blue); background:rgba(98,184,255,.07); font-size:12px; font-weight:700; text-decoration:none; transition:color .2s, border-color .2s, transform .2s, box-shadow .2s; }
@@ -125,6 +141,8 @@
     .explanation h3 { color:var(--gold); }
     .explanation p { color:#c2d0da; font-size:13px; }
     .explanation .hint { display:block; margin-top:18px; color:var(--gold); font-size:11px; text-transform:uppercase; letter-spacing:.8px; }
+    @media (max-width:850px) { .vision-form { grid-template-columns:1fr; } }
+    @media (max-width:520px) { .vision-gallery { grid-template-columns:1fr; } }
     @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     @media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
     @media (max-width:850px) { .shell { display:block; } aside { padding:20px; } .eyebrow { margin-bottom:15px; } nav { display:flex; overflow:auto; gap:5px; } nav button { min-width:max-content; } nav button:before { display:none; } .side-note { display:none; } main { padding:28px 18px 40px; } .metrics,.visual-summary,.report-grid { grid-template-columns:repeat(2,1fr); } .grid,.comparison,.code-layout { grid-template-columns:1fr; } .code { max-height:none; } .explanation { position:static; max-height:none; overflow:visible; } }
@@ -146,6 +164,7 @@
         <button data-target="week5">Semana 05 · Sistema híbrido</button>
         <button data-target="week7">Semana 07 · Representaciones</button>
         <button data-target="week8">Semana 08 · RNA + evidencia</button>
+        <button data-target="week9">Semana 09 · Visión</button>
       </nav>
       <div class="side-note">Reconocimiento de placas y control inteligente de parqueaderos.</div>
     </aside>
@@ -179,8 +198,36 @@
         <article class="panel"><div class="panel-head"><div><h2>Reconocimiento → evidencia → significado</h2><p>La clasificación de un carácter alimenta el registro verificable y el conocimiento del dominio.</p></div></div><div class="timeline"><div class="step"><strong>01 · Entrada</strong><span>Recorte de carácter anotado en una placa.</span></div><div class="step"><strong>02 · CNN</strong><span>Predice una de 50 categorías e informa probabilidad.</span></div><div class="step"><strong>03 · SQLite</strong><span>Guarda clase real/predicha, imagen, confianza y fecha.</span></div><div class="step"><strong>04 · GraphML</strong><span>Enlaza modelo, carácter, predicción y evidencia.</span></div></div></article>
         <article class="panel" style="margin-top:18px"><div class="panel-head"><div><h2>Conceptos de la ontología</h2><p>Relaciones que expresan el significado de la predicción en SecurityPlate.</p></div><span class="tag">7 conceptos · 12 relaciones</span></div><table><thead><tr><th>Concepto origen</th><th>Relación</th><th>Concepto destino</th></tr></thead><tbody><tr><td>Imagen de placa</td><td class="status">contiene</td><td>Placa vehicular</td></tr><tr><td>Placa vehicular</td><td class="status">está compuesta por</td><td>Carácter</td></tr><tr><td>Modelo RNA</td><td class="status">analiza / genera</td><td>Carácter / predicción</td></tr><tr><td>Evidencia</td><td class="status">registra</td><td>Predicción</td></tr><tr><td>Verificación de acceso</td><td class="status">utiliza / compara</td><td>Predicción / placa</td></tr></tbody></table><p class="footer">Las 50 clases conservan su ID y fuente en el mapeo generado; el carácter real requiere una fuente de validación.</p></article>
       </section>
+      <section id="week9" class="exercise">
+        <div class="exercise-title"><div><h1>Semana 09 · Visión de placas</h1><p>Contraste, contornos y regiones como preparación para localizar caracteres en SecurityPlate.</p></div><span class="tag">Canny · Otsu · regiones</span></div>
+        <div class="resource-links"><strong>Entregables</strong><a class="resource-link" href="../reports/semana09.md" target="_blank" rel="noopener">Informe generado</a><a class="resource-link" href="../src/semana09_vision.py" target="_blank" rel="noopener">Código</a><a class="resource-link" href="../data/imagen_proyecto.png" target="_blank" rel="noopener">Imagen del proyecto</a><a class="resource-link" href="../artifacts/semana09_vision.png" target="_blank" rel="noopener">Evidencia completa</a></div>
+        <div class="visual-summary" aria-label="Resultados del análisis base">
+          <article class="visual-stat"><span class="visual-stat-label">Umbral Otsu</span><strong id="week9-threshold" class="visual-stat-value">--</strong><span class="visual-stat-detail">escala de grises 8 bits</span><div class="meter"><span></span></div></article>
+          <article class="visual-stat"><span class="visual-stat-label">Regiones conectadas</span><strong id="week9-regions-count" class="visual-stat-value">--</strong><span class="visual-stat-detail">tras filtrar componentes pequeños</span><div class="meter"><span></span></div></article>
+          <article class="visual-stat"><span class="visual-stat-label">Sigma Canny</span><strong id="week9-sigma-stat" class="visual-stat-value">--</strong><span class="visual-stat-detail">suavizado gaussiano</span><div class="meter"><span></span></div></article>
+          <article class="visual-stat"><span class="visual-stat-label">Pixeles de borde</span><strong id="week9-edge-percent" class="visual-stat-value">--</strong><span class="visual-stat-detail">proporción de la imagen</span><div class="meter"><span></span></div></article>
+        </div>
+        <article class="vision-lab">
+          <div class="panel-head"><div><h2>Analizar una imagen</h2><p>La imagen cargada se procesa en memoria y no reemplaza la evidencia base.</p></div><span class="tag">Procesamiento local</span></div>
+          <form id="week9-form" class="vision-form">
+            <div class="vision-field"><label for="week9-file">Imagen de placa o vehículo</label><input id="week9-file" type="file" accept="image/*" required></div>
+            <div class="vision-field"><label for="week9-sigma">Suavizado sigma <output id="week9-sigma-value">1.6</output></label><input id="week9-sigma" type="range" min="0.4" max="4" step="0.1" value="1.6"></div>
+            <button class="vision-submit" type="submit">Procesar imagen</button>
+          </form>
+          <p id="week9-status" class="vision-status" aria-live="polite">Cargando resultados reproducibles del proyecto…</p>
+          <div class="vision-gallery" id="week9-gallery" hidden>
+            <figure><img id="week9-original" alt="Imagen original cargada"><figcaption>Imagen original</figcaption></figure>
+            <figure><img id="week9-edges" alt="Contornos detectados por Canny"><figcaption id="week9-edges-caption">Canny</figcaption></figure>
+            <figure><img id="week9-mask" alt="Máscara binaria de Otsu"><figcaption>Máscara Otsu</figcaption></figure>
+            <figure><img id="week9-regions" alt="Regiones conectadas etiquetadas"><figcaption id="week9-regions-caption">Regiones conectadas</figcaption></figure>
+          </div>
+          <div class="vision-table" id="week9-sigma-table"></div>
+        </article>
+        <article class="panel vision-baseline"><div class="panel-head"><div><h2>Evidencia reproducible</h2><p>Salida generada por el script a partir de data/imagen_proyecto.png.</p></div></div><img src="../artifacts/semana09_vision.png" alt="Imagen original, Canny, máscara de Otsu y regiones conectadas"></article>
+        <article class="panel code-viewer" data-exercise="week9" data-source="../src/semana09_vision.py"><div class="panel-head"><div><h2>Código completo de Semana 09</h2><p>Selecciona una línea para ver su explicación.</p></div></div><div class="code-layout"><pre class="code"><iframe class="source-frame" src="../src/semana09_vision.py" title="Código completo de Semana 09"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Procesamiento de imagen</h3><p class="explanation-copy">El módulo genera características, Canny, Otsu, componentes conectados, evidencia y este reporte.</p></aside></div></article>
+      </section>
       <section class="reports-visual" aria-labelledby="reports-title">
-        <div class="reports-head"><div><h2 id="reports-title">Reportes del proyecto</h2><p>Resultados documentados y listos para consultar.</p></div><span class="result-badge">6 evidencias</span></div>
+        <div class="reports-head"><div><h2 id="reports-title">Reportes del proyecto</h2><p>Resultados documentados y listos para consultar.</p></div><span class="result-badge">7 evidencias</span></div>
         <div class="report-grid">
           <article class="report-card"><div><span class="report-kicker">Semana 02</span><h3>Fundamentos</h3><p>Modelo de clasificación aplicado a imágenes de placas.</p></div><div><div class="report-status"><span>Estado</span><strong>COMPLETO</strong></div><a class="resource-link" href="#week2" data-report-target="week2">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 03</span><h3>Taxonomía</h3><p>40 casos clasificados y reglas propias del dominio.</p></div><div><div class="report-status"><span>Coincidencia</span><strong>52.5%</strong></div><a class="resource-link" href="#week3" data-report-target="week3">Ver reporte visual</a></div></article>
@@ -188,6 +235,7 @@
           <article class="report-card"><div><span class="report-kicker">Semana 05</span><h3>Sistema híbrido</h3><p>Reglas, TF-IDF y clasificación de consultas vehiculares.</p></div><div><div class="report-status"><span>Pruebas</span><strong>3 CONSULTAS</strong></div><a class="resource-link" href="#week5" data-report-target="week5">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 07</span><h3>Representaciones</h3><p>Vectores, hechos y autómatas para reconocer salidas.</p></div><div><div class="report-status"><span>Pruebas</span><strong>5 CASOS</strong></div><a class="resource-link" href="#week7" data-report-target="week7">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 08</span><h3>Reconocimiento neuronal</h3><p>CNN para caracteres con evidencia SQLite y ontología GraphML.</p></div><div><div class="report-status"><span>Accuracy test</span><strong>50.46%</strong></div><a class="resource-link" href="#week8" data-report-target="week8">Ver reporte visual</a></div></article>
+          <article class="report-card"><div><span class="report-kicker">Semana 09</span><h3>Visión de placas</h3><p>Canny, umbral Otsu y regiones conectadas en una imagen del proyecto.</p></div><div><div class="report-status"><span>Regiones base</span><strong>78</strong></div><a class="resource-link" href="#week9" data-report-target="week9">Ver reporte visual</a></div></article>
         </div>
       </section>
       <div class="footer">Fuente: ejercicios en <strong>src/</strong>, datos en <strong>data/casos_ia.csv</strong> y resultados documentados en <strong>reports/</strong>.</div>
@@ -203,7 +251,8 @@
       minimax: { label:'Semana 04 · Minimax y poda alfa-beta' },
       week5: { label:'Semana 05 · Sistema híbrido SecurityPlate' },
       week7: { label:'Semana 07 · Representaciones de reconocimiento' },
-      week8: { label:'Semana 08 · Reconocimiento neuronal SecurityPlate' }
+      week8: { label:'Semana 08 · Reconocimiento neuronal SecurityPlate' },
+      week9: { label:'Semana 09 · Visión por computador SecurityPlate' }
     };
     const visualSummaries = {
       week2: [
@@ -249,7 +298,8 @@
       week4: '../reports/semana04.md?v=2',
       week5: '../reports/semana05.md?v=2',
       week7: '../reports/semana07.md?v=1',
-      week8: '../reports/semana08.md?v=1'
+      week8: '../reports/semana08.md?v=1',
+      week9: '../reports/semana09.md?v=1'
     };
     function inlineMarkdown(text) {
       return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
@@ -303,7 +353,8 @@
       const preview = document.createElement('article');
       preview.className = 'report-preview';
       preview.innerHTML = `<div class="report-preview-head"><div><h2>Reporte visual</h2><p>Contenido del Markdown convertido a una vista legible.</p></div><span class="tag">Markdown renderizado</span></div><div class="report-markdown"><p>Cargando reporte...</p></div>`;
-      section.querySelector('.visual-summary').after(preview);
+      const reportAnchor = section.querySelector('.vision-lab') || section.querySelector('.visual-summary');
+      reportAnchor.after(preview);
       try {
         const markdown = await readSource(path);
         preview.querySelector('.report-markdown').innerHTML = renderMarkdown(markdown);
@@ -360,6 +411,68 @@
           <div class="meter" aria-hidden="true"><span style="width:${progress}%"></span></div>
         </article>`).join('');
       section.querySelector('.exercise-title').after(visual);
+    }
+    function renderVisionResult(result, uploaded) {
+      document.querySelector('#week9-threshold').textContent = Number(result.threshold).toFixed(0);
+      document.querySelector('#week9-regions-count').textContent = result.region_count;
+      document.querySelector('#week9-sigma-stat').textContent = Number(result.sigma).toFixed(1);
+      document.querySelector('#week9-edge-percent').textContent = `${Number(result.edge_percent).toFixed(2)}%`;
+      const progressValues = [
+        Number(result.threshold) / 255 * 100,
+        Math.min(Number(result.region_count) / 3, 100),
+        Number(result.sigma) / 4 * 100,
+        Math.min(Number(result.edge_percent) * 10, 100)
+      ];
+      document.querySelectorAll('#week9 .visual-stat .meter span').forEach((meter, index) => {
+        meter.style.width = `${progressValues[index]}%`;
+      });
+      for (const [key, image] of Object.entries(result.previews)) {
+        document.querySelector(`#week9-${key}`).src = image;
+      }
+      document.querySelector('#week9-edges-caption').textContent = `Canny · ${Number(result.edge_percent).toFixed(2)}% de píxeles de borde`;
+      document.querySelector('#week9-regions-caption').textContent = `${result.region_count} regiones · área mínima ${result.minimum_area} px`;
+      document.querySelector('#week9-gallery').hidden = false;
+      document.querySelector('#week9-status').textContent = uploaded
+        ? `Imagen procesada en memoria. Umbral Otsu: ${Number(result.threshold).toFixed(0)}; ${result.region_count} regiones filtradas de ${result.raw_region_count}. La carga no modifica el informe ni la evidencia base.`
+        : 'Resultados reproducibles cargados desde data/imagen_proyecto.png.';
+      const rows = result.sigma_comparison.map(row => `<tr><td>${Number(row.sigma).toFixed(1)}</td><td>${Number(row.edge_percent).toFixed(2)}%</td></tr>`).join('');
+      document.querySelector('#week9-sigma-table').innerHTML = `<table><caption>Comparación del porcentaje de bordes</caption><thead><tr><th>Sigma</th><th>Píxeles de borde</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+    function addVisionAnalyzer() {
+      const form = document.querySelector('#week9-form');
+      if (!form) return;
+      const sigma = document.querySelector('#week9-sigma');
+      const sigmaValue = document.querySelector('#week9-sigma-value');
+      const status = document.querySelector('#week9-status');
+      const button = form.querySelector('button[type="submit"]');
+      sigma.addEventListener('input', () => { sigmaValue.value = Number(sigma.value).toFixed(1); });
+      fetch('/api/default')
+        .then(async response => {
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+          renderVisionResult(result, false);
+        })
+        .catch(() => { status.textContent = 'Para cargar y procesar imágenes, ejecuta python src/semana09_vision.py --serve.'; });
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const file = document.querySelector('#week9-file').files[0];
+        if (!file || !file.type.startsWith('image/')) {
+          status.textContent = 'Selecciona un archivo de imagen válido.';
+          return;
+        }
+        button.disabled = true;
+        status.textContent = 'Procesando imagen…';
+        try {
+          const response = await fetch(`/api/analyze?sigma=${encodeURIComponent(sigma.value)}`, { method:'POST', body:file });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+          renderVisionResult(result, true);
+        } catch (error) {
+          status.textContent = `No se pudo analizar la imagen: ${error.message}`;
+        } finally {
+          button.disabled = false;
+        }
+      });
     }
     const resultLinks = {
       week3: [
@@ -797,6 +910,7 @@
       addCustomAnalyzer(section);
       addReportPreview(section);
     });
+    addVisionAnalyzer();
     buttons.forEach(button => button.addEventListener('click', () => {
       buttons.forEach(item => item.classList.remove('active'));
       sections.forEach(section => section.classList.remove('visible'));
