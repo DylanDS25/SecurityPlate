@@ -2,7 +2,7 @@
 
 ## Imagen y relacion con el proyecto
 
-Se proceso `data/imagen_proyecto.png`, una fotografia de una motocicleta con placa colombiana. Es pertinente para SecurityPlate porque muestra el identificador vehicular dentro de una escena real; se analizan intensidad, contraste, bordes y regiones como etapas exploratorias previas a localizar y clasificar caracteres. La imagen procesada mide 1334 x 1800 pixeles. La intensidad media en gris es 94.06, con desviacion estandar 62.60; las medias BGR son 96.61, 94.65 y 91.84.
+Se proceso `data/imagen_proyecto.png`, una fotografia de una motocicleta con placa colombiana. Es pertinente para SecurityPlate porque permite analizar intensidad, contraste, bordes y regiones como etapas exploratorias previas a localizar y clasificar caracteres. La imagen procesada mide 1334 x 1800 pixeles. La intensidad media en gris es 94.06, con desviacion estandar 62.60; las medias BGR son 96.61, 94.65 y 91.84.
 
 ## Deteccion de contornos con Canny
 
@@ -41,4 +41,4 @@ Como siguiente etapa, la mascara y los contornos pueden apoyar la localizacion d
 
 ## Ejecucion
 
-Desde la raiz del repositorio, `python src/semana09_vision.py` procesa la imagen fija, guarda la evidencia y regenera este informe. Para usar la interfaz de carga, ejecute `python src/semana09_vision.py --serve` y abra `http://127.0.0.1:8765/dashboard/`.
+Desde la raiz del repositorio, `python src/semana09_vision.py` procesa la imagen fija, guarda la evidencia y regenera este informe. Para usar la interfaz de carga, ejecute `python src/semana09_vision.py --serve` y abra `http://127.0.0.1:8000/dashboard/`.

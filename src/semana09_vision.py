@@ -195,7 +195,7 @@ Como siguiente etapa, la mascara y los contornos pueden apoyar la localizacion d
 
 ## Ejecucion
 
-Desde la raiz del repositorio, `python src/semana09_vision.py` procesa la imagen fija, guarda la evidencia y regenera este informe. Para usar la interfaz de carga, ejecute `python src/semana09_vision.py --serve` y abra `http://127.0.0.1:8765/dashboard/`.
+Desde la raiz del repositorio, `python src/semana09_vision.py` procesa la imagen fija, guarda la evidencia y regenera este informe. Para usar la interfaz de carga, ejecute `python src/semana09_vision.py --serve` y abra `http://127.0.0.1:8000/dashboard/`.
 """
 
 
@@ -296,7 +296,7 @@ class Semana09Handler(SimpleHTTPRequestHandler):
 
 def servir(
     host: str = "127.0.0.1",
-    port: int = 8765,
+    port: int = 8000,
     default_result: dict[str, object] | None = None,
 ) -> None:
     Semana09Handler.default_result = default_result
@@ -318,7 +318,7 @@ def main() -> None:
     parser.add_argument("--sigma", type=float, default=1.6, help="Suavizado de Canny entre 0.1 y 10")
     parser.add_argument("--serve", action="store_true", help="Genera el reporte y sirve el dashboard con analisis interactivo")
     parser.add_argument("--host", default="127.0.0.1")
-    parser.add_argument("--port", type=int, default=8765)
+    parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
 
     result = ejecutar(args.image, args.sigma)
