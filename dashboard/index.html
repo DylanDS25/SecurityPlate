@@ -7,25 +7,27 @@
   <style>
     :root { --ink:#e8f7ff; --muted:#8ca4b5; --paper:#070b16; --card:rgba(14,22,39,.86); --line:rgba(99,224,255,.18); --teal:#55f6d2; --coral:#ff6b8b; --gold:#ffd166; --blue:#62b8ff; --rail:#090e1d; --lime:#9cff6b; --violet:#a78bfa; --shadow:0 18px 50px rgba(0,0,0,.34); }
     * { box-sizing:border-box; }
-    html, body { overflow-x:hidden; }
+    html, body { overflow-x:clip; }
     body { margin:0; color:var(--ink); background-color:var(--paper); background-image:linear-gradient(rgba(98,184,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(98,184,255,.035) 1px, transparent 1px), radial-gradient(circle at 78% -8%, rgba(167,139,250,.20), transparent 28rem), radial-gradient(circle at 8% 60%, rgba(85,246,210,.08), transparent 24rem); background-size:34px 34px, 34px 34px, auto, auto; font:15px/1.55 "Bahnschrift", "Segoe UI", sans-serif; }
-    .shell { display:grid; grid-template-columns:258px 1fr; min-height:100vh; }
-    aside { position:relative; padding:32px 24px; background:linear-gradient(180deg, rgba(11,18,36,.97), rgba(7,11,22,.98)); color:var(--ink); overflow:hidden; border-right:1px solid rgba(85,246,210,.22); }
-    aside:before { content:""; position:absolute; inset:0; background:linear-gradient(145deg, rgba(85,246,210,.08), transparent 38%, rgba(167,139,250,.09)); pointer-events:none; }
-    aside:after { content:"// IA"; position:absolute; right:-8px; bottom:45px; color:rgba(98,184,255,.12); font:bold 54px Consolas, monospace; transform:rotate(-90deg); }
-    .brand { font:bold 24px Consolas, "Courier New", monospace; letter-spacing:-1px; text-shadow:0 0 18px rgba(85,246,210,.35); }
+    .shell { min-height:100vh; }
+    .shell > aside { position:sticky; top:0; z-index:50; display:grid; grid-template-columns:auto auto minmax(0,1fr); align-items:center; gap:12px 22px; padding:10px clamp(16px,3vw,44px); color:var(--ink); background:linear-gradient(100deg, rgba(11,18,36,.98), rgba(7,11,22,.98)); border-bottom:1px solid rgba(85,246,210,.26); box-shadow:0 8px 24px rgba(0,0,0,.25); }
+    .shell > aside:before { content:""; position:absolute; inset:0; background:linear-gradient(100deg, rgba(85,246,210,.07), transparent 48%, rgba(98,184,255,.06)); pointer-events:none; }
+    .shell > aside:after { display:none; }
+    .brand { position:relative; z-index:1; font:bold 22px Consolas, "Courier New", monospace; letter-spacing:-1px; text-shadow:0 0 18px rgba(85,246,210,.35); white-space:nowrap; }
     .brand span { color:var(--teal); }
-    .eyebrow { margin:8px 0 52px; color:#718aa0; font-size:10px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; }
-    nav { position:relative; z-index:1; }
-    nav button { display:flex; align-items:center; width:100%; margin:7px 0; padding:12px 13px; border:1px solid transparent; border-radius:8px; color:#91a7b8; background:transparent; text-align:left; font:600 13px/1.3 inherit; cursor:pointer; transition:background .2s, color .2s, transform .2s, box-shadow .2s; }
-    nav button:before { content:"⌁"; width:14px; margin-right:9px; color:#4d657b; transition:color .2s, transform .2s; }
-    nav button:hover { color:var(--ink); background:rgba(85,246,210,.08); transform:translateX(3px); box-shadow:inset 2px 0 var(--teal); }
-    nav button:hover:before { color:var(--teal); }
+    .eyebrow { position:relative; z-index:1; margin:0; color:#718aa0; font-size:9px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; white-space:nowrap; }
+    nav { position:relative; z-index:1; display:flex; justify-content:flex-start; gap:7px; min-width:0; overflow-x:auto; scrollbar-width:thin; scrollbar-color:rgba(85,246,210,.32) transparent; }
+    nav button { display:flex; flex:none; align-items:center; justify-content:center; width:40px; min-width:40px; height:40px; margin:0; padding:0; border:1px solid rgba(99,224,255,.18); border-radius:50%; color:#91a7b8; background:rgba(98,184,255,.05); text-align:center; font:700 12px/1.3 inherit; white-space:nowrap; cursor:pointer; transition:width .2s, min-width .2s, padding .2s, background .2s, color .2s, transform .2s, box-shadow .2s; }
+    nav button:before { content:none; display:none; }
+    .nav-label { display:none; }
+    .nav-number { display:block; font:700 12px Consolas, monospace; }
+    nav button:hover { color:var(--ink); background:rgba(85,246,210,.12); transform:translateY(-1px); border-color:rgba(85,246,210,.48); }
     nav button:focus-visible, .resource-link:focus-visible, .code-line:focus-visible { outline:2px solid var(--gold); outline-offset:3px; }
-    nav button.active { color:#06121c; background:linear-gradient(100deg, var(--teal), var(--blue)); box-shadow:0 0 24px rgba(85,246,210,.24); }
-    nav button.active:before { color:#06121c; transform:translateX(2px); }
-    .side-note { position:absolute; bottom:28px; z-index:1; width:190px; color:#718aa0; font-size:12px; }
-    main { max-width:1500px; width:100%; padding:46px clamp(24px,5vw,78px) 62px; }
+    nav button.active { width:auto; min-width:112px; padding:0 14px; border-radius:22px; color:#06121c; background:linear-gradient(100deg, var(--teal), var(--blue)); box-shadow:0 0 24px rgba(85,246,210,.24); }
+    nav button.active .nav-label { display:inline; font-size:12px; font-weight:800; }
+    .side-note { display:none; }
+    main { max-width:1500px; width:100%; margin:0 auto; padding:34px clamp(24px,5vw,78px) 62px; }
+    .exercise,.report-preview { scroll-margin-top:110px; }
     .topline { display:flex; align-items:start; justify-content:space-between; gap:20px; margin-bottom:34px; }
     h1,h2,h3,p { margin-top:0; } h1 { margin-bottom:10px; font:700 clamp(32px,4vw,52px)/1.02 Consolas, "Courier New", monospace; letter-spacing:-2px; text-shadow:0 0 28px rgba(98,184,255,.16); }
     h2 { margin-bottom:5px; font-size:19px; letter-spacing:-.4px; } h3 { margin-bottom:5px; font-size:16px; }
@@ -140,12 +142,14 @@
     .explanation { position:sticky; top:24px; align-self:start; max-height:calc(100vh - 48px); overflow:auto; padding:20px; border:1px solid rgba(255,209,102,.35); border-left:4px solid var(--gold); border-radius:8px; background:rgba(255,209,102,.08); }
     .explanation h3 { color:var(--gold); }
     .explanation p { color:#c2d0da; font-size:13px; }
+    .explanation .explanation-context { padding-bottom:13px; border-bottom:1px solid rgba(255,209,102,.2); color:#a9bfca; white-space:pre-line; }
+    .explanation .explanation-flow { color:var(--gold); font-size:11px; }
     .explanation .hint { display:block; margin-top:18px; color:var(--gold); font-size:11px; text-transform:uppercase; letter-spacing:.8px; }
     @media (max-width:850px) { .vision-form { grid-template-columns:1fr; } }
     @media (max-width:520px) { .vision-gallery { grid-template-columns:1fr; } }
     @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     @media (prefers-reduced-motion: reduce) { *, *:before, *:after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
-    @media (max-width:850px) { .shell { display:block; } aside { padding:20px; } .eyebrow { margin-bottom:15px; } nav { display:flex; overflow:auto; gap:5px; } nav button { min-width:max-content; } nav button:before { display:none; } .side-note { display:none; } main { padding:28px 18px 40px; } .metrics,.visual-summary,.report-grid { grid-template-columns:repeat(2,1fr); } .grid,.comparison,.code-layout { grid-template-columns:1fr; } .code { max-height:none; } .explanation { position:static; max-height:none; overflow:visible; } }
+    @media (max-width:850px) { .shell { display:block; } .shell > aside { grid-template-columns:minmax(0,1fr); align-items:stretch; gap:7px; padding:9px 14px 7px; } .brand { font-size:20px; } .eyebrow { display:none; } nav { grid-column:1; justify-content:flex-start; width:100%; margin:0 -2px; overflow-x:auto; gap:5px; } nav button { min-width:max-content; min-height:36px; padding:7px 9px; } nav button:before { display:none; } .side-note { display:none; } main { padding:28px 18px 40px; } .metrics,.visual-summary,.report-grid { grid-template-columns:repeat(2,1fr); } .grid,.comparison,.code-layout { grid-template-columns:1fr; } .code { max-height:none; } .explanation { position:static; max-height:none; overflow:visible; } }
     @media (max-width:850px) { .report-card { grid-template-columns:1fr auto; } .report-card > div:first-child { grid-row:span 2; } .analyzer-output { grid-template-columns:repeat(2,1fr); } }
     @media (max-width:520px) { .metrics,.visual-summary,.report-grid { grid-template-columns:1fr; } .topline,.exercise-title,.reports-head,.report-preview-head { display:block; } .date { display:block; margin-top:12px; } .donut-wrap { display:block; } .donut { margin:0 auto 20px; } .bar-row { grid-template-columns:112px 1fr 38px; } h1 { font-size:30px; letter-spacing:-1.4px; } .panel,.reports-visual,.report-preview,.custom-analyzer { padding:18px; } .report-card { display:block; } .report-card > div + div { margin-top:12px; } .report-card .resource-link { margin-top:10px; } .analyzer-form { grid-template-columns:1fr; } .analyzer-output { grid-template-columns:1fr; } }
     @media (max-width:520px) { .metrics { grid-template-columns:1fr; } .topline,.exercise-title { display:block; } .date { display:block; margin-top:12px; } .donut-wrap { display:block; } .donut { margin:0 auto 20px; } .bar-row { grid-template-columns:112px 1fr 38px; } h1 { font-size:30px; letter-spacing:-1.4px; } .panel { padding:18px; } }
@@ -157,22 +161,23 @@
       <div class="brand">Security<span>Plate</span></div>
       <div class="eyebrow">Bitácora de IA · 2026-2</div>
       <nav aria-label="Ejercicios">
-        <button class="active" data-target="overview">Vista general</button>
-        <button data-target="week2">Semana 02 · ML</button>
-        <button data-target="week3">Semana 03 · Taxonomía</button>
-        <button data-target="week4">Semana 04 · Búsqueda</button>
-        <button data-target="week5">Semana 05 · Sistema híbrido</button>
-        <button data-target="week7">Semana 07 · Representaciones</button>
-        <button data-target="week8">Semana 08 · RNA + evidencia</button>
-        <button data-target="week9">Semana 09 · Visión</button>
+        <button class="active" data-target="overview" aria-label="Vista general" title="Vista general"><span class="nav-number">00</span><span class="nav-label">Inicio</span></button>
+        <button data-target="week2" aria-label="Semana 02 · ML" title="Semana 02 · ML"><span class="nav-number">02</span><span class="nav-label">Semana 02</span></button>
+        <button data-target="week3" aria-label="Semana 03 · Taxonomía" title="Semana 03 · Taxonomía"><span class="nav-number">03</span><span class="nav-label">Semana 03</span></button>
+        <button data-target="week4" aria-label="Semana 04 · Búsqueda" title="Semana 04 · Búsqueda"><span class="nav-number">04</span><span class="nav-label">Semana 04</span></button>
+        <button data-target="week5" aria-label="Semana 05 · Sistema híbrido" title="Semana 05 · Sistema híbrido"><span class="nav-number">05</span><span class="nav-label">Semana 05</span></button>
+        <button data-target="week7" aria-label="Semana 07 · Representaciones" title="Semana 07 · Representaciones"><span class="nav-number">07</span><span class="nav-label">Semana 07</span></button>
+        <button data-target="week8" aria-label="Semana 08 · RNA + evidencia" title="Semana 08 · RNA + evidencia"><span class="nav-number">08</span><span class="nav-label">Semana 08</span></button>
+        <button data-target="week9" aria-label="Semana 09 · Visión" title="Semana 09 · Visión"><span class="nav-number">09</span><span class="nav-label">Semana 09</span></button>
+        <button data-target="week10" aria-label="Semana 10 · Texturas" title="Semana 10 · Texturas"><span class="nav-number">10</span><span class="nav-label">Semana 10</span></button>
       </nav>
       <div class="side-note">Reconocimiento de placas y control inteligente de parqueaderos.</div>
     </aside>
     <main>
       <section id="overview" class="exercise visible">
-        <div class="topline"><div><h1>Panel de ejercicios</h1><p class="intro">Una lectura rápida del camino recorrido: datos, clasificación y toma de decisiones para un sistema inteligente de seguridad.</p></div><div class="date">ÚLTIMA ACTUALIZACIÓN<br><strong>03 SEP 2026</strong></div></div>
+        <div class="topline"><div><h1>Panel de ejercicios</h1><p class="intro">Una lectura rápida del camino recorrido: datos, clasificación y toma de decisiones para un sistema inteligente de seguridad.</p></div>        <div class="date">ÚLTIMA ACTUALIZACIÓN<br><strong>09 OCT 2026</strong></div></div>
         <div class="metrics">
-          <div class="metric"><div class="metric-label">Ejercicios documentados</div><div class="metric-value">5</div><small>Semanas 02 a 05</small></div>
+          <div class="metric"><div class="metric-label">Ejercicios documentados</div><div class="metric-value">8</div><small>Semanas 02, 03, 04, 05, 07–10</small></div>
           <div class="metric"><div class="metric-label">Casos clasificados</div><div class="metric-value">40</div><small>Taxonomía de IA</small></div>
           <div class="metric"><div class="metric-label">Mejor coincidencia</div><div class="metric-value">52.5%</div><small>Referencia manual vs. automática</small></div>
           <div class="metric"><div class="metric-label">Meta A*</div><div class="metric-value">90%</div><small>Confianza OCR objetivo</small></div>
@@ -181,7 +186,7 @@
           <article class="panel"><div class="panel-head"><div><h2>Ruta de aprendizaje</h2><p>Del modelo inicial al razonamiento adversarial.</p></div><span class="tag">En progreso</span></div><div class="timeline"><div class="step"><strong>02 · Fundamentos</strong><span>Logistic Regression<br>Accuracy + matriz</span></div><div class="step"><strong>03 · Taxonomía</strong><span>40 problemas<br>8 categorías</span></div><div class="step"><strong>04 · A*</strong><span>Rutas y costos<br>Confianza OCR</span></div><div class="step"><strong>04 · Minimax</strong><span>MAX vs MIN<br>Poda alfa-beta</span></div></div></article>
           <article class="panel"><div class="panel-head"><div><h2>Hallazgo destacado</h2><p>Lo que más cambia al ajustar la meta.</p></div></div><div class="comparison"><div class="result good"><strong>19 nodos</strong><span>A* con meta de 80%</span></div><div class="result"><strong>772k+</strong><span>A* con meta de 95%</span></div></div><p class="footer">La dificultad crece de forma no lineal cuando la confianza exigida se acerca al límite del modelo.</p></article>
         </div>
-        <div class="grid"><article class="panel"><div class="panel-head"><div><h2>Ejercicios disponibles</h2><p>Selecciona uno en el menú para ver su detalle.</p></div></div><table><thead><tr><th>Ejercicio</th><th>Enfoque</th><th>Resultado</th></tr></thead><tbody><tr><td>Semana 02</td><td>Clasificación ML</td><td class="status">Ejecutado</td></tr><tr><td>Semana 03</td><td>Taxonomía</td><td class="status">52.50%</td></tr><tr><td>Semana 04 · A*</td><td>Búsqueda heurística</td><td class="status">90% meta</td></tr><tr><td>Semana 04 · Minimax</td><td>Juego adversarial</td><td class="status">-75 utilidad</td></tr><tr><td>Semana 05</td><td>Sistema híbrido</td><td class="status">3 pruebas</td></tr></tbody></table></article><article class="panel"><div class="panel-head"><div><h2>Arquitectura propuesta</h2><p>El proyecto combina tres capacidades.</p></div></div><div class="bars"><div class="bar-row"><span>Visión por computador</span><div class="track"><div class="fill" style="width:92%"></div></div><span class="value">núcleo</span></div><div class="bar-row"><span>Aprendizaje automático</span><div class="track"><div class="fill" style="width:74%"></div></div><span class="value">modelo</span></div><div class="bar-row"><span>Reglas de decisión</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="value">alertas</span></div></div></article></div>
+        <div class="grid"><article class="panel"><div class="panel-head"><div><h2>Ejercicios disponibles</h2><p>Selecciona uno en el menú para ver su detalle.</p></div></div><table><thead><tr><th>Ejercicio</th><th>Enfoque</th><th>Resultado</th></tr></thead><tbody><tr><td>Semana 02</td><td>Clasificación ML</td><td class="status">Ejecutado</td></tr><tr><td>Semana 03</td><td>Taxonomía</td><td class="status">52.50%</td></tr><tr><td>Semana 04 · A*</td><td>Búsqueda heurística</td><td class="status">90% meta</td></tr><tr><td>Semana 04 · Minimax</td><td>Juego adversarial</td><td class="status">-75 utilidad</td></tr><tr><td>Semana 05</td><td>Sistema híbrido</td><td class="status">3 pruebas</td></tr><tr><td>Semana 07</td><td>Vectores, reglas y autómatas</td><td class="status">5 casos</td></tr><tr><td>Semana 08</td><td>CNN para caracteres</td><td class="status">50.46% accuracy</td></tr><tr><td>Semana 09</td><td>Canny, Otsu y regiones</td><td class="status">78 regiones</td></tr><tr><td>Semana 10</td><td>Histogramas, regiones y LBP</td><td class="status">2 placas · 53 features</td></tr></tbody></table></article><article class="panel"><div class="panel-head"><div><h2>Arquitectura propuesta</h2><p>El proyecto combina tres capacidades.</p></div></div><div class="bars"><div class="bar-row"><span>Visión por computador</span><div class="track"><div class="fill" style="width:92%"></div></div><span class="value">núcleo</span></div><div class="bar-row"><span>Aprendizaje automático</span><div class="track"><div class="fill" style="width:74%"></div></div><span class="value">modelo</span></div><div class="bar-row"><span>Reglas de decisión</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="value">alertas</span></div></div></article></div>
       </section>
       <section id="week2" class="exercise"><div class="exercise-title"><div><h1>Semana 02 · Fundamentos</h1><p>Primer modelo de aprendizaje automático aplicado a imágenes de placas.</p></div><span class="tag">Logistic Regression</span></div><div class="resource-links"><strong>Evidencia y resultados</strong><a class="resource-link" href="../src/semana02_fundamentos.py" target="_blank" rel="noopener">Abrir script</a><a class="resource-link" href="../data/dataset/README.dataset.txt" target="_blank" rel="noopener">Ver dataset</a></div><div class="grid"><article class="panel"><div class="panel-head"><div><h2>Flujo del ejercicio</h2><p>Preparación, entrenamiento y evaluación.</p></div></div><div class="timeline"><div class="step"><strong>01 · Carga</strong><span>Imágenes en escala de grises<br>64 × 64 píxeles</span></div><div class="step"><strong>02 · División</strong><span>75% entrenamiento<br>25% prueba</span></div><div class="step"><strong>03 · Modelo</strong><span>StandardScaler<br>max_iter 1000</span></div><div class="step"><strong>04 · Evaluación</strong><span>Accuracy<br>Matriz de confusión</span></div></div></article><article class="panel"><div class="panel-head"><div><h2>Datos del modelo</h2><p>Configuración reproducible.</p></div></div><div class="bars"><div class="bar-row"><span>Entrenamiento</span><div class="track"><div class="fill" style="width:75%"></div></div><span class="value">75%</span></div><div class="bar-row"><span>Prueba</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="value">25%</span></div><div class="bar-row"><span>Semilla aleatoria</span><div class="track"><div class="fill" style="width:42%"></div></div><span class="value">42</span></div></div></article></div><article class="panel"><div class="panel-head"><div><h2>Qué se debe observar</h2><p>El script genera estos resultados al ejecutarse.</p></div></div><table><thead><tr><th>Salida</th><th>Propósito</th></tr></thead><tbody><tr><td>Imágenes cargadas</td><td>Verificar que el dataset tenga pares imagen-etiqueta.</td></tr><tr><td>Clases únicas</td><td>Confirmar las categorías detectadas en las anotaciones.</td></tr><tr><td>Accuracy</td><td>Medir el porcentaje de predicciones correctas.</td></tr><tr><td>Matriz de confusión</td><td>Identificar qué clases se confunden entre sí.</td></tr></tbody></table></article><article class="panel code-viewer" data-exercise="week2" data-source="../src/semana02_fundamentos.py"><div class="panel-head"><div><h2>Código completo de Semana 02</h2><p>Fuente real del ejercicio · selección por línea.</p></div><span class="tag">Archivo completo</span></div><div class="code-layout"><pre class="code" aria-label="Código completo de Semana 02"><iframe class="source-frame" src="../src/semana02_fundamentos.py" title="Código completo de Semana 02"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Cargando código...</h3><p class="explanation-copy">Se está leyendo el archivo Python completo.</p><span class="hint">Lectura guiada</span></aside></div></article></section>
       <section id="week3" class="exercise"><div class="exercise-title"><div><h1>Semana 03 · Taxonomía</h1><p>Clasificación automática de problemas de IA a partir de palabras clave.</p></div><span class="tag">40 casos analizados</span></div><div class="grid"><article class="panel"><div class="panel-head"><div><h2>Distribución de categorías</h2><p>Lectura visual de la referencia del ejercicio.</p></div></div><div class="donut-wrap"><div class="donut"></div><div class="legend"><div><span></span>Visión por computador · 13</div><div><span class="c2"></span>Aprendizaje predictivo · 9</div><div><span class="c3"></span>Procesamiento de lenguaje · 6</div><div><span class="c4"></span>Búsqueda y optimización · 5</div><div><span class="c5"></span>Otras categorías · 7</div></div></div></article><article class="panel"><div class="panel-head"><div><h2>Resultado</h2><p>Coincidencia con clasificación manual.</p></div></div><div class="metric-value">52.50%</div><div class="track"><div class="fill" style="width:52.5%"></div></div><p class="footer">21 de 40 casos coinciden. Las discrepancias muestran que el medio visual no siempre es el objetivo principal del problema.</p></article></div><article class="panel"><div class="panel-head"><div><h2>Reglas propias añadidas</h2><p>Extensiones del vocabulario del dominio de parqueaderos.</p></div></div><table><thead><tr><th>Categoría</th><th>Términos representativos</th><th>Uso</th></tr></thead><tbody><tr><td>Visión por computador</td><td>placa, matrícula, casco, vestimenta</td><td>Identificar elementos visuales.</td></tr><tr><td>Detección de anomalías</td><td>anomalía, sospechoso, alerta</td><td>Separar conductas fuera de lo normal.</td></tr><tr><td>Sistemas expertos</td><td>protocolo, regla, notifique</td><td>Expresar decisiones determinísticas.</td></tr></tbody></table></article><article class="panel code-viewer" data-exercise="week3" data-source="../src/semana03_taxonomia.py"><div class="panel-head"><div><h2>Código completo de Semana 03</h2><p>Fuente real del ejercicio · selección por línea.</p></div><span class="tag">Archivo completo</span></div><div class="code-layout"><pre class="code" aria-label="Código completo de Semana 03"><iframe class="source-frame" src="../src/semana03_taxonomia.py" title="Código completo de Semana 03"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Cargando código...</h3><p class="explanation-copy">Se está leyendo el archivo Python completo.</p><span class="hint">Lectura guiada</span></aside></div></article></section>
@@ -197,6 +202,7 @@
         </div>
         <article class="panel"><div class="panel-head"><div><h2>Reconocimiento → evidencia → significado</h2><p>La clasificación de un carácter alimenta el registro verificable y el conocimiento del dominio.</p></div></div><div class="timeline"><div class="step"><strong>01 · Entrada</strong><span>Recorte de carácter anotado en una placa.</span></div><div class="step"><strong>02 · CNN</strong><span>Predice una de 50 categorías e informa probabilidad.</span></div><div class="step"><strong>03 · SQLite</strong><span>Guarda clase real/predicha, imagen, confianza y fecha.</span></div><div class="step"><strong>04 · GraphML</strong><span>Enlaza modelo, carácter, predicción y evidencia.</span></div></div></article>
         <article class="panel" style="margin-top:18px"><div class="panel-head"><div><h2>Conceptos de la ontología</h2><p>Relaciones que expresan el significado de la predicción en SecurityPlate.</p></div><span class="tag">7 conceptos · 12 relaciones</span></div><table><thead><tr><th>Concepto origen</th><th>Relación</th><th>Concepto destino</th></tr></thead><tbody><tr><td>Imagen de placa</td><td class="status">contiene</td><td>Placa vehicular</td></tr><tr><td>Placa vehicular</td><td class="status">está compuesta por</td><td>Carácter</td></tr><tr><td>Modelo RNA</td><td class="status">analiza / genera</td><td>Carácter / predicción</td></tr><tr><td>Evidencia</td><td class="status">registra</td><td>Predicción</td></tr><tr><td>Verificación de acceso</td><td class="status">utiliza / compara</td><td>Predicción / placa</td></tr></tbody></table><p class="footer">Las 50 clases conservan su ID y fuente en el mapeo generado; el carácter real requiere una fuente de validación.</p></article>
+        <article class="panel code-viewer" data-exercise="week8" data-source="../src/semana08_reconocimiento.py"><div class="panel-head"><div><h2>Código completo de Semana 08</h2><p>Recortes YOLO, CNN, evaluación y trazabilidad. Selecciona una línea para descomponerla.</p></div></div><div class="code-layout"><pre class="code"><iframe class="source-frame" src="../src/semana08_reconocimiento.py" title="Código completo de Semana 08"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Clasificación de caracteres</h3><p class="explanation-copy">El módulo prepara recortes de caracteres, entrena una CNN y registra predicciones.</p></aside></div></article>
       </section>
       <section id="week9" class="exercise">
         <div class="exercise-title"><div><h1>Semana 09 · Visión de placas</h1><p>Contraste, contornos y regiones como preparación para localizar caracteres en SecurityPlate.</p></div><span class="tag">Canny · Otsu · regiones</span></div>
@@ -226,8 +232,30 @@
         <article class="panel vision-baseline"><div class="panel-head"><div><h2>Evidencia reproducible</h2><p>Salida generada por el script a partir de data/imagen_proyecto.png.</p></div></div><img src="../artifacts/semana09_vision.png" alt="Imagen original, Canny, máscara de Otsu y regiones conectadas"></article>
         <article class="panel code-viewer" data-exercise="week9" data-source="../src/semana09_vision.py"><div class="panel-head"><div><h2>Código completo de Semana 09</h2><p>Selecciona una línea para ver su explicación.</p></div></div><div class="code-layout"><pre class="code"><iframe class="source-frame" src="../src/semana09_vision.py" title="Código completo de Semana 09"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Procesamiento de imagen</h3><p class="explanation-copy">El módulo genera características, Canny, Otsu, componentes conectados, evidencia y este reporte.</p></aside></div></article>
       </section>
+      <section id="week10" class="exercise">
+        <div class="exercise-title"><div><h1>Semana 10 · Texturas de placas</h1><p>Histogramas, regiones conectadas y LBP para describir imágenes del conjunto de placas de SecurityPlate.</p></div><span class="tag">Otsu · regionprops · LBP</span></div>
+        <div class="resource-links"><strong>Entregables</strong><a class="resource-link" href="../reports/semana10.md" target="_blank" rel="noopener">Informe comparativo</a><a class="resource-link" href="../src/semana10_texturas.py" target="_blank" rel="noopener">Código</a><a class="resource-link" href="../artifacts/semana10_features.npy" target="_blank" rel="noopener">Vector de características</a><a class="resource-link" href="../artifacts/semana10_histograma.png" target="_blank" rel="noopener">Evidencia visual</a></div>
+        <div class="grid">
+          <article class="panel"><div class="panel-head"><div><h2>Flujo de características</h2><p>Dos imágenes etiquetadas de placas; cada fila del vector corresponde a una imagen.</p></div><span class="tag">53 valores por imagen</span></div><div class="timeline"><div class="step"><strong>01 · Intensidad</strong><span>Histograma global<br>32 intervalos</span></div><div class="step"><strong>02 · Segmentación</strong><span>Umbral automático<br>Otsu</span></div><div class="step"><strong>03 · Regiones</strong><span>Componentes conexos<br>área filtrada</span></div><div class="step"><strong>04 · Textura</strong><span>LBP uniforme<br>radio 2 · 16 vecinos</span></div></div></article>
+          <article class="panel"><div class="panel-head"><div><h2>Aplicación a SecurityPlate</h2><p>Descriptores visuales como evidencia complementaria.</p></div></div><p>Otsu y las regiones resumen agrupaciones de intensidad; LBP compara patrones locales de claro y oscuro. Estos resultados pueden apoyar el análisis de calidad de recortes antes de la CNN de caracteres, pero no sustituyen el reconocimiento ni autorizan accesos.</p></article>
+        </div>
+        <article class="panel vision-baseline"><div class="panel-head"><div><h2>Comparación reproducible</h2><p>Imagen original, máscara Otsu, regiones filtradas, histograma de intensidad y textura LBP.</p></div></div><img src="../artifacts/semana10_histograma.png" alt="Comparación de las dos placas: segmentación Otsu, regiones conectadas e histogramas de intensidad y LBP" style="width:100%;height:auto"></article>
+        <article class="vision-lab">
+          <div class="panel-head"><div><h2>Agregar imágenes para comparar</h2><p>Selecciona de 2 a 4 imágenes PNG, JPG o WebP. Se analizan temporalmente y no se guardan en el repositorio.</p></div><span class="tag">Sin modificar entregables</span></div>
+          <form id="week10-upload-form" class="vision-form" style="grid-template-columns:minmax(0,1fr) auto">
+            <div class="vision-field"><label for="week10-upload-files">Imágenes de placas (máximo total: 20 MB)</label><input id="week10-upload-files" type="file" accept="image/png,image/jpeg,image/webp" multiple required></div>
+            <button class="vision-submit" type="submit">Comparar imágenes</button>
+          </form>
+          <p id="week10-upload-status" class="vision-status" aria-live="polite">Para analizar imágenes propias, inicia el dashboard con python src/semana09_vision.py --serve.</p>
+          <div id="week10-upload-results" hidden>
+            <div id="week10-upload-table" class="vision-table"></div>
+            <figure class="vision-baseline"><img id="week10-upload-preview" alt="Comparación temporal de las imágenes cargadas"><figcaption class="analysis-note">Vista temporal generada en memoria. Los entregables oficiales de Semana 10 permanecen sin cambios.</figcaption></figure>
+          </div>
+        </article>
+        <article class="panel code-viewer" data-exercise="week10" data-source="../src/semana10_texturas.py"><div class="panel-head"><div><h2>Código completo de Semana 10</h2><p>Selecciona una línea para revisar el flujo de extracción de características.</p></div></div><div class="code-layout"><pre class="code"><iframe class="source-frame" src="../src/semana10_texturas.py" title="Código completo de Semana 10"></iframe></pre><aside class="explanation"><h3 class="explanation-title">Descriptores de placas</h3><p class="explanation-copy">El módulo combina segmentación, medición de componentes e histogramas para producir un vector por imagen.</p></aside></div></article>
+      </section>
       <section class="reports-visual" aria-labelledby="reports-title">
-        <div class="reports-head"><div><h2 id="reports-title">Reportes del proyecto</h2><p>Resultados documentados y listos para consultar.</p></div><span class="result-badge">7 evidencias</span></div>
+        <div class="reports-head"><div><h2 id="reports-title">Reportes del proyecto</h2><p>Resultados documentados y listos para consultar.</p></div><span class="result-badge">8 evidencias</span></div>
         <div class="report-grid">
           <article class="report-card"><div><span class="report-kicker">Semana 02</span><h3>Fundamentos</h3><p>Modelo de clasificación aplicado a imágenes de placas.</p></div><div><div class="report-status"><span>Estado</span><strong>COMPLETO</strong></div><a class="resource-link" href="#week2" data-report-target="week2">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 03</span><h3>Taxonomía</h3><p>40 casos clasificados y reglas propias del dominio.</p></div><div><div class="report-status"><span>Coincidencia</span><strong>52.5%</strong></div><a class="resource-link" href="#week3" data-report-target="week3">Ver reporte visual</a></div></article>
@@ -236,9 +264,10 @@
           <article class="report-card"><div><span class="report-kicker">Semana 07</span><h3>Representaciones</h3><p>Vectores, hechos y autómatas para reconocer salidas.</p></div><div><div class="report-status"><span>Pruebas</span><strong>5 CASOS</strong></div><a class="resource-link" href="#week7" data-report-target="week7">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 08</span><h3>Reconocimiento neuronal</h3><p>CNN para caracteres con evidencia SQLite y ontología GraphML.</p></div><div><div class="report-status"><span>Accuracy test</span><strong>50.46%</strong></div><a class="resource-link" href="#week8" data-report-target="week8">Ver reporte visual</a></div></article>
           <article class="report-card"><div><span class="report-kicker">Semana 09</span><h3>Visión de placas</h3><p>Canny, umbral Otsu y regiones conectadas en una imagen del proyecto.</p></div><div><div class="report-status"><span>Regiones base</span><strong>78</strong></div><a class="resource-link" href="#week9" data-report-target="week9">Ver reporte visual</a></div></article>
+          <article class="report-card"><div><span class="report-kicker">Semana 10</span><h3>Histogramas y texturas</h3><p>Comparación LBP, Otsu y características de dos placas del proyecto.</p></div><div><div class="report-status"><span>Descriptores</span><strong>2 × 53</strong></div><a class="resource-link" href="#week10" data-report-target="week10">Ver reporte visual</a></div></article>
         </div>
       </section>
-      <div class="footer">Fuente: ejercicios en <strong>src/</strong>, datos en <strong>data/casos_ia.csv</strong> y resultados documentados en <strong>reports/</strong>.</div>
+      <div class="footer">Fuente: ejercicios en <strong>src/</strong>, imágenes de placas en <strong>data/dataset/</strong> y resultados documentados en <strong>reports/</strong>.</div>
     </main>
   </div>
   <script>
@@ -253,6 +282,57 @@
       week7: { label:'Semana 07 · Representaciones de reconocimiento' },
       week8: { label:'Semana 08 · Reconocimiento neuronal SecurityPlate' },
       week9: { label:'Semana 09 · Visión por computador SecurityPlate' }
+    };
+    sourceData.week10 = { label:'Semana 10 · Histogramas y texturas LBP' };
+    const moduleGuides = {
+      week2: {
+        flow:'Carga imagenes y etiquetas, las convierte en caracteristicas numericas, divide los datos, entrena Logistic Regression y compara predicciones con etiquetas reales.',
+        blocks:{load_data:'Lee las imagenes y etiquetas, valida que correspondan y devuelve X (pixeles) e y (clases).'}
+      },
+      week3: {
+        flow:'Lee casos desde CSV, normaliza texto, puntua palabras clave por categoria, aplica reglas propias, compara con la referencia y genera un reporte.',
+        blocks:{Category:'Define una categoria de IA y sus palabras clave para poder puntuar descripciones de casos.',normalize:'Unifica mayusculas, tildes y espacios para que variantes de una palabra puedan compararse.',classify_problem:'Calcula evidencia por categoria y devuelve la categoria mejor puntuada junto con las coincidencias.',read_cases:'Carga los casos de entrada desde el CSV y normaliza sus encabezados.',write_report:'Transforma los resultados de clasificacion en tablas y texto Markdown.',main:'Coordina lectura, clasificacion, evaluacion y escritura del reporte.'}
+      },
+      astar: {
+        flow:'Representa cada version de la matricula como un estado, genera mejoras visuales, calcula costo g y heuristica h, y explora primero el estado con menor f = g + h.',
+        blocks:{EstadoMatricula:'Guarda una version de la matricula: rotacion, brillo, contraste, denoise y confianza estimada.',NodoAStar:'Guarda un estado, su costo, heuristica y padre para reconstruir la ruta.',simular_confianza_ocr:'Estima como rotacion, brillo, contraste y reduccion de ruido afectarian la confianza OCR; es una simulacion, no un OCR real.',calcular_heuristica:'Estima cuanto falta para alcanzar la confianza objetivo.',obtener_sucesores:'Genera estados vecinos mediante acciones visuales y les asigna un costo.',astar_normalizar_matricula:'Usa una cola de prioridad para expandir estados, evitar repetidos y detenerse al alcanzar la meta.',reconstruir_camino:'Sigue los enlaces padre desde la meta al inicio para recuperar la secuencia de acciones.',imprimir_solucion:'Presenta estados, acciones, costo y nodos explorados.',main:'Ejecuta los escenarios de busqueda y comunica sus resultados.'}
+      },
+      minimax: {
+        flow:'Construye un arbol de decisiones con utilidad en las hojas. MAX elige el mayor valor, MIN el menor; alfa-beta omite ramas que no pueden cambiar la decision.',
+        blocks:{NodoMinimax:'Representa una decision o resultado terminal y guarda hijos, turno MAX/MIN y utilidad.',crear_arbol_cascos:'Construye el escenario de verificaciones y asigna utilidades a sus resultados.',minimax:'Explora el arbol hasta las hojas y propaga valores alternando maximizacion y minimizacion.',minimax_alfabeta:'Hace la misma decision, pero corta ramas cuando alfa ya supera beta.',imprimir_arbol:'Muestra la estructura jerarquica y el valor de cada nodo.',imprimir_resultado_minimax:'Compara decision, utilidad y cantidad de nodos revisados.',caso_3_comparativa_sin_con_poda:'Ejecuta el mismo arbol con y sin poda para comparar trabajo y decision.',main:'Ejecuta los casos de prueba de Minimax.'}
+      },
+      week5: {
+        flow:'Combina reglas explicitas, recuperacion TF-IDF de evidencia y clasificacion KNN para producir una respuesta explicable a cada consulta vehicular.',
+        blocks:{ResultadoConsulta:'Agrupa en un solo resultado la regla, accion, evidencia, similitud y clasificacion.',cargar_base_conocimiento:'Lee los documentos de referencia o crea la base inicial si aun no existe.',construir_clasificador:'Convierte ejemplos en vectores TF-IDF y ajusta KNN para clasificar consultas.',evaluar_reglas:'Busca condiciones conocidas y decide si corresponde autorizar, bloquear o revisar.',recuperar_informacion:'Compara la consulta con documentos y devuelve el fragmento mas cercano y su similitud.',procesar_consulta:'Integra regla, evidencia recuperada y clase predicha en una respuesta estructurada.',write_report:'Guarda consultas y resultados para revisar el comportamiento del sistema.',main:'Carga recursos, procesa las consultas de ejemplo y genera el reporte.'}
+      },
+      week7: {
+        flow:'Evalua cada salida con tres representaciones independientes: distancia entre vectores, reglas sobre hechos y un automata que valida el orden de eventos.',
+        blocks:{CasoPrueba:'Representa una fila validada del CSV y conserva sus variables y el resultado esperado.',cargar_casos_prueba:'Lee los escenarios CSV y convierte sus valores a tipos adecuados.',vectorizar_caso:'Normaliza confianza, coincidencia, calidad y registro en un vector numerico.',distancia_euclidiana:'Mide la distancia entre el caso y el patron numerico autorizable.',construir_hechos_salida:'Convierte valores y umbrales en hechos booleanos interpretables.',aplicar_regla_autorizacion:'Autoriza solo cuando todos los hechos requeridos estan presentes.',acepta_protocolo_salida:'Recorre las transiciones del automata y rechaza eventos fuera de orden.',evaluar_caso:'Combina los resultados numerico, simbolico y de automata para un caso.',generar_reporte:'Documenta resultados y comparaciones en Markdown.',main:'Ejecuta los casos, verifica resultados y genera el informe.'}
+      },
+      week8: {
+        flow:'Lee anotaciones YOLO, recorta caracteres, convierte cada recorte a gris y 32 x 32, entrena una CNN, evalua en datos separados y registra predicciones en SQLite y GraphML.',
+        blocks:{RecortesYOLO:'Interpreta cajas YOLO y produce recortes etiquetados para entrenamiento.',RedCaracteres:'Define las capas convolucionales y la capa final de clasificacion.',cargar_clases:'Lee los nombres de clase de data.yaml para conservar la correspondencia entre IDs y categorias.',__getitem__:'Abre la imagen, aplica la caja, convierte a gris, redimensiona y normaliza los pixeles.',preparar_ontologia:'Crea conceptos y relaciones del dominio de placas y caracteres.',registrar_evidencia:'Inserta la prediccion en SQLite y enlaza su evidencia en la ontologia.',evaluar:'Calcula perdida, accuracy, F1 y predicciones sobre una particion.',entrenar:'Coordina datasets, CNN, optimizacion, seleccion por validacion, prueba y artefactos.',predict:'Clasifica un recorte individual y persiste la evidencia.',regenerar_reporte:'Reconstruye el informe con metricas ya guardadas.',main:'Interpreta argumentos de consola y ejecuta entrenamiento, prediccion o reporte.'}
+      },
+      week9: {
+        flow:'Valida y reduce el tamano de la imagen, calcula intensidad y color, suaviza antes de Canny, separa pixeles con Otsu, etiqueta componentes y genera figura e informe.',
+        blocks:{Semana09Handler:'Extiende el servidor HTTP para entregar resultados y aceptar imagenes del dashboard.',preparar_imagen:'Valida canales y dimensiones, reduce imagenes grandes y unifica el formato de color.',_detectar_bordes:'Aplica suavizado gaussiano controlado por sigma y luego Canny para obtener contornos.',analizar_imagen:'Calcula estadisticas, bordes, umbral, mascara y regiones filtradas; devuelve resultados para el reporte y la interfaz.',_panel:'Ajusta una salida al panel y agrega un titulo legible.',guardar_evidencia:'Compone original, Canny, mascara y regiones en una sola imagen PNG.',generar_reporte:'Inserta metricas reales y limitaciones en el informe Markdown.',ejecutar:'Lee la imagen reproducible, procesa y actualiza evidencia e informe.',serializar_resultado:'Convierte metricas y vistas a JSON para que la interfaz las pueda mostrar.',do_GET:'Entrega los resultados base o archivos estaticos al navegador.',do_POST:'Recibe una imagen temporal, ejecuta el analisis y devuelve resultados sin guardarla.',servir:'Levanta el dashboard y la API local en el puerto elegido.',main:'Procesa argumentos, genera entregables y opcionalmente inicia el servidor.'}
+      }
+    };
+    moduleGuides.week10 = {
+      flow:'Carga dos imagenes etiquetadas de placas, convierte a gris, calcula Otsu, mide componentes conectados, resume intensidad y textura LBP, y guarda una matriz de caracteristicas con su informe.',
+      blocks:{
+        ImageSpec:'Describe la ruta, el nombre y el contexto de cada imagen del proyecto.',
+        ImageAnalysis:'Agrupa las matrices intermedias, las mediciones por region, los histogramas y el vector de una imagen.',
+        cargar_imagen_gris:'Lee una imagen, la convierte a 8 bits en escala de grises y limita su lado mayor.',
+      preparar_imagen_gris:'Convierte una matriz RGB, RGBA o gris a intensidades y limita su resolucion.',
+      analizar_cargas_temporales:'Valida entre dos y cuatro cargas, comprueba el tamano total y analiza las imagenes sin persistirlas.',
+      leer_imagen_subida:'Decodifica formatos admitidos y rechaza archivos invalidos o imagenes de resolucion excesiva.',
+      analizar_imagen:'Calcula la mascara Otsu, etiqueta componentes, filtra por area y construye histogramas de intensidad y LBP.',
+      guardar_evidencia:'Genera una figura comparativa con imagen, mascara, regiones y los dos histogramas.',
+      serializar_comparacion_temporal:'Devuelve metricas, comparacion LBP y una vista previa en memoria para el dashboard.',
+      generar_reporte:'Documenta las imagenes, metricas de segmentacion, comparacion LBP y limitaciones.',
+      ejecutar:'Procesa al menos dos imagenes y guarda la matriz NPY, la figura y el reporte semanal.'
+      }
     };
     const visualSummaries = {
       week2: [
@@ -292,6 +372,12 @@
         ['F1 macro test', '45.21%', 'promedio entre categorías', 45.21]
       ]
     };
+    visualSummaries.week10 = [
+      ['Imágenes', '2', 'placas del conjunto etiquetado', 100],
+      ['Segmentación', 'Otsu', 'umbral por histograma', 100],
+      ['Textura', 'LBP · P=16', 'patrones locales', 80],
+      ['Vector', '53 × 2', 'características por placa', 90]
+    ];
     const reportPaths = {
       week2: '../reports/semana02.md?v=2',
       week3: '../reports/semana03.md?v=2',
@@ -301,6 +387,7 @@
       week8: '../reports/semana08.md?v=1',
       week9: '../reports/semana09.md?v=1'
     };
+    reportPaths.week10 = '../reports/semana10.md?v=1';
     function inlineMarkdown(text) {
       return escapeHtml(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
     }
@@ -474,6 +561,72 @@
         }
       });
     }
+    function addWeek10ImageAnalyzer() {
+      const form = document.querySelector('#week10-upload-form');
+      const fileInput = document.querySelector('#week10-upload-files');
+      const status = document.querySelector('#week10-upload-status');
+      const results = document.querySelector('#week10-upload-results');
+      const submit = form.querySelector('button[type="submit"]');
+      form.addEventListener('submit', async event => {
+        event.preventDefault();
+        const files = [...fileInput.files];
+        const totalBytes = files.reduce((total, file) => total + file.size, 0);
+        if (files.length < 2 || files.length > 4) {
+          status.textContent = 'Selecciona entre 2 y 4 imágenes para compararlas.';
+          return;
+        }
+        if (files.some(file => !['image/png', 'image/jpeg', 'image/webp'].includes(file.type))) {
+          status.textContent = 'Usa imágenes PNG, JPG o WebP.';
+          return;
+        }
+        if (totalBytes > 20 * 1024 * 1024) {
+          status.textContent = 'El tamaño total de las imágenes no puede superar 20 MB.';
+          return;
+        }
+
+        submit.disabled = true;
+        fileInput.disabled = true;
+        results.hidden = true;
+        status.textContent = 'Procesando imágenes en memoria…';
+        try {
+          const images = await Promise.all(files.map(file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve({ name:file.name, data:reader.result });
+            reader.onerror = () => reject(new Error(`No se pudo leer ${file.name}.`));
+            reader.readAsDataURL(file);
+          })));
+          const response = await fetch('/api/week10/analyze', {
+            method:'POST',
+            headers:{ 'Content-Type':'application/json' },
+            body:JSON.stringify({ images })
+          });
+          const result = await response.json();
+          if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+
+          const rows = result.images.map(image => `
+            <tr><td>${escapeHtml(image.name)}</td><td>${Number(image.threshold).toFixed(0)}</td>
+            <td>${Number(image.selected_percent).toFixed(2)}%</td><td>${image.region_count} / ${image.raw_region_count}</td>
+            <td>${Number(image.area_mean).toFixed(2)}</td><td>${Number(image.area_std).toFixed(2)}</td></tr>`).join('');
+          const comparisons = result.comparisons.map(pair => `
+            <tr><td>${escapeHtml(pair.first)} vs. ${escapeHtml(pair.second)}</td>
+            <td>${Number(pair.lbp_distance).toFixed(4)}</td></tr>`).join('');
+          document.querySelector('#week10-upload-table').innerHTML = `
+            <table><caption>Resultados temporales de segmentación y regiones</caption>
+            <thead><tr><th>Imagen</th><th>Otsu</th><th>Píxeles sobre umbral</th><th>Regiones filtradas / totales</th><th>Área media</th><th>Desviación</th></tr></thead>
+            <tbody>${rows}</tbody></table>
+            <table><caption>Comparación de distancia L1 entre histogramas LBP</caption>
+            <thead><tr><th>Par de imágenes</th><th>Distancia L1</th></tr></thead><tbody>${comparisons}</tbody></table>`;
+          document.querySelector('#week10-upload-preview').src = result.preview;
+          results.hidden = false;
+          status.textContent = 'Análisis temporal terminado. No se modificaron el informe ni los artefactos guardados.';
+        } catch (error) {
+          status.textContent = `No se pudieron analizar las imágenes. Ejecuta python src/semana09_vision.py --serve. Detalle: ${error.message}`;
+        } finally {
+          submit.disabled = false;
+          fileInput.disabled = false;
+        }
+      });
+    }
     const resultLinks = {
       week3: [
         ['Abrir reporte', '../reports/semana03.md'],
@@ -511,6 +664,14 @@
         const details = {
           cv2: 'Abre y transforma imágenes, además de aplicar operaciones de visión por computador.',
           numpy: 'Crea arreglos numéricos y matrices para representar píxeles, vectores y resultados.',
+          torch: 'Proporciona tensores, capas, optimizadores y ejecución de redes neuronales.',
+          argparse: 'Lee opciones de consola para configurar el archivo de entrada, sigma o servidor.',
+          json: 'Convierte resultados estructurados a JSON para guardarlos o enviarlos al navegador.',
+          sqlite3: 'Abre la base SQLite que conserva las predicciones y sus datos asociados.',
+          base64: 'Codifica imágenes como texto para enviarlas en una respuesta JSON al navegador.',
+          random: 'Controla decisiones aleatorias para que el experimento sea reproducible.',
+          uuid: 'Genera identificadores únicos para distinguir ejecuciones y registros.',
+          datetime: 'Registra la fecha y hora local de cada evidencia.',
           sklearn: 'Proporciona algoritmos y métricas de aprendizaje automático.',
           heapq: 'Implementa una cola de prioridad para ordenar nodos por costo y heurística.',
           pathlib: 'Gestiona rutas del proyecto y simplifica la lectura de archivos.',
@@ -531,16 +692,31 @@
         const details = {
           pathlib: 'Permite construir rutas del proyecto con Path y evitar errores por separadores de carpeta.',
           dataclasses: 'Permite declarar clases con atributos bien definidos usando @dataclass.',
+          skimage: 'Proporciona operaciones de procesamiento de imagen, umbralado, etiquetado y medicion de regiones.',
+          'skimage.feature': 'Trae el descriptor local_binary_pattern para resumir texturas en cada imagen.',
+          'skimage.filters': 'Trae threshold_otsu para calcular un umbral a partir de la distribucion de intensidades.',
+          'skimage.measure': 'Trae label y regionprops para etiquetar y medir componentes conectados.',
+          'skimage.transform': 'Redimensiona imagenes grandes preservando su proporcion.',
+          'skimage.util': 'Convierte las intensidades a una representacion uint8 de 8 bits.',
+          'matplotlib.pyplot': 'Genera y guarda la figura comparativa de histogramas y segmentacion.',
           'sklearn.model_selection': 'Trae train_test_split para dividir datos en entrenamiento y prueba.',
           'sklearn.pipeline': 'Permite encadenar pasos como normalización y modelo en una sola tubería.',
           'sklearn.preprocessing': 'Trae StandardScaler para escalar características antes de entrenar.',
           'sklearn.linear_model': 'Proporciona LogisticRegression para clasificación supervisada.',
           'sklearn.metrics': 'Trae accuracy_score y confusion_matrix para evaluar resultados.',
+          'sklearn.model_selection': 'Trae herramientas para separar ejemplos de entrenamiento y prueba.',
           'sklearn.feature_extraction.text': 'Trae TfidfVectorizer para convertir texto en vectores numéricos.',
           'sklearn.metrics.pairwise': 'Trae cosine_similarity para comparar textos por cercanía semántica.',
           'sklearn.neighbors': 'Trae KNeighborsClassifier para hacer clasificación por vecinos cercanos.',
           typing: 'Trae tipos como List, Optional, Tuple para documentar firmas de funciones.',
           collections: 'Trae estructuras útiles para organizar datos y recorridos.',
+          'torch.nn': 'Proporciona capas y módulos para definir la arquitectura de la CNN.',
+          'torch.utils.data': 'Proporciona Dataset y DataLoader para organizar ejemplos y lotes de entrenamiento.',
+          'PIL': 'Abre y transforma imágenes antes de recortar y normalizar caracteres.',
+          'urllib.parse': 'Interpreta rutas y parámetros de la solicitud HTTP.',
+          'http.server': 'Sirve archivos del proyecto y recibe solicitudes de la interfaz local.',
+          'functools': 'Adapta el manejador HTTP para fijar el directorio servido.',
+          'pathlib': 'Construye rutas del proyecto de manera independiente al separador del sistema.',
         };
 
         if (details[target]) return `Este from importa ${imported} desde ${target}. En este proyecto se usa para ${details[target]}`;
@@ -658,12 +834,45 @@
           acepta_protocolo_salida: {
             secuencia: 'eventos codificados como I, P, C y S'
           }
+        },
+        week8: {
+          RecortesYOLO: { split: 'particion train, valid o test que se va a leer' },
+          __init__: { split: 'particion de imagenes y anotaciones que se usara como dataset' },
+          __getitem__: { index: 'posicion del recorte que el DataLoader solicita' },
+          RedCaracteres: { class_count: 'numero de categorias que debe producir la ultima capa' },
+          forward: { inputs: 'lote de tensores de caracteres que atraviesa las capas de la CNN' },
+          evaluar: { model: 'CNN que se va a medir', loader: 'lotes de la particion que se evalua' },
+          entrenar: { epochs: 'cantidad maxima de recorridos por los datos de entrenamiento', batch_size: 'cantidad de recortes procesados antes de actualizar los pesos' },
+          predict: { image_path: 'ruta al recorte de un unico caracter', actual_class_id: 'etiqueta opcional para comparar con la prediccion' }
+        },
+        week9: {
+          preparar_imagen: { image: 'matriz de pixeles cargada desde archivo o recibida por la interfaz' },
+          _detectar_bordes: { gray: 'imagen de intensidades en escala de grises', sigma: 'suavizado gaussiano antes de Canny' },
+          analizar_imagen: { image: 'imagen de entrada en BGR, BGRA o escala de grises', sigma: 'nivel de suavizado usado antes de Canny' },
+          guardar_evidencia: { result: 'metricas e imagenes generadas por analizar_imagen' },
+          generar_reporte: { result: 'resultados numericos del procesamiento', image_name: 'ruta relativa o nombre de la imagen analizada' },
+          ejecutar: { image_path: 'imagen reproducible que se guarda en el informe', sigma: 'nivel de suavizado Canny para la ejecucion base' },
+          do_POST: { self: 'manejador HTTP que recibe la imagen enviada desde el formulario' },
+          servir: { host: 'interfaz de red local para enlazar el servicio', port: 'puerto donde se publica el dashboard y la API' }
         }
+      };
+      paramHints.week10 = {
+        cargar_imagen_gris: { image_path: 'ruta al archivo de imagen de placa que se va a procesar' },
+        analizar_imagen: {
+          image: 'matriz de intensidades uint8 en escala de grises',
+          title: 'nombre legible que identifica la imagen en las tablas y la figura',
+          description: 'contexto de la placa analizada',
+          source: 'ruta relativa del archivo de entrada'
+        },
+        guardar_evidencia: { results: 'analisis de cada imagen, con matrices e histogramas' },
+        generar_reporte: { results: 'metricas y vectores calculados para al menos dos imagenes' },
+        ejecutar: { image_specs: 'lista de imagenes del proyecto que se deben procesar' }
       };
 
       const hints = paramHints[key]?.[functionName] || {};
+      const blockPurpose = moduleGuides[key]?.blocks?.[functionName];
       if (params.length === 0) {
-        return `La función ${functionName} no recibe parámetros directamente; en este ejercicio, su trabajo es ${key === 'week5' ? 'cargar, transformar y evaluar la consulta con reglas y clasificación' : key === 'minimax' ? 'construir o evaluar el árbol de decisiones adversarial' : 'coordinar el flujo principal del ejercicio'}.`;
+        return `La firma declara ${functionName} sin parámetros; la función obtiene sus datos del módulo o prepara su propia salida.`;
       }
 
       const explained = params.map(param => {
@@ -672,7 +881,7 @@
         return `${cleanParam}: ${hint}`;
       }).join('; ');
 
-      return `La función ${functionName} recibe ${explained}. En esta lectura guiada, esos parámetros son la entrada que viene desde el resto del programa y determina cómo se construye la salida final.`;
+      return `La firma declara ${functionName} con estas entradas: ${explained}. El propósito del bloque se resume arriba.`;
     }
 
     function describeAssignment(name, value, key) {
@@ -752,7 +961,58 @@
           TRANSICIONES_AUTOMATA: 'relaciona cada estado y símbolo con el siguiente estado del protocolo.',
           estado: 'guarda el estado actual mientras se recorre la secuencia del protocolo.',
           secuencias: 'contiene los casos de prueba aceptados y rechazados por el autómata.'
+        },
+        week8: {
+          ROOT_DIR: 'ubica la raiz del repositorio para que las rutas funcionen desde cualquier directorio.',
+          DATASET_DIR: 'apunta al dataset de placas con imagenes y anotaciones YOLO.',
+          ARTIFACTS_DIR: 'reune modelo, metricas, predicciones y evidencias persistentes.',
+          IMAGE_SIZE: 'define que cada recorte se redimensiona a 32 por 32 pixeles.',
+          RANDOM_SEED: 'fija la semilla para poder repetir la particion y el entrenamiento.',
+          class_names: 'guarda las categorias declaradas en data.yaml.',
+          class_id: 'identificador numerico de la categoria YOLO.',
+          image_path: 'ruta de la imagen original que contiene uno o varios caracteres anotados.',
+          crop: 'recorte del caracter delimitado por su caja anotada.',
+          tensor: 'matriz de pixeles normalizada que la CNN puede procesar.',
+          optimizer: 'actualiza los pesos de la red para reducir la perdida.',
+          criterion: 'calcula el error entre las categorias predichas y las reales.',
+          best_state: 'copia de los pesos con mejor F1 en validacion, antes de evaluar test.',
+          test_metrics: 'metricas y predicciones calculadas sobre el conjunto de prueba.',
+          graph: 'grafo de conceptos y relaciones del dominio de reconocimiento de placas.'
+        },
+        week9: {
+          ROOT_DIR: 'raiz del proyecto usada para resolver rutas de entrada, reporte y evidencia.',
+          IMAGE_PATH: 'imagen fija que hace reproducible el procesamiento de Semana 9.',
+          EVIDENCE_PATH: 'ruta del PNG comparativo que genera el modulo.',
+          REPORT_PATH: 'ruta del informe Markdown regenerado con las metricas reales.',
+          MAX_IMAGE_SIDE: 'limita el lado mayor para reducir tiempo y memoria sin cambiar la proporcion.',
+          MAX_UPLOAD_BYTES: 'limita el tamano de archivo aceptado por la API local.',
+          SIGMA_COMPARISON: 'valores usados para cuantificar como el suavizado cambia la cantidad de bordes.',
+          gray: 'imagen de una sola intensidad por pixel que alimenta Canny y Otsu.',
+          edges: 'mapa binario que conserva los bordes detectados por Canny.',
+          threshold: 'intensidad global calculada por Otsu para separar pixeles.',
+          binary: 'mascara inicial que marca como blanco los pixeles sobre el umbral.',
+          labels: 'matriz donde cada componente conectado tiene una etiqueta numerica.',
+          stats: 'area y caja delimitadora calculadas para cada componente.',
+          minimum_area: 'filtro que descarta componentes pequenos que probablemente son ruido.',
+          regions: 'etiquetas cuyo tamano supera el area minima.',
+          mask: 'mascara binaria con los pixeles por encima del umbral Otsu; es la entrada para etiquetar componentes.',
+          binary: 'resultado inicial de aplicar el umbral automatico; blanco significa intensidad por encima del corte.',
+          channel_means: 'promedio de cada canal de color, una referencia numerica sencilla sobre el color de la imagen.',
+          comparison_edges: 'mapa de Canny calculado con uno de los sigmas de comparacion.',
+          comparison: 'porcentaje de bordes para cada sigma de la tabla del informe.',
+          result: 'diccionario que agrupa metricas e imagenes intermedias del analisis.'
         }
+      };
+      assignmentHints.week10 = {
+        IMAGE_SPECS: 'declara las dos placas del conjunto de prueba que se comparan de forma reproducible.',
+        threshold: 'umbral global elegido automaticamente desde el histograma de intensidad.',
+        mask: 'mascara binaria que marca los pixeles por encima del umbral de Otsu.',
+        labels: 'matriz en la que cada componente conectado recibe una etiqueta.',
+        filtered_labels: 'etiquetas de regiones que superan el area minima.',
+        intensity_histogram: 'proporciones de pixeles en los 32 intervalos de intensidad.',
+        lbp_histogram: 'proporciones de codigos de textura local LBP uniforme.',
+        features: 'vector de 53 valores que concatena medidas de regiones, intensidad y textura.',
+        results: 'lista ordenada de analisis, uno por cada imagen seleccionada.'
       };
 
       const knownDescription = assignmentHints[key]?.[name];
@@ -787,6 +1047,71 @@
       return `Esta línea almacena ${name}. El valor que recibe viene de ${value}, y después se reutiliza en otra parte del flujo para continuar el cálculo o la salida final.`;
     }
 
+    function describeOperation(line, key) {
+      const operations = [
+        [/threshold_otsu\(/, 'Elige un umbral a partir de la distribucion de intensidades para formar una mascara binaria.'],
+        [/measure\.label\(/, 'Asigna una etiqueta distinta a cada grupo de pixeles conectados de la mascara.'],
+        [/measure\.regionprops\(/, 'Calcula propiedades medibles de cada componente, como su area en pixeles.'],
+        [/local_binary_pattern\(/, 'Compara cada pixel con sus vecinos y genera codigos que describen la textura local.'],
+        [/np\.histogram\(/, 'Cuenta pixeles o codigos en intervalos fijos y resume su distribucion.'],
+        [/np\.concatenate\(/, 'Une medidas de regiones y los histogramas en un unico vector de caracteristicas.'],
+        [/np\.save\(/, 'Guarda la matriz numerica en formato NPY para volver a cargarla sin recalcular la imagen.'],
+        [/_detectar_bordes\(/, 'Llama al paso que primero suaviza la imagen con el sigma elegido y despues aplica Canny; el resultado es una matriz de bordes.'],
+        [/cv2\.GaussianBlur/, 'Suaviza la imagen con una ventana gaussiana. sigma controla cuánto se mezclan los pixeles vecinos antes de buscar bordes.'],
+        [/cv2\.Canny/, 'Convierte los cambios de intensidad en un mapa de bordes usando los umbrales bajo y alto indicados.'],
+        [/cv2\.threshold/, 'Calcula o aplica un umbral; con THRESH_OTSU OpenCV elige el valor a partir del histograma.'],
+        [/connectedComponentsWithStats/, 'Agrupa pixeles blancos vecinos, asigna una etiqueta y calcula el área de cada componente.'],
+        [/cv2\.resize/, 'Cambia el tamaño de la imagen; INTER_AREA es apropiado al reducir porque promedia zonas de pixeles.'],
+        [/cv2\.cvtColor/, 'Cambia la representación de color, por ejemplo de BGR a gris para procesar intensidad.'],
+        [/cv2\.addWeighted/, 'Combina la imagen original y la capa de regiones para superponer etiquetas de color.'],
+        [/np\.count_nonzero/, 'Cuenta pixeles distintos de cero; al dividir por el total se obtiene el porcentaje de bordes o pixeles seleccionados.'],
+        [/np\.mean\(|\.mean\(/, 'Calcula la intensidad promedio, una medida global del brillo de la imagen.'],
+        [/\.std\(/, 'Calcula la desviación estándar; resume cuánto varían los valores respecto al promedio.'],
+        [/torch\.Conv2d|nn\.Conv2d/, 'Aplica filtros aprendibles que detectan patrones locales, como trazos y bordes de caracteres.'],
+        [/MaxPool2d/, 'Reduce el ancho y alto del mapa de características conservando activaciones destacadas.'],
+        [/CrossEntropyLoss/, 'Mide el error de clasificación comparando logits con la clase correcta.'],
+        [/loss\.backward/, 'Calcula gradientes para saber cómo ajustar cada peso de la red y reducir la pérdida.'],
+        [/optimizer\.step/, 'Actualiza los pesos de la CNN usando los gradientes calculados en esta iteración.'],
+        [/DataLoader/, 'Agrupa ejemplos en lotes y opcionalmente los mezcla antes de entregarlos al modelo.'],
+        [/sqlite3\.connect/, 'Abre la base SQLite dentro de un contexto que confirma o cierra la conexión al terminar.'],
+        [/nx\.write_graphml|write_graphml/, 'Serializa la ontología como GraphML para conservar conceptos y relaciones en un archivo.'],
+        [/torch\.save/, 'Guarda pesos del modelo y metadatos para poder reproducir inferencias después.'],
+        [/torch\.load/, 'Recupera desde disco los pesos y metadatos de un modelo entrenado.'],
+        [/\.write_text\(/, 'Escribe texto en el archivo indicado; aquí persiste el reporte generado automáticamente.'],
+        [/ThreadingHTTPServer/, 'Crea un servidor HTTP local que puede atender más de una solicitud al mismo tiempo.'],
+        [/serve_forever/, 'Mantiene el servidor atendiendo solicitudes hasta que se detiene con Ctrl+C.'],
+        [/TfidfVectorizer|fit_transform/, 'Convierte documentos de texto en vectores ponderados por frecuencia y rareza de términos.'],
+        [/cosine_similarity/, 'Compara la orientación de dos vectores de texto; valores mayores indican mayor similitud.'],
+        [/KNeighborsClassifier/, 'Clasifica una consulta usando las etiquetas de sus ejemplos vecinos más cercanos.'],
+        [/train_test_split/, 'Separa ejemplos para entrenar y evaluar sin medir el modelo con los mismos datos que aprendió.'],
+        [/confusion_matrix/, 'Cuenta aciertos y confusiones por clase; permite ver qué categorías se intercambian.'],
+        [/heapq\./, 'Inserta o extrae el estado con mejor prioridad de A*, ordenado por su costo estimado f = g + h.'],
+        [/\.backward\(/, 'Propaga el error hacia atrás para calcular cuánto contribuye cada parámetro al resultado.'],
+        [/\.mkdir\(/, 'Crea una carpeta de salida; exist_ok evita error cuando ya estaba creada.'],
+        [/json\.loads/, 'Interpreta texto JSON y lo convierte en diccionarios y listas de Python.'],
+        [/argparse/, 'Define argumentos de consola para que la misma aplicación pueda configurarse al ejecutarse.']
+      ];
+      const match = operations.find(([pattern]) => pattern.test(line));
+      return match ? match[1] : null;
+    }
+    function describeSelectedBlock(lines, index, key) {
+      const selectedIndent = lines[index].length - lines[index].trimStart().length;
+      let scope = null;
+      for (let cursor = index; cursor >= 0; cursor -= 1) {
+        const match = lines[cursor].match(/^(\s*)(?:async\s+)?(def|class)\s+([A-Za-z_][A-Za-z0-9_]*)/);
+        if (!match) continue;
+        const scopeIndent = match[1].length;
+        if (cursor === index || selectedIndent > scopeIndent) {
+          scope = { index:cursor, kind:match[2], name:match[3] };
+          break;
+        }
+      }
+      if (!scope) return { name:'nivel del módulo', summary:moduleGuides[key]?.flow || 'Prepara y coordina el ejercicio.' };
+      const knownSummary = moduleGuides[key]?.blocks?.[scope.name];
+      if (knownSummary) return { name:scope.name, summary:knownSummary };
+      if (scope.kind === 'def') return { name:scope.name, summary:describeFunctionSignature(scope.name, lines[scope.index].trim(), key) };
+      return { name:scope.name, summary:`Esta clase agrupa datos y operaciones relacionados. ${moduleGuides[key]?.flow || ''}` };
+    }
     function explainLine(line, key, index, lines) {
       const text = line.trim();
       const previous = lines.slice(0, index).reverse().find(item => item.trim());
@@ -794,6 +1119,7 @@
       const className = text.match(/^class\s+([A-Za-z_]+)/)?.[1];
       const assignmentMatch = text.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.+)$/);
       const importHint = describeImport(text);
+      const operationHint = describeOperation(text, key);
 
       if (!text) return 'Esta línea está vacía para separar visualmente bloques y facilitar la lectura del programa.';
       if (text.startsWith('#') || text.startsWith('"""') || text.startsWith("''")) return `Es documentación del ejercicio. Explica la intención del bloque siguiente sin cambiar el resultado de la ejecución: ${text}`;
@@ -806,6 +1132,9 @@
         if (key === 'astar') return 'En A*, esta clase representa el estado de una matrícula y sus atributos físicos actuales. Los campos de la clase son la información que va variando durante la búsqueda.';
         if (key === 'minimax') return 'En Minimax, esta clase define un nodo del árbol. Cada nodo guarda si pertenece a MAX o MIN, cuántos hijos tiene y qué utilidad terminal puede devolver.';
         if (key === 'week5') return 'En la Semana 05, esta clase encapsula el formato de una respuesta final con regla, acción, evidencia, similitud y clase.';
+        if (key === 'week7') return 'Esta clase representa un caso de prueba con datos de entrada y el resultado esperado para las tres representaciones.';
+        if (key === 'week8') return moduleGuides.week8.blocks[className] || 'Esta clase define un conjunto reutilizable de datos u operaciones del flujo de reconocimiento neuronal.';
+        if (key === 'week9') return moduleGuides.week9.blocks[className] || 'Esta clase integra el servidor HTTP que conecta el dashboard con el procesamiento de imagen.';
       }
 
       if (text.startsWith('def ')) {
@@ -815,13 +1144,20 @@
       if (assignmentMatch) {
         const name = assignmentMatch[1].trim();
         const value = assignmentMatch[2].trim();
-        return describeAssignment(name, value, key);
+        const assignment = describeAssignment(name, value, key);
+        return operationHint ? `${assignment} ${operationHint}` : assignment;
       }
+
+      if (operationHint) return operationHint;
 
       if (text.startsWith('if ') || text.startsWith('elif ') || text === 'else:') return `Evalúa una condición para escoger el camino correcto. Este control permite que ${key === 'astar' ? 'A* descarte estados, detecte la meta o procese sucesores' : key === 'minimax' ? 'el algoritmo distinga entre MAX, MIN y casos terminales' : key === 'week5' ? 'el sistema decida si aplica regla, evidencia o clasificación' : key === 'week7' ? 'la regla simbólica valide hechos, el vector valide rangos o el autómata rechace transiciones inválidas' : 'el programa valide los datos y procese solo entradas válidas'}.`;
       if (text.startsWith('for ') || text.startsWith('while ')) return `Inicia una repetición. Recorre ${text.includes('hijo') ? 'los hijos del árbol para comparar estrategias' : text.includes('sucesor') ? 'las alternativas del estado actual' : text.includes('img_file') || text.includes('line') || text.includes('row') ? 'cada ejemplo disponible para procesarlo' : 'los elementos disponibles'} hasta completar el procesamiento.`;
       if (text.startsWith('return ')) return `Finaliza la función y entrega este resultado al código que la llamó. En este punto se conserva ${text.includes('nodos') ? 'la solución junto con el costo de exploración' : text.includes('similitud') ? 'la evidencia recuperada con su grado de cercanía' : text.includes('results') || text.includes('rows') ? 'la información acumulada para reportar o devolver al flujo principal' : 'el valor calculado por el bloque actual'}.`;
       if (text.startsWith('print(')) return 'Muestra información en la consola para que el estudiante pueda observar el avance, las métricas o el resultado del ejercicio.';
+      if (text.startsWith('with ')) return 'Abre un contexto administrado: al salir del bloque se libera el recurso, como un archivo o una conexión a base de datos.';
+      if (text.startsWith('try:')) return 'Inicia un bloque protegido; si ocurre un error previsto, el except asociado lo convierte en una respuesta controlada.';
+      if (text.startsWith('except ')) return 'Captura un error esperado para informar el problema sin terminar abruptamente el servidor o el análisis.';
+      if (text.startsWith('raise ')) return 'Detiene esta ruta y comunica un error claro porque la entrada o el estado no permite continuar correctamente.';
       if (text.includes('append(')) return 'Agrega un nuevo elemento a una colección. Así el programa conserva los datos procesados para usarlos en el siguiente paso o generar el resultado final.';
       if (text.includes('sort(') || text.includes('sorted(')) return 'Ordena las alternativas según el criterio del algoritmo. Priorizar los mejores candidatos es esencial para seleccionar una solución o una categoría.';
       if (text.includes('heapq.')) return 'Opera sobre la cola de prioridad de A*. La estructura mantiene disponible el nodo más prometedor según su evaluación f(n) = g(n) + h(n).';
@@ -873,6 +1209,19 @@
       const code = viewer.querySelector('.code');
       const explanationTitle = viewer.querySelector('.explanation-title');
       const explanationCopy = viewer.querySelector('.explanation-copy');
+      const explanation = viewer.querySelector('.explanation');
+      let explanationContext = explanation.querySelector('.explanation-context');
+      let explanationFlow = explanation.querySelector('.explanation-flow');
+      if (!explanationContext) {
+        explanationContext = document.createElement('p');
+        explanationContext.className = 'explanation-context';
+        explanationCopy.before(explanationContext);
+      }
+      if (!explanationFlow) {
+        explanationFlow = document.createElement('p');
+        explanationFlow.className = 'explanation-flow';
+        explanationCopy.after(explanationFlow);
+      }
       try {
         const source = await readSource(viewer.dataset.source);
         const lines = source.replaceAll('\r\n', '\n').split('\n');
@@ -887,8 +1236,11 @@
             if (selectedLine) code.scrollTo({ top: Math.max(0, selectedLine.offsetTop - (code.clientHeight / 2)), behavior:'smooth' });
           });
         }
-        explanationTitle.textContent = `${exercise.label} · línea ${safeSelected + 1} de ${lines.length}`;
-        explanationCopy.textContent = explainLine(lines[safeSelected], key, safeSelected, lines);
+        const block = describeSelectedBlock(lines, safeSelected, key);
+        explanationTitle.textContent = `${exercise.label} · ${block.name} · línea ${safeSelected + 1}/${lines.length}`;
+        explanationContext.textContent = `Flujo de la semana\n${moduleGuides[key]?.flow || 'El módulo coordina los datos, el procesamiento y los resultados del ejercicio.'}\n\nBloque actual · ${block.name}\n${block.summary}`;
+        explanationCopy.textContent = `Esta línea hace lo siguiente: ${explainLine(lines[safeSelected], key, safeSelected, lines)}`;
+        explanationFlow.textContent = 'Sigue una línea a la vez: entrada → operación → valor de salida → siguiente etapa del pipeline.';
       } catch (error) {
         code.innerHTML = `<iframe class="source-frame" src="${viewer.dataset.source}" title="Código completo de ${exercise.label}"></iframe>`;
         explanationTitle.textContent = `${exercise.label} · archivo completo`;
@@ -911,6 +1263,7 @@
       addReportPreview(section);
     });
     addVisionAnalyzer();
+    addWeek10ImageAnalyzer();
     buttons.forEach(button => button.addEventListener('click', () => {
       buttons.forEach(item => item.classList.remove('active'));
       sections.forEach(section => section.classList.remove('visible'));
@@ -919,6 +1272,17 @@
       section.classList.add('visible');
       loadExerciseViewers(section);
       window.scrollTo(0, 0);
+      const revealActiveButton = () => {
+        const nav = button.closest('nav');
+        const navRect = nav.getBoundingClientRect();
+        const buttonRect = button.getBoundingClientRect();
+        if (buttonRect.left < navRect.left) nav.scrollBy({ left:buttonRect.left - navRect.left - 8, behavior:'smooth' });
+        else if (buttonRect.right > navRect.right) nav.scrollBy({ left:buttonRect.right - navRect.right + 8, behavior:'smooth' });
+      };
+      requestAnimationFrame(revealActiveButton);
+      button.addEventListener('transitionend', event => {
+        if (event.propertyName === 'min-width') revealActiveButton();
+      }, { once:true });
     }));
     document.addEventListener('click', event => {
       const link = event.target.closest('[data-report-target]');

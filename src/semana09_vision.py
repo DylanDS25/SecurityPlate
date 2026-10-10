@@ -11,6 +11,19 @@ from urllib.parse import parse_qs, urlsplit
 import cv2
 import numpy as np
 
+if __package__:
+    from .semana10_texturas import (
+        MAX_UPLOAD_COUNT,
+        analizar_cargas_temporales,
+        serializar_comparacion_temporal,
+    )
+else:
+    from semana10_texturas import (
+        MAX_UPLOAD_COUNT,
+        analizar_cargas_temporales,
+        serializar_comparacion_temporal,
+    )
+
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 IMAGE_PATH = ROOT_DIR / "data" / "imagen_proyecto.png"
@@ -19,6 +32,7 @@ EVIDENCE_PATH = ARTIFACTS_DIR / "semana09_vision.png"
 REPORT_PATH = ROOT_DIR / "reports" / "semana09.md"
 MAX_IMAGE_SIDE = 1800
 MAX_UPLOAD_BYTES = 20 * 1024 * 1024
+MAX_WEEK10_REQUEST_BYTES = 28 * 1024 * 1024
 SIGMA_COMPARISON = (0.8, 1.6, 3.0)
 
 
@@ -264,6 +278,9 @@ class Semana09Handler(SimpleHTTPRequestHandler):
 
     def do_POST(self) -> None:
         request = urlsplit(self.path)
+        if request.path == "/api/week10/analyze":
+            self._analizar_cargas_semana10()
+            return
         if request.path != "/api/analyze":
             self.send_error(404)
             return
@@ -292,6 +309,39 @@ class Semana09Handler(SimpleHTTPRequestHandler):
             self.send_header("Content-Length", str(len(payload)))
             self.end_headers()
             self.wfile.write(payload)
+
+    def _analizar_cargas_semana10(self) -> None:
+        try:
+            content_length = int(self.headers.get("Content-Length", "0"))
+            if not 0 < content_length <= MAX_WEEK10_REQUEST_BYTES:
+                raise ValueError("El total de la solicitud no puede superar 20 MB.")
+            if self.headers.get_content_type() != "application/json":
+                raise ValueError("La solicitud debe contener imagenes en formato JSON.")
+
+            encoded = self.rfile.read(content_length)
+            if len(encoded) != content_length:
+                raise ValueError("La solicitud de imagenes esta incompleta.")
+            request_data = json.loads(encoded.decode("utf-8"))
+            if not isinstance(request_data, dict):
+                raise ValueError("La solicitud debe incluir una lista de imagenes.")
+            uploads = request_data.get("images")
+            if not isinstance(uploads, list) or not 2 <= len(uploads) <= MAX_UPLOAD_COUNT:
+                raise ValueError(
+                    f"Selecciona entre 2 y {MAX_UPLOAD_COUNT} imagenes para comparar."
+                )
+            results = analizar_cargas_temporales(uploads)
+            payload = json.dumps(
+                serializar_comparacion_temporal(results)
+            ).encode("utf-8")
+            self.send_response(200)
+        except (OSError, UnicodeError, ValueError) as error:
+            payload = json.dumps({"error": str(error)}).encode("utf-8")
+            self.send_response(400)
+
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(payload)))
+        self.end_headers()
+        self.wfile.write(payload)
 
 
 def servir(
