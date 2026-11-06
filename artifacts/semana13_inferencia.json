@@ -1,0 +1,264 @@
+{
+  "titulo": "Semana 13 - Ingenieria del conocimiento SecurityPlate",
+  "entrada": "data/casos_semana07.csv",
+  "flujo": "salida",
+  "umbrales": {
+    "confianza_ocr_alta": 0.85,
+    "imagen_suficiente": 0.8,
+    "protocolo_valido": "IPCS"
+  },
+  "reglas": [
+    {
+      "nombre": "R1",
+      "premisas": [
+        "conductor_coincide",
+        "placa_coincide"
+      ],
+      "conclusion": "correspondencia_confirmada"
+    },
+    {
+      "nombre": "R2",
+      "premisas": [
+        "confianza_ocr_alta",
+        "imagen_suficiente"
+      ],
+      "conclusion": "lectura_visual_suficiente"
+    },
+    {
+      "nombre": "R3",
+      "premisas": [
+        "registro_activo"
+      ],
+      "conclusion": "registro_confirmado"
+    },
+    {
+      "nombre": "R4",
+      "premisas": [
+        "correspondencia_confirmada",
+        "lectura_visual_suficiente"
+      ],
+      "conclusion": "identidad_visual_confirmada"
+    },
+    {
+      "nombre": "R5",
+      "premisas": [
+        "identidad_visual_confirmada",
+        "registro_confirmado"
+      ],
+      "conclusion": "evidencia_salida_suficiente"
+    },
+    {
+      "nombre": "R6",
+      "premisas": [
+        "evidencia_salida_suficiente",
+        "protocolo_aceptado"
+      ],
+      "conclusion": "operacion_salida_habilitada"
+    },
+    {
+      "nombre": "R7",
+      "premisas": [
+        "operacion_salida_habilitada"
+      ],
+      "conclusion": "autorizar_salida"
+    }
+  ],
+  "casos": [
+    {
+      "id": "1",
+      "descripcion": "Salida autorizable con lectura clara y conductor validado",
+      "hechos_iniciales": [
+        "conductor_coincide",
+        "confianza_ocr_alta",
+        "imagen_suficiente",
+        "placa_coincide",
+        "protocolo_aceptado",
+        "registro_activo"
+      ],
+      "hechos_finales": [
+        "autorizar_salida",
+        "conductor_coincide",
+        "confianza_ocr_alta",
+        "correspondencia_confirmada",
+        "evidencia_salida_suficiente",
+        "identidad_visual_confirmada",
+        "imagen_suficiente",
+        "lectura_visual_suficiente",
+        "operacion_salida_habilitada",
+        "placa_coincide",
+        "protocolo_aceptado",
+        "registro_activo",
+        "registro_confirmado"
+      ],
+      "trazas": [
+        "R1: conductor_coincide, placa_coincide => correspondencia_confirmada",
+        "R2: confianza_ocr_alta, imagen_suficiente => lectura_visual_suficiente",
+        "R3: registro_activo => registro_confirmado",
+        "R4: correspondencia_confirmada, lectura_visual_suficiente => identidad_visual_confirmada",
+        "R5: identidad_visual_confirmada, registro_confirmado => evidencia_salida_suficiente",
+        "R6: evidencia_salida_suficiente, protocolo_aceptado => operacion_salida_habilitada",
+        "R7: operacion_salida_habilitada => autorizar_salida"
+      ],
+      "protocolo": "IPCS",
+      "protocolo_aceptado": true,
+      "conclusion_inferida": "autorizar_salida",
+      "resultado_esperado": "autorizar_salida",
+      "protocolo_esperado": true,
+      "estado": "Correcto",
+      "observaciones": {
+        "confianza_ocr": 0.93,
+        "calidad_imagen": 0.88,
+        "placa_coincide": true,
+        "conductor_coincide": true,
+        "registro_activo": true
+      }
+    },
+    {
+      "id": "2",
+      "descripcion": "Placa diferente al registro de ingreso",
+      "hechos_iniciales": [
+        "conductor_coincide",
+        "confianza_ocr_alta",
+        "imagen_suficiente",
+        "protocolo_aceptado",
+        "registro_activo"
+      ],
+      "hechos_finales": [
+        "conductor_coincide",
+        "confianza_ocr_alta",
+        "imagen_suficiente",
+        "lectura_visual_suficiente",
+        "protocolo_aceptado",
+        "registro_activo",
+        "registro_confirmado"
+      ],
+      "trazas": [
+        "R2: confianza_ocr_alta, imagen_suficiente => lectura_visual_suficiente",
+        "R3: registro_activo => registro_confirmado"
+      ],
+      "protocolo": "IPCS",
+      "protocolo_aceptado": true,
+      "conclusion_inferida": "enviar_a_revision",
+      "resultado_esperado": "enviar_a_revision",
+      "protocolo_esperado": true,
+      "estado": "Correcto",
+      "observaciones": {
+        "confianza_ocr": 0.91,
+        "calidad_imagen": 0.9,
+        "placa_coincide": false,
+        "conductor_coincide": true,
+        "registro_activo": true
+      }
+    },
+    {
+      "id": "3",
+      "descripcion": "Imagen borrosa y confianza insuficiente para decidir",
+      "hechos_iniciales": [
+        "conductor_coincide",
+        "placa_coincide",
+        "registro_activo"
+      ],
+      "hechos_finales": [
+        "conductor_coincide",
+        "correspondencia_confirmada",
+        "placa_coincide",
+        "registro_activo",
+        "registro_confirmado"
+      ],
+      "trazas": [
+        "R1: conductor_coincide, placa_coincide => correspondencia_confirmada",
+        "R3: registro_activo => registro_confirmado"
+      ],
+      "protocolo": "IPC",
+      "protocolo_aceptado": false,
+      "conclusion_inferida": "enviar_a_revision",
+      "resultado_esperado": "enviar_a_revision",
+      "protocolo_esperado": false,
+      "estado": "Correcto",
+      "observaciones": {
+        "confianza_ocr": 0.62,
+        "calidad_imagen": 0.45,
+        "placa_coincide": true,
+        "conductor_coincide": true,
+        "registro_activo": true
+      }
+    },
+    {
+      "id": "4",
+      "descripcion": "Conductor no coincide aunque la placa fue reconocida",
+      "hechos_iniciales": [
+        "confianza_ocr_alta",
+        "imagen_suficiente",
+        "placa_coincide",
+        "registro_activo"
+      ],
+      "hechos_finales": [
+        "confianza_ocr_alta",
+        "imagen_suficiente",
+        "lectura_visual_suficiente",
+        "placa_coincide",
+        "registro_activo",
+        "registro_confirmado"
+      ],
+      "trazas": [
+        "R2: confianza_ocr_alta, imagen_suficiente => lectura_visual_suficiente",
+        "R3: registro_activo => registro_confirmado"
+      ],
+      "protocolo": "IPSS",
+      "protocolo_aceptado": false,
+      "conclusion_inferida": "enviar_a_revision",
+      "resultado_esperado": "enviar_a_revision",
+      "protocolo_esperado": false,
+      "estado": "Correcto",
+      "observaciones": {
+        "confianza_ocr": 0.89,
+        "calidad_imagen": 0.86,
+        "placa_coincide": true,
+        "conductor_coincide": false,
+        "registro_activo": true
+      }
+    },
+    {
+      "id": "5",
+      "descripcion": "Vehiculo sin registro activo y protocolo desconocido",
+      "hechos_iniciales": [
+        "conductor_coincide",
+        "confianza_ocr_alta",
+        "imagen_suficiente",
+        "placa_coincide"
+      ],
+      "hechos_finales": [
+        "conductor_coincide",
+        "confianza_ocr_alta",
+        "correspondencia_confirmada",
+        "identidad_visual_confirmada",
+        "imagen_suficiente",
+        "lectura_visual_suficiente",
+        "placa_coincide"
+      ],
+      "trazas": [
+        "R1: conductor_coincide, placa_coincide => correspondencia_confirmada",
+        "R2: confianza_ocr_alta, imagen_suficiente => lectura_visual_suficiente",
+        "R4: correspondencia_confirmada, lectura_visual_suficiente => identidad_visual_confirmada"
+      ],
+      "protocolo": "IPCX",
+      "protocolo_aceptado": false,
+      "conclusion_inferida": "enviar_a_revision",
+      "resultado_esperado": "enviar_a_revision",
+      "protocolo_esperado": false,
+      "estado": "Correcto",
+      "observaciones": {
+        "confianza_ocr": 0.87,
+        "calidad_imagen": 0.84,
+        "placa_coincide": true,
+        "conductor_coincide": true,
+        "registro_activo": false
+      }
+    }
+  ],
+  "resumen": {
+    "total": 5,
+    "correctos": 5,
+    "incorrectos": 0
+  }
+}

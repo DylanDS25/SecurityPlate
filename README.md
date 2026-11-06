@@ -5,6 +5,22 @@ Proyecto para clase de Inteligencia Artificial
 - Yeison Dario Ayala Beltran
 - Dylan Leonardo Duitama Soriano
 
+Consulta la [guía práctica de las semanas 7 a 11](guias/GUIA_PRACTICA_SEMANAS_07_11.md) para ver comandos, resultados y puntos clave de cada práctica.
+
+### Semana 13 - ingenieria del conocimiento aplicada a la salida
+
+Ejecuta `python src/semana13_conocimiento.py` desde la raiz para cargar los cinco casos de `data/casos_semana07.csv`, aplicar las siete reglas de inferencia y generar `artifacts/semana13_inferencia.json` junto con los reportes `reports/semana13.md` y `reports/reporte_semana13.md`.
+
+Entregables exactos:
+- Motor independiente: `src/motor_inferencia.py`.
+- Pruebas unittest: `tests/test_motor_inferencia.py`.
+- Reporte académico completo: `reports/reporte_semana13.md`.
+- La evidencia, reglas y casos se muestran además en `artifacts/semana13_inferencia.json`.
+
+Prueba el motor con `.venv\Scripts\python.exe -m unittest discover -s tests -p "test_motor_inferencia.py" -v`. El programa demuestra dos casos, sus hechos iniciales, trazas y conclusiones.
+
+Para abrir el dashboard independiente ejecuta `python src/semana13_conocimiento.py --serve` y visita `http://127.0.0.1:8001/dashboard_semana13/`. El dashboard muestra hechos, reglas, trazas y decisiones del flujo de salida; no modifica el dashboard general ni los ejercicios anteriores.
+
 ### Semana 11 - benchmark de caracteres
 
 Ejecuta `python src/semana11_benchmark.py` desde la raiz para comparar Logistic Regression, Random Forest y MLP sobre los recortes de caracteres anotados de `data/dataset`, usando las particiones oficiales `train` y `test`. El benchmark corre tres veces por modelo y genera `artifacts/benchmark.csv` y `reports/semana11_adr.md`. Se puede aumentar el numero de repeticiones con `--repeats`; no se aceptan menos de tres.
@@ -23,4 +39,3 @@ El modulo `src/semana10_texturas.py` procesa dos imagenes etiquetadas de placas 
 |---|---|
 |2| Resumen de lo realizado <br> Durante esta semana comenzamos a conocer los fundamentos de la Inteligencia Artificial y a entender cómo estos conceptos se pueden aplicar a nuestro proyecto de **reconocimiento de placas vehiculares**.\nPrimero vimos qué es la Inteligencia Artificial y entendimos que no se trata solamente de crear o entrenar un modelo, sino de combinar diferentes elementos como los datos, los algoritmos, el aprendizaje y la toma de decisiones. También conocimos un poco sobre la evolución de la IA y hacia dónde se dirige actualmente.<br> Después empezamos a organizar la base de nuestro proyecto. Configuramos el entorno de trabajo utilizando **Python, Visual Studio Code y Git**, y planteamos una estructura de carpetas que nos permitirá ir agregando los diferentes componentes del proyecto a medida que avance el semestre. <br> Como parte de la práctica, trabajamos con un primer modelo de aprendizaje automático utilizando **Scikit-learn**. El objetivo fue entender de manera práctica cómo se prepara la información, cómo se entrena un modelo y cómo podemos comprobar qué tan bien funciona mediante el *accuracy* y la matriz de confusión. <br> Aunque este primer ejercicio utiliza un conjunto de datos de ejemplo, nos sirve como punto de partida para nuestro proyecto. La idea es que, en el transcurso de la semana, podamos reemplazar estos ejemplos por nuestros propios datos de **placas vehiculares** y comenzar a incorporar el procesamiento de imágenes y el reconocimiento de caracteres. <br> En conclusión, esta semana nos permitió **sentar las bases del proyecto**, tanto en la parte conceptual como en la parte práctica. También entendimos que el proyecto se va a desarrollar paso a paso y que cada semana iremos agregando nuevos componentes hasta llegar a nuestro sistema inteligente de reconocimiento de placas.|
 |3| En esta semana seguimos dando forma a nuestro proyecto de Inteligencia Artificial, que busca crear un sistema inteligente para controlar el ingreso y salida de vehículos en un parqueadero. <br> Lo primero que aprendimos es que antes de elegir una técnica de IA, debemos entender bien el tipo de problema que queremos resolver. Esto nos llevó a explorar varias áreas:<br>- Machine Learning y Deep Learning, útiles para entrenar modelos que reconozcan patrones.<br>- Visión por computador, clave en nuestro caso porque trabajaremos con imágenes de placas y conductores.<br>- Sistemas expertos y reglas de decisión, que nos ayudan a definir qué hacer cuando hay coincidencias o discrepancias.<br>- Representación del conocimiento y búsqueda y planificación, que aportan estructura y estrategias de validación.<br>**Cómo funcionará el sistema**<br>*Ingreso:* se captura la placa y una imagen del conductor como referencia.<br>*Salida:* se vuelve a capturar la información y se compara con el registro inicial.<br>*Decisión:* si todo coincide, se autoriza la salida; si no, se bloquea y se genera una alerta para revisión manual.<br>**Arquitectura del proyecto**<br>Nuestro sistema no dependerá de una sola técnica, sino que será un Sistema Inteligente Híbrido. Esto significa que combinará:<br>- Visión por computador para el reconocimiento visual.<br>- Modelos de aprendizaje automático para verificar coincidencias.<br>- Reglas de decisión para manejar excepciones y alertas. <br> La práctica nos mostró la importancia de la taxonomía de la IA: clasificar problemas y usar palabras clave para identificar qué técnicas aplicar. Gracias a esto, ahora tenemos más claro qué componentes debemos desarrollar en las próximas semanas.|
-

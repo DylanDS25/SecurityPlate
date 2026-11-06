@@ -6,6 +6,25 @@ from pathlib import Path
 
 import numpy as np
 
+if __package__:
+    from .securityplate_conocimiento import (
+        ALFABETO_AUTOMATA,
+        TRANSICIONES_AUTOMATA,
+        aplicar_regla_autorizacion,
+        construir_hechos_salida,
+        convertir_booleano,
+        acepta_protocolo_salida,
+    )
+else:
+    from securityplate_conocimiento import (
+        ALFABETO_AUTOMATA,
+        TRANSICIONES_AUTOMATA,
+        aplicar_regla_autorizacion,
+        construir_hechos_salida,
+        convertir_booleano,
+        acepta_protocolo_salida,
+    )
+
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 CASES_PATH = ROOT_DIR / "data" / "casos_semana07.csv"
@@ -26,15 +45,6 @@ class CasoPrueba:
     secuencia: str
     resultado_simbolico: str
     aceptada_automata: bool
-
-
-def convertir_booleano(valor: str, campo: str) -> bool:
-    """Convierte si/no del CSV y rechaza valores ambiguos."""
-    valores = {"si": True, "no": False}
-    normalizado = valor.strip().lower()
-    if normalizado not in valores:
-        raise ValueError(f"El campo {campo} debe ser 'si' o 'no'.")
-    return valores[normalizado]
 
 
 def cargar_casos_prueba() -> list[CasoPrueba]:
@@ -113,67 +123,10 @@ def ejecutar_representacion_numerica() -> tuple[float, float]:
     return distancia_autorizado, distancia_alerta
 
 
-def construir_hechos_salida(
-    placa_coincide: bool,
-    conductor_coincide: bool,
-    confianza_ocr: float,
-    calidad_imagen: float,
-    registro_activo: bool,
-) -> set[str]:
-    """Construye hechos simbolicos a partir de observaciones del sistema."""
-    hechos: set[str] = set()
-    if placa_coincide:
-        hechos.add("placa_coincide")
-    if conductor_coincide:
-        hechos.add("conductor_coincide")
-    if confianza_ocr >= 0.85:
-        hechos.add("confianza_ocr_alta")
-    if calidad_imagen >= 0.80:
-        hechos.add("imagen_suficiente")
-    if registro_activo:
-        hechos.add("registro_activo")
-    return hechos
-
-
-def aplicar_regla_autorizacion(hechos: set[str]) -> str:
-    """Aplica la regla simbolica principal de autorizacion de salida."""
-    condiciones = {
-        "placa_coincide",
-        "conductor_coincide",
-        "confianza_ocr_alta",
-        "imagen_suficiente",
-        "registro_activo",
-    }
-    if condiciones.issubset(hechos):
-        return "autorizar_salida"
-    return "enviar_a_revision"
-
-
 def ejecutar_representacion_simbolica() -> tuple[set[str], str]:
     """Evalua un caso de salida mediante hechos y una regla."""
     hechos = construir_hechos_salida(True, True, 0.93, 0.88, True)
     return hechos, aplicar_regla_autorizacion(hechos)
-
-
-ALFABETO_AUTOMATA = {"I", "P", "C", "S"}
-TRANSICIONES_AUTOMATA = {
-    ("q0", "I"): "q1",
-    ("q1", "P"): "q2",
-    ("q2", "C"): "q3",
-    ("q3", "S"): "q4",
-}
-
-
-def acepta_protocolo_salida(secuencia: str) -> bool:
-    """Reconoce el protocolo I-P-C-S para autorizar una salida."""
-    estado = "q0"
-    for simbolo in secuencia:
-        if simbolo not in ALFABETO_AUTOMATA:
-            return False
-        estado = TRANSICIONES_AUTOMATA.get((estado, simbolo), "rechazo")
-        if estado == "rechazo":
-            return False
-    return estado == "q4"
 
 
 def ejecutar_representacion_automata() -> dict[str, bool]:

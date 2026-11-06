@@ -18,9 +18,9 @@ Cada fila del CSV representa una ejecución individual; la tabla resume media y 
 
 | Modelo | Accuracy promedio | Desv. estándar | Tiempo promedio (s) |
 |---|---:|---:|---:|
-| random_forest | 0.6883 | 0.0117 | 12.8003 |
-| mlp | 0.6522 | 0.0114 | 25.5907 |
-| logistic_regression | 0.6161 | 0.0000 | 24.1509 |
+| random_forest | 0.6883 | 0.0117 | 10.4571 |
+| mlp | 0.6522 | 0.0114 | 24.9662 |
+| logistic_regression | 0.6161 | 0.0000 | 27.2502 |
 
 **Diferencias:** random_forest superó a los otros modelos por 7.22 puntos porcentuales frente a logistic_regression y 3.61 puntos porcentuales frente a mlp en accuracy promedio.
 
@@ -30,7 +30,7 @@ El archivo [benchmark.csv](../artifacts/benchmark.csv) conserva 9 resultados (3 
 
 ## Decisión
 
-Se selecciona provisionalmente **random_forest** para la siguiente iteración: su accuracy promedio es 0.6883 y su tiempo de entrenamiento promedio es 12.8003 s. La regla aplicada prioriza el menor tiempo entre los modelos cuya accuracy queda a no más de 1% del mejor promedio (random_forest, 0.6883).
+Se selecciona provisionalmente **random_forest** para la siguiente iteración: su accuracy promedio es 0.6883 y su tiempo de entrenamiento promedio es 10.4571 s. La regla aplicada prioriza el menor tiempo entre los modelos cuya accuracy queda a no más de 1% del mejor promedio (random_forest, 0.6883).
 
 Esta es una decisión de prototipado, no una selección definitiva para producción. Debe confirmarse con más datos etiquetados y con métricas por clase.
 
@@ -55,3 +55,10 @@ Python y scikit-learn son adecuados para este benchmark reproducible. Si el serv
 Desde la raíz del repositorio, ejecutar `python src/semana11_benchmark.py`. El script realiza tres ejecuciones por modelo y regenera este ADR y `artifacts/benchmark.csv`.
 
 Fuente del conjunto: Roboflow, licencia CC BY 4.0; referencia y atribución en `data/dataset/README.dataset.txt`.
+
+
+| Alternativa | Fortalezas | Debilidades | Oportunidades | Amenazas |
+| --- | --- | --- | --- | --- |
+| **Node.js / Express** | Curva nula, RAM baja | Latencia moderada | Integración npm | Dependencias inseguras |
+| **Python / FastAPI** | Rendimiento alto | Curva alta | Analítica futura | RAM alta |
+| **Node.js / NestJS** | Alta mantenibilidad | Configuración compleja | Estandarización | Retraso temporal|
