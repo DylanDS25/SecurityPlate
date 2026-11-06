@@ -1,0 +1,294 @@
+{
+  "titulo": "Semana 14 - Redes semanticas SecurityPlate",
+  "semana": 14,
+  "dominio": "verificacion de salida de moto",
+  "entrada": "data/casos_semana07.csv",
+  "umbral_foto_adecuada": 0.8,
+  "conceptos": [
+    "moto",
+    "vehiculo",
+    "placa",
+    "foto_placa",
+    "comparacion_placa",
+    "resultado_visual",
+    "personal_seguridad",
+    "verificacion_manual"
+  ],
+  "triples_explicitamente_modelados": [
+    {
+      "sujeto": "comparacion_placa",
+      "relacion": "produce",
+      "objeto": "resultado_visual"
+    },
+    {
+      "sujeto": "comparacion_placa",
+      "relacion": "requiere_revision",
+      "objeto": "verificacion_manual"
+    },
+    {
+      "sujeto": "foto_placa",
+      "relacion": "habilita",
+      "objeto": "comparacion_placa"
+    },
+    {
+      "sujeto": "identificador_vehicular",
+      "relacion": "es_un",
+      "objeto": "dato_verificacion"
+    },
+    {
+      "sujeto": "moto",
+      "relacion": "tiene",
+      "objeto": "placa"
+    },
+    {
+      "sujeto": "personal_seguridad",
+      "relacion": "realiza",
+      "objeto": "verificacion_manual"
+    },
+    {
+      "sujeto": "placa",
+      "relacion": "es_un",
+      "objeto": "identificador_vehicular"
+    },
+    {
+      "sujeto": "placa",
+      "relacion": "requiere",
+      "objeto": "foto_placa"
+    },
+    {
+      "sujeto": "placa_moto",
+      "relacion": "es_un",
+      "objeto": "placa"
+    },
+    {
+      "sujeto": "resultado_visual",
+      "relacion": "puede_ser",
+      "objeto": "coincide"
+    },
+    {
+      "sujeto": "resultado_visual",
+      "relacion": "puede_ser",
+      "objeto": "no_coincide"
+    },
+    {
+      "sujeto": "vehiculo",
+      "relacion": "tiene",
+      "objeto": "placa"
+    }
+  ],
+  "casos": [
+    {
+      "id": "1",
+      "descripcion": "Salida autorizable con lectura clara y conductor validado",
+      "hechos_explicitos": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        },
+        {
+          "sujeto": "foto_placa",
+          "relacion": "calidad_suficiente",
+          "objeto": "si"
+        }
+      ],
+      "hecho_inferido": {
+        "sujeto": "comparacion_placa",
+        "relacion": "resultado",
+        "objeto": "placa_corresponde_a_moto"
+      },
+      "calidad_imagen": 0.88,
+      "foto_adecuada": true,
+      "placa_coincide": true,
+      "ruta_placa_moto": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        }
+      ],
+      "ruta_revision": [
+        {
+          "sujeto": "comparacion_placa",
+          "relacion": "requiere_revision",
+          "objeto": "verificacion_manual"
+        }
+      ],
+      "transitividad_placa_moto": true,
+      "conclusion": "autorizar_salida",
+      "motivo_revision": null,
+      "resultado_esperado": "autorizar_salida",
+      "estado": "Correcto"
+    },
+    {
+      "id": "2",
+      "descripcion": "Placa diferente al registro de ingreso",
+      "hechos_explicitos": [
+        {
+          "sujeto": "foto_placa",
+          "relacion": "calidad_suficiente",
+          "objeto": "si"
+        }
+      ],
+      "hecho_inferido": {
+        "sujeto": "comparacion_placa",
+        "relacion": "resultado",
+        "objeto": "llamar_personal_verificacion_manual"
+      },
+      "calidad_imagen": 0.9,
+      "foto_adecuada": true,
+      "placa_coincide": false,
+      "ruta_placa_moto": null,
+      "ruta_revision": [
+        {
+          "sujeto": "comparacion_placa",
+          "relacion": "requiere_revision",
+          "objeto": "verificacion_manual"
+        }
+      ],
+      "transitividad_placa_moto": true,
+      "conclusion": "llamar_personal_verificacion_manual",
+      "motivo_revision": "La placa no corresponde al registro de la moto; no se puede demostrar la coincidencia.",
+      "resultado_esperado": "enviar_a_revision",
+      "estado": "Correcto"
+    },
+    {
+      "id": "3",
+      "descripcion": "Imagen borrosa y confianza insuficiente para decidir",
+      "hechos_explicitos": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        },
+        {
+          "sujeto": "foto_placa",
+          "relacion": "calidad_suficiente",
+          "objeto": "no"
+        }
+      ],
+      "hecho_inferido": {
+        "sujeto": "comparacion_placa",
+        "relacion": "resultado",
+        "objeto": "llamar_personal_verificacion_manual"
+      },
+      "calidad_imagen": 0.45,
+      "foto_adecuada": false,
+      "placa_coincide": true,
+      "ruta_placa_moto": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        }
+      ],
+      "ruta_revision": [
+        {
+          "sujeto": "comparacion_placa",
+          "relacion": "requiere_revision",
+          "objeto": "verificacion_manual"
+        }
+      ],
+      "transitividad_placa_moto": true,
+      "conclusion": "llamar_personal_verificacion_manual",
+      "motivo_revision": "La foto no alcanza el umbral de calidad 0.80.",
+      "resultado_esperado": "enviar_a_revision",
+      "estado": "Correcto"
+    },
+    {
+      "id": "4",
+      "descripcion": "Conductor no coincide aunque la placa fue reconocida",
+      "hechos_explicitos": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        },
+        {
+          "sujeto": "foto_placa",
+          "relacion": "calidad_suficiente",
+          "objeto": "si"
+        }
+      ],
+      "hecho_inferido": {
+        "sujeto": "comparacion_placa",
+        "relacion": "resultado",
+        "objeto": "llamar_personal_verificacion_manual"
+      },
+      "calidad_imagen": 0.86,
+      "foto_adecuada": true,
+      "placa_coincide": true,
+      "ruta_placa_moto": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        }
+      ],
+      "ruta_revision": [
+        {
+          "sujeto": "comparacion_placa",
+          "relacion": "requiere_revision",
+          "objeto": "verificacion_manual"
+        }
+      ],
+      "transitividad_placa_moto": true,
+      "conclusion": "llamar_personal_verificacion_manual",
+      "motivo_revision": "El conductor no coincide; se requiere verificacion manual.",
+      "resultado_esperado": "enviar_a_revision",
+      "estado": "Correcto"
+    },
+    {
+      "id": "5",
+      "descripcion": "Vehiculo sin registro activo y protocolo desconocido",
+      "hechos_explicitos": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        },
+        {
+          "sujeto": "foto_placa",
+          "relacion": "calidad_suficiente",
+          "objeto": "si"
+        }
+      ],
+      "hecho_inferido": {
+        "sujeto": "comparacion_placa",
+        "relacion": "resultado",
+        "objeto": "llamar_personal_verificacion_manual"
+      },
+      "calidad_imagen": 0.84,
+      "foto_adecuada": true,
+      "placa_coincide": true,
+      "ruta_placa_moto": [
+        {
+          "sujeto": "placa",
+          "relacion": "corresponde_a",
+          "objeto": "moto"
+        }
+      ],
+      "ruta_revision": [
+        {
+          "sujeto": "comparacion_placa",
+          "relacion": "requiere_revision",
+          "objeto": "verificacion_manual"
+        }
+      ],
+      "transitividad_placa_moto": true,
+      "conclusion": "llamar_personal_verificacion_manual",
+      "motivo_revision": "El vehiculo no tiene registro activo; se requiere verificacion manual.",
+      "resultado_esperado": "enviar_a_revision",
+      "estado": "Correcto"
+    }
+  ],
+  "consulta_sin_evidencia": {
+    "pregunta": "¿La placa corresponde al vehiculo 999?",
+    "respuesta": null,
+    "interpretacion": "No existe evidencia suficiente; la ausencia de un triple no constituye una negacion universal."
+  },
+  "resumen": {
+    "total": 5,
+    "correctos": 5
+  }
+}

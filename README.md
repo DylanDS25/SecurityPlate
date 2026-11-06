@@ -7,6 +7,47 @@ Proyecto para clase de Inteligencia Artificial
 
 Consulta la [guía práctica de las semanas 7 a 11](guias/GUIA_PRACTICA_SEMANAS_07_11.md) para ver comandos, resultados y puntos clave de cada práctica.
 
+### Semana 14 - redes semanticas aplicadas a SecurityPlate
+
+Ejecuta `python main.py` para interpretar frases simples, recorrer la jerarquia
+`placa_moto -> placa -> identificador_vehicular -> dato_verificacion` y
+evaluar los cinco casos de `data/casos_semana07.csv`.
+
+El concepto principal combina una moto, su placa, una foto adecuada, una
+comparacion y un resultado visual. Una foto alcanza calidad suficiente con
+`calidad_imagen >= 0.80`. La red infiere autorizacion solo cuando coinciden
+placa, conductor, registro y protocolo `IPCS`; de lo contrario devuelve
+verificacion manual.
+
+Entregables exactos:
+- Red semantica: `src/red_semantica.py`.
+- Demostracion: `main.py`.
+- Pruebas exactas: `tests/test_red_semantica.py`.
+- Integracion SecurityPlate: `src/semana14_redes_semanticas.py`.
+- Evidencia JSON: `artifacts/semana14_red_semantica.json`.
+- Reporte: `reports/reporte_semana14.md`.
+
+Prueba solo esta practica con
+`.venv\Scripts\python.exe -m unittest discover -s tests -p "test_red_semantica.py" -v`
+y con `test_semana14.py`.
+
+Conceptos principales: `moto`, `vehiculo`, `placa`, `foto_placa`,
+`comparacion_placa`, `resultado_visual`, `personal_seguridad` y
+`verificacion_manual`.
+
+Relaciones importantes:
+- `(moto, tiene, placa)`.
+- `(placa, requiere, foto_placa)`.
+- `(placa, corresponde_a, moto)`.
+- `(foto_placa, habilita, comparacion_placa)`.
+- `(placa_moto, es_un, placa)`.
+- `(comparacion_placa, requiere_revision, verificacion_manual)`.
+
+La transitividad se aplica solo a `es_un`. Otras relaciones no se interpretan
+como herencia automatica. El parser reconoce frases simples; una oracion fuera
+de los patrones produce un `ValueError`. Una consulta sin evidencia no demuestra
+una negacion universal, solamente indica que falta informacion para inferir.
+
 ### Semana 13 - ingenieria del conocimiento aplicada a la salida
 
 Ejecuta `python src/semana13_conocimiento.py` desde la raiz para cargar los cinco casos de `data/casos_semana07.csv`, aplicar las siete reglas de inferencia y generar `artifacts/semana13_inferencia.json` junto con los reportes `reports/semana13.md` y `reports/reporte_semana13.md`.
@@ -19,7 +60,7 @@ Entregables exactos:
 
 Prueba el motor con `.venv\Scripts\python.exe -m unittest discover -s tests -p "test_motor_inferencia.py" -v`. El programa demuestra dos casos, sus hechos iniciales, trazas y conclusiones.
 
-Para abrir el dashboard independiente ejecuta `python src/semana13_conocimiento.py --serve` y visita `http://127.0.0.1:8001/dashboard_semana13/`. El dashboard muestra hechos, reglas, trazas y decisiones del flujo de salida; no modifica el dashboard general ni los ejercicios anteriores.
+La Semana 13 se consulta desde el dashboard general, dentro de la sección `Semana 13`, junto con sus reglas, trazas y decisiones. También puede ejecutarse `python src/semana13_conocimiento.py --serve` para generar la evidencia y el reporte, sin depender de un dashboard separado.
 
 ### Semana 11 - benchmark de caracteres
 
