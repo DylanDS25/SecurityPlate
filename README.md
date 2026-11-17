@@ -7,6 +7,42 @@ Proyecto para clase de Inteligencia Artificial
 
 Consulta la [guía práctica de las semanas 7 a 11](guias/GUIA_PRACTICA_SEMANAS_07_11.md) para ver comandos, resultados y puntos clave de cada práctica.
 
+Para repasar ingeniería del conocimiento y redes semánticas, usa la
+[guía de estudio de las semanas 13 y 14](guias/GUIA_ESTUDIO_SEMANAS_13_14.md):
+conceptos, reglas, trazas, ejercicios resueltos y autoevaluación.
+
+Para la organización de bases de conocimiento empresarial y preparación de la sustentación oral, consulta la
+[guía de estudio de la semana 15](guias/GUIA_ESTUDIO_SEMANA_15.md):
+pirámide del conocimiento, modelo relacional, ciclo editorial, ejercicios y respuestas a las 10 preguntas obligatorias.
+
+### Semana 15 - Base de conocimiento empresarial aplicada a SecurityPlate
+
+Implementación de un repositorio relacional estructurado en SQLite y Python para organizar, validar y consultar el conocimiento técnico y operativo de SecurityPlate. Modela dominios de conocimiento, aplicaciones del sistema, expertos responsables y herramientas de desarrollo.
+
+Entregables exactos:
+- Esquema relacional: `sql/esquema.sql`.
+- Datos iniciales de SecurityPlate: `sql/datos.sql`.
+- Lógica y demostración de ciclo de vida: `src/base_conocimiento.py`.
+- Pruebas unitarias de integridad: `tests/test_base_conocimiento.py`.
+- Reporte académico completo: `reports/reporte_semana15.md`.
+
+Comandos de ejecución y sustentación:
+```bash
+# 1. Demostración interactiva (Registro en BORRADOR -> Validación -> Consulta publicada)
+python src/base_conocimiento.py
+
+# 2. Ejecución de las 7 pruebas unitarias automatizadas en entorno aislado
+python -m unittest discover -s tests -p "test_base_conocimiento.py" -v
+```
+
+Puntos clave del modelo:
+- **Dominios:** `Vision por Computador`, `Control de Acceso Vehicular`, `Auditoria y Trazabilidad`.
+- **Aplicaciones:** `Modulo de Reconocimiento OCR`, `Detector de Calidad Visual`, `Motor de Inferencia y Reglas IPCS`, `Controlador de Barrera y Alertas`, `Consola de Auditoria y Evidencias`.
+- **Expertos:** Yeison Ayala (Líder de Visión y CNN), Dylan Duitama (Sistemas Expertos y Protocolo IPCS), Carlos Rodriguez (Seguridad Física), Mariana Torres (Monitoreo Manual).
+- **Herramientas:** PyTorch y Torchvision, OpenCV y Scikit-Image, SQLite, Motor de Reglas y Red Semántica, Unittest.
+- **Regla editorial:** Nuevos artículos inician estrictamente como `BORRADOR`. Solo los artículos en estado `VALIDADO` son visibles mediante `buscar_articulos()`.
+- **Integridad referencial:** Se activa `PRAGMA foreign_keys = ON;` en cada conexión, rechazando dominios o expertos no registrados (`sqlite3.IntegrityError`).
+
 ### Semana 14 - redes semanticas aplicadas a SecurityPlate
 
 Ejecuta `python main.py` para interpretar frases simples, recorrer la jerarquia
@@ -80,3 +116,4 @@ El modulo `src/semana10_texturas.py` procesa dos imagenes etiquetadas de placas 
 |---|---|
 |2| Resumen de lo realizado <br> Durante esta semana comenzamos a conocer los fundamentos de la Inteligencia Artificial y a entender cómo estos conceptos se pueden aplicar a nuestro proyecto de **reconocimiento de placas vehiculares**.\nPrimero vimos qué es la Inteligencia Artificial y entendimos que no se trata solamente de crear o entrenar un modelo, sino de combinar diferentes elementos como los datos, los algoritmos, el aprendizaje y la toma de decisiones. También conocimos un poco sobre la evolución de la IA y hacia dónde se dirige actualmente.<br> Después empezamos a organizar la base de nuestro proyecto. Configuramos el entorno de trabajo utilizando **Python, Visual Studio Code y Git**, y planteamos una estructura de carpetas que nos permitirá ir agregando los diferentes componentes del proyecto a medida que avance el semestre. <br> Como parte de la práctica, trabajamos con un primer modelo de aprendizaje automático utilizando **Scikit-learn**. El objetivo fue entender de manera práctica cómo se prepara la información, cómo se entrena un modelo y cómo podemos comprobar qué tan bien funciona mediante el *accuracy* y la matriz de confusión. <br> Aunque este primer ejercicio utiliza un conjunto de datos de ejemplo, nos sirve como punto de partida para nuestro proyecto. La idea es que, en el transcurso de la semana, podamos reemplazar estos ejemplos por nuestros propios datos de **placas vehiculares** y comenzar a incorporar el procesamiento de imágenes y el reconocimiento de caracteres. <br> En conclusión, esta semana nos permitió **sentar las bases del proyecto**, tanto en la parte conceptual como en la parte práctica. También entendimos que el proyecto se va a desarrollar paso a paso y que cada semana iremos agregando nuevos componentes hasta llegar a nuestro sistema inteligente de reconocimiento de placas.|
 |3| En esta semana seguimos dando forma a nuestro proyecto de Inteligencia Artificial, que busca crear un sistema inteligente para controlar el ingreso y salida de vehículos en un parqueadero. <br> Lo primero que aprendimos es que antes de elegir una técnica de IA, debemos entender bien el tipo de problema que queremos resolver. Esto nos llevó a explorar varias áreas:<br>- Machine Learning y Deep Learning, útiles para entrenar modelos que reconozcan patrones.<br>- Visión por computador, clave en nuestro caso porque trabajaremos con imágenes de placas y conductores.<br>- Sistemas expertos y reglas de decisión, que nos ayudan a definir qué hacer cuando hay coincidencias o discrepancias.<br>- Representación del conocimiento y búsqueda y planificación, que aportan estructura y estrategias de validación.<br>**Cómo funcionará el sistema**<br>*Ingreso:* se captura la placa y una imagen del conductor como referencia.<br>*Salida:* se vuelve a capturar la información y se compara con el registro inicial.<br>*Decisión:* si todo coincide, se autoriza la salida; si no, se bloquea y se genera una alerta para revisión manual.<br>**Arquitectura del proyecto**<br>Nuestro sistema no dependerá de una sola técnica, sino que será un Sistema Inteligente Híbrido. Esto significa que combinará:<br>- Visión por computador para el reconocimiento visual.<br>- Modelos de aprendizaje automático para verificar coincidencias.<br>- Reglas de decisión para manejar excepciones y alertas. <br> La práctica nos mostró la importancia de la taxonomía de la IA: clasificar problemas y usar palabras clave para identificar qué técnicas aplicar. Gracias a esto, ahora tenemos más claro qué componentes debemos desarrollar en las próximas semanas.|
+|15| Organización de Base de Conocimiento Empresarial <br> Implementación de una base de conocimiento estructurada y relacional en SQLite y Python aplicada a SecurityPlate. Se definieron los dominios *Visión por Computador*, *Control de Acceso Vehicular* y *Auditoría y Trazabilidad*, vinculando aplicaciones, expertos responsables, herramientas de desarrollo y artículos técnicos. Se implementó un ciclo editorial estricto (estado inicial BORRADOR que pasa a VALIDADO tras aprobación), consultas con SQL JOIN y 7 pruebas unitarias con unittest para validar integridad referencial y gobernanza del conocimiento.|
