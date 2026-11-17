@@ -15,6 +15,46 @@ Para la organización de bases de conocimiento empresarial y preparación de la 
 [guía de estudio de la semana 15](guias/GUIA_ESTUDIO_SEMANA_15.md):
 pirámide del conocimiento, modelo relacional, ciclo editorial, ejercicios y respuestas a las 10 preguntas obligatorias.
 
+Para repasar la arquitectura de sistemas inteligentes y el motor de referencia, consulta la
+[guía de estudio de la semana 16](guias/GUIA_ESTUDIO_SEMANA_16.md):
+arquitectura de seis componentes, motor de referencia vs. inferencia, control de calidad, abstención y banco de preguntas de sustentación.
+
+### Semana 16 - Diseño de sistemas inteligentes: Arquitectura y motor de referencia
+
+Implementación de un motor de referencia determinista aplicado a SecurityPlate que recibe preguntas en lenguaje natural, normaliza el texto, busca en un catálogo estructurado de referencias técnicas y entrega respuestas basadas **exclusivamente en fuentes validadas**, acompañadas de su identificador y procedencia, absteniéndose formalmente ante falta de datos (`SIN_DATOS`) o falta de cobertura (`SIN_REFERENCIA`).
+
+Arquitectura de seis componentes:
+1. **Interfaz (`app.py`):** Captura de preguntas interactivas por consola o modo `--demo`.
+2. **Normalizador (`motor_referencia.py`):** Limpieza con Unicode `NFD`, eliminación de tildes y extracción alfanumérica en minúsculas.
+3. **Base de conocimiento (`base_conocimiento.py`):** Catálogo `REFERENCIAS` con metadatos (`id`, `titulo`, `claves`, `respuesta`, `fuente`, `validada`).
+4. **Motor de referencia (`motor_referencia.py`):** Intersección de palabras clave, exclusión de borradores (`validada=False`) y ordenamiento determinista por coincidencias e ID.
+5. **Generador de respuestas:** Respuesta textual fundamentada con trazabilidad (`id`, `fuente`, `coincidencias`).
+6. **Control de calidad (`tests/test_motor.py`):** Gestión estricta de estados (`ENCONTRADA`, `SIN_REFERENCIA`, `SIN_DATOS`) y 7 pruebas unitarias automatizadas.
+
+Entregables exactos:
+- Base de conocimiento: `base_conocimiento.py`.
+- Motor de referencia: `motor_referencia.py`.
+- Interfaz interactiva y modo demo: `app.py`.
+- Pruebas unitarias de calidad: `tests/test_motor.py`.
+- Reporte académico completo: `reports/reporte_semana16.md`.
+- Guía de estudio y sustentación: `guias/GUIA_ESTUDIO_SEMANA_16.md`.
+
+Comandos de ejecución y sustentación:
+```bash
+# 1. Demostración interactiva (escribe preguntas o 'salir')
+python app.py
+
+# 2. Demostración automática de todos los escenarios (ENCONTRADA, exclusión, abstención, vacía)
+python app.py --demo
+
+# 3. Ejecución de las 7 pruebas unitarias automatizadas
+python -m unittest discover -s tests -p "test_motor.py" -v
+```
+
+Puntos clave de sustentación:
+- **Diferencia motor referencia vs. inferencia:** El motor de referencia (Semana 16) recupera conocimiento existente aprobado y cita su fuente; el motor de inferencia (Semana 13) deduce conclusiones nuevas aplicando reglas sobre hechos.
+- **Abstención responsable:** Ante preguntas fuera de cobertura o borradores no aprobados, el sistema devuelve `SIN_REFERENCIA` y deriva a revisión humana, sin fabricar información.
+
 ### Semana 15 - Base de conocimiento empresarial aplicada a SecurityPlate
 
 Implementación de un repositorio relacional estructurado en SQLite y Python para organizar, validar y consultar el conocimiento técnico y operativo de SecurityPlate. Modela dominios de conocimiento, aplicaciones del sistema, expertos responsables y herramientas de desarrollo.
@@ -117,3 +157,4 @@ El modulo `src/semana10_texturas.py` procesa dos imagenes etiquetadas de placas 
 |2| Resumen de lo realizado <br> Durante esta semana comenzamos a conocer los fundamentos de la Inteligencia Artificial y a entender cómo estos conceptos se pueden aplicar a nuestro proyecto de **reconocimiento de placas vehiculares**.\nPrimero vimos qué es la Inteligencia Artificial y entendimos que no se trata solamente de crear o entrenar un modelo, sino de combinar diferentes elementos como los datos, los algoritmos, el aprendizaje y la toma de decisiones. También conocimos un poco sobre la evolución de la IA y hacia dónde se dirige actualmente.<br> Después empezamos a organizar la base de nuestro proyecto. Configuramos el entorno de trabajo utilizando **Python, Visual Studio Code y Git**, y planteamos una estructura de carpetas que nos permitirá ir agregando los diferentes componentes del proyecto a medida que avance el semestre. <br> Como parte de la práctica, trabajamos con un primer modelo de aprendizaje automático utilizando **Scikit-learn**. El objetivo fue entender de manera práctica cómo se prepara la información, cómo se entrena un modelo y cómo podemos comprobar qué tan bien funciona mediante el *accuracy* y la matriz de confusión. <br> Aunque este primer ejercicio utiliza un conjunto de datos de ejemplo, nos sirve como punto de partida para nuestro proyecto. La idea es que, en el transcurso de la semana, podamos reemplazar estos ejemplos por nuestros propios datos de **placas vehiculares** y comenzar a incorporar el procesamiento de imágenes y el reconocimiento de caracteres. <br> En conclusión, esta semana nos permitió **sentar las bases del proyecto**, tanto en la parte conceptual como en la parte práctica. También entendimos que el proyecto se va a desarrollar paso a paso y que cada semana iremos agregando nuevos componentes hasta llegar a nuestro sistema inteligente de reconocimiento de placas.|
 |3| En esta semana seguimos dando forma a nuestro proyecto de Inteligencia Artificial, que busca crear un sistema inteligente para controlar el ingreso y salida de vehículos en un parqueadero. <br> Lo primero que aprendimos es que antes de elegir una técnica de IA, debemos entender bien el tipo de problema que queremos resolver. Esto nos llevó a explorar varias áreas:<br>- Machine Learning y Deep Learning, útiles para entrenar modelos que reconozcan patrones.<br>- Visión por computador, clave en nuestro caso porque trabajaremos con imágenes de placas y conductores.<br>- Sistemas expertos y reglas de decisión, que nos ayudan a definir qué hacer cuando hay coincidencias o discrepancias.<br>- Representación del conocimiento y búsqueda y planificación, que aportan estructura y estrategias de validación.<br>**Cómo funcionará el sistema**<br>*Ingreso:* se captura la placa y una imagen del conductor como referencia.<br>*Salida:* se vuelve a capturar la información y se compara con el registro inicial.<br>*Decisión:* si todo coincide, se autoriza la salida; si no, se bloquea y se genera una alerta para revisión manual.<br>**Arquitectura del proyecto**<br>Nuestro sistema no dependerá de una sola técnica, sino que será un Sistema Inteligente Híbrido. Esto significa que combinará:<br>- Visión por computador para el reconocimiento visual.<br>- Modelos de aprendizaje automático para verificar coincidencias.<br>- Reglas de decisión para manejar excepciones y alertas. <br> La práctica nos mostró la importancia de la taxonomía de la IA: clasificar problemas y usar palabras clave para identificar qué técnicas aplicar. Gracias a esto, ahora tenemos más claro qué componentes debemos desarrollar en las próximas semanas.|
 |15| Organización de Base de Conocimiento Empresarial <br> Implementación de una base de conocimiento estructurada y relacional en SQLite y Python aplicada a SecurityPlate. Se definieron los dominios *Visión por Computador*, *Control de Acceso Vehicular* y *Auditoría y Trazabilidad*, vinculando aplicaciones, expertos responsables, herramientas de desarrollo y artículos técnicos. Se implementó un ciclo editorial estricto (estado inicial BORRADOR que pasa a VALIDADO tras aprobación), consultas con SQL JOIN y 7 pruebas unitarias con unittest para validar integridad referencial y gobernanza del conocimiento.|
+|16| Arquitectura de Sistemas Inteligentes y Motor de Referencia <br> Implementación de una arquitectura de seis componentes (interfaz, normalizador, base de conocimiento, motor de referencia, generador de respuestas y control de calidad) en Python estándar. El motor recupera referencias aprobadas de SecurityPlate a partir de palabras clave normalizadas, garantizando trazabilidad de fuentes (`id`, `fuente`, `coincidencias`), exclusión de borradores no validados y abstención formal (`SIN_REFERENCIA` / `SIN_DATOS`) para evitar la invención de respuestas.|
